@@ -1,0 +1,43 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateAdminInvitationsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('admin_invitations', function (Blueprint $table) {
+            $table->id();
+
+            $table->foreignId('user_id')
+            ->constrained('users')
+            ->onDelete('restrict');
+
+            $table->foreignId('admin_id')
+            ->constrained('users')
+            ->onDelete('restrict');
+            
+            $table->unsignedBigInteger('user_role');
+            $table->boolean('is_accepted')->default(false);
+
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('admin_invitations');
+    }
+}
