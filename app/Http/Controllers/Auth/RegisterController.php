@@ -35,7 +35,7 @@ class RegisterController extends Controller
 
             $user->save();
 
-            $user->profile()->create();
+            // $user->profile()->create();
 
             DB::commit();
 
@@ -47,7 +47,7 @@ class RegisterController extends Controller
 
         }  catch (\Exception $e) {
             DB::rollBack();
-            Log::error($e);
+            Log::debug($e);
             return $this->error('Error: unable to add user, please try again', 500);
         }
     }
