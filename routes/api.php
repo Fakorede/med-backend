@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Shared\RegisterController as SharedRegisterController;
 use App\Http\Controllers\Shared\SettingsController;
+use App\Http\Controllers\User\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,21 +29,18 @@ Route::group(['middleware' => ['guest:api'], 'namespace' => 'Auth', 'prefix' => 
 # 2. Protected Routes
 Route::middleware(['auth:api'])->group(function () {
     # ADMIN api
-    Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['verified', 'admin']], function () {
-
+    Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['verified', 'role:admin']], function () {
         Route::get('/users/{per_page?}', [UserController::class ,'users'])->name('users');
         Route::get('/riders/{per_page?}', [RiderController::class ,'riders'])->name('riders');
-
-        // Route::get('/dashboard/users', ['App\Http\Controllers\DashboardController','getAllUsers'])->name('dashboard.users');
     });
 
     # USERS api
-    Route::group(['namespace' => 'User', 'prefix' => 'user', 'middleware' => ['user', 'verified']], function () {
+    Route::group(['namespace' => 'User', 'prefix' => 'user', 'middleware' => ['verified', 'role:user']], function () {
 
     });
 
     # RIDERS api
-    Route::group(['namespace' => 'Rider', 'prefix' => 'rider', 'middleware' => ['rider', 'verified']], function () {
+    Route::group(['namespace' => 'Rider', 'prefix' => 'rider', 'middleware' => ['verified', 'role:rider']], function () {
 
     });
 
@@ -51,7 +49,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/profile', [SettingsController::class, 'userProfile']);
         Route::put('/profile/update', [SettingsController::class, 'updateProfile']);
         Route::put('/password/update', [SettingsController::class, 'updatePassword']);
-        Route::post('/add/user', [SharedRegisterController::class , 'addUser'])->middleware('admin');
+        Route::post('/add/user', [SharedRegisterController::class , 'addUser'])->middleware('role:admin');
     });
 
     # authenticated user
@@ -65,4 +63,5 @@ Route::middleware(['auth:api'])->group(function () {
 });
 
 # 3. MISC
-Route::get('/admin/stats', StatsController::class);
+Route::get('/admin/stats', StatsController::class)->middleware('role:admin');
+Route::get('/transaction/reference', [OrderController::class, 'generateTxRef']);

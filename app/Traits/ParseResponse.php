@@ -7,7 +7,7 @@ trait ParseResponse
   /**
    * Return a success JSON response
    */
-  protected function success($data, string $message = 'Request Successful', int $status = 200)
+  protected function success($data=null, string $message = 'Request Successful', int $status = 200)
   {
     return response()->json([
       'message' => $message,

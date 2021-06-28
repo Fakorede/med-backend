@@ -3,7 +3,6 @@
 namespace App\Http\Services;
 
 class AuthService {
-
   /**
    * authenticate user
    * @param $request

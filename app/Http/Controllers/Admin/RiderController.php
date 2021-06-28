@@ -26,4 +26,5 @@ class RiderController extends Controller
         return response()->json($users, Response::HTTP_OK);
     }
 
+    
 }

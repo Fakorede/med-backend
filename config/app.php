@@ -229,6 +229,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        // API Utils
+        'TransRef' => App\Utils\TransRef::class,
+        
     ],
 
 ];

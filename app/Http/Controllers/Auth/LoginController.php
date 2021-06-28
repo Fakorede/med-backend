@@ -32,7 +32,7 @@ class LoginController extends Controller
         $userToken = $this->auth->getUserToken($request->only(['email', 'password']));
 
         if (is_null($userToken)) {
-            return $this->error(Response::HTTP_BAD_REQUEST, 'Email or password is incorrect');
+            return $this->error('Email or password is incorrect', Response::HTTP_BAD_REQUEST);
         }
 
         $cookie = cookie('access_token', $userToken['access_token'], $userToken['expires_in']);
