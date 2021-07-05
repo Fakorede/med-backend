@@ -130,7 +130,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.validating = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post('/backend/password/reset', _objectSpread({}, _this.user));
+                return axios.post('/api/auth/password/reset', _objectSpread({}, _this.user));
 
               case 5:
                 _yield$axios$post = _context.sent;
@@ -144,7 +144,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 10:
-                _context.next = 16;
+                _context.next = 15;
                 break;
 
               case 12:
@@ -152,15 +152,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _context.t0 = _context["catch"](2);
 
                 if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is422)(_context.t0)) {
-                  _this.errors = _context.t0.response.data.errors;
+                  _this.errors = _context.t0.response.data.errors.password[0];
                 }
 
-                _this.$toasted.error(_context.t0.response.data.status);
-
-              case 16:
+              case 15:
                 _this.validating = false;
 
-              case 17:
+              case 16:
               case "end":
                 return _context.stop();
             }
@@ -442,7 +440,7 @@ var render = function() {
                           ])
                         ]),
                         _vm._v(" "),
-                        _vm._m(0),
+                        _c("div", { staticClass: "col-lg-6" }),
                         _vm._v(" "),
                         _c(
                           "div",
@@ -499,30 +497,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-6" }, [
-      _c("div", { staticClass: "mb-3 custom-control custom-checkbox" }, [
-        _c("input", {
-          staticClass: "custom-control-input",
-          attrs: { type: "checkbox", id: "customCheck1" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            staticClass: "custom-control-label",
-            attrs: { for: "customCheck1" }
-          },
-          [_vm._v("Remember Me")]
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

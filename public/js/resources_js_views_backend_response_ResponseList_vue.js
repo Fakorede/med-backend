@@ -15,7 +15,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _ResponseModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ResponseModal */ "./resources/js/views/backend/response/ResponseModal.vue");
 /* harmony import */ var _config_response__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../config/response */ "./resources/js/config/response.js");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../../../config/symptoms'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
@@ -255,7 +254,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ResponseList',
   components: {
@@ -286,11 +284,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         vaccinated: ''
       },
       singleResponse: {},
-      otherSymptoms: Object(function webpackMissingModule() { var e = new Error("Cannot find module '../../../config/symptoms'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
-      coughSymptoms: Object(function webpackMissingModule() { var e = new Error("Cannot find module '../../../config/symptoms'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
-      breathingSymptoms: Object(function webpackMissingModule() { var e = new Error("Cannot find module '../../../config/symptoms'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
-      severitySymptoms: Object(function webpackMissingModule() { var e = new Error("Cannot find module '../../../config/symptoms'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
-      locations: Object(function webpackMissingModule() { var e = new Error("Cannot find module '../../../config/symptoms'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()),
+      otherSymptoms: OTHER_SYMPTOMS_LIST,
+      coughSymptoms: COUGH_SYMPTOMS_LIST,
+      breathingSymptoms: BREATHING_SYMPTOMS_LIST,
+      severitySymptoms: SEVERITY_OF_ILLNESS,
+      locations: LOCATIONS,
       counties: null
     };
   },

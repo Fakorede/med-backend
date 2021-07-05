@@ -11,12 +11,17 @@ const ConfirmMail = () => import('../views/auth/ConfirmMail')
 // views
 const Dashboard = () => import('../views/backend/Dashboard')
 
-const UserAdd = () =>import('../views/backend/user/UserAdd')
-const UserList = () =>import('../views/backend/user/UserList')
-const UpdatePassword = () =>import('../views/backend/user/UpdatePassword')
+// users
+const Admins = () =>import('../views/backend/users/Admins')
+const Clients = () =>import('../views/backend/users/Clients')
+const Riders = () =>import('../views/backend/users/Riders')
 
-const ResponseList = () =>import('../views/backend/response/ResponseList')
-const ResponseView = () =>import('../views/backend/response/ResponseView')
+// const UpdateProfile = () =>import('../views/backend/users/UpdateProfile')
+const UpdatePassword = () =>import('../views/backend/users/UpdatePassword')
+
+// orders
+const OrderList = () =>import('../views/backend/orders/OrderList')
+const OrderView = () =>import('../views/backend/orders/OrderView')
 
 // 404
 const Error404 = () => import('../views/Error404')
@@ -29,34 +34,46 @@ const childRoutes = () => [
     component: Dashboard
   },
   {
-    path: 'user-list',
-    name: 'app.user-list',
-    meta: {  name: 'user-list' },
-    component:UserList
+    path: 'admins',
+    name: 'app.admins',
+    meta: {  name: 'admins' },
+    component: Admins
   },
   {
-    path: 'user-add',
-    name: 'app.user-add',
-    meta: {  name: 'user-add' },
-    component:UserAdd
+    path: 'clients',
+    name: 'app.clients',
+    meta: {  name: 'clients' },
+    component: Clients
+  },
+  {
+    path: 'riders',
+    name: 'app.riders',
+    meta: {  name: 'riders' },
+    component: Riders
   },
   {
     path: 'update-password',
     name: 'app.user-password-update',
     meta: {  name: 'user-password-update' },
-    component:UpdatePassword
+    component: UpdatePassword
+  },
+  // {
+  //   path: 'update-profile',
+  //   name: 'app.profile-update',
+  //   meta: {  name: 'profile-update' },
+  //   component: UpdateProfile
+  // },
+  {
+    path: 'order-list',
+    name: 'app.order-list',
+    meta: {  name: 'order-list' },
+    component: OrderList
   },
   {
-    path: 'response-list',
-    name: 'app.response-list',
-    meta: {  name: 'response-list' },
-    component:ResponseList
-  },
-  {
-    path: 'response/:id/view',
-    name: 'app.response-view',
-    meta: {  name: 'response-view' },
-    component:ResponseView
+    path: 'order/:id/view',
+    name: 'app.order-view',
+    meta: {  name: 'order-view' },
+    component: OrderView
   },
 ]
 

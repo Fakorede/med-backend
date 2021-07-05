@@ -326,6 +326,42 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1171,7 +1207,7 @@ var render = function() {
                               "router-link",
                               {
                                 staticClass: "svg-icon",
-                                attrs: { to: { name: "app.user-add" } }
+                                attrs: { to: { name: "app.admins" } }
                               },
                               [
                                 _c("i", {}, [
@@ -1201,7 +1237,7 @@ var render = function() {
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _c("span", [_vm._v("Add User")])
+                                _c("span", [_vm._v("Admins")])
                               ]
                             )
                           ],
@@ -1216,7 +1252,7 @@ var render = function() {
                               "router-link",
                               {
                                 staticClass: "svg-icon",
-                                attrs: { to: { name: "app.user-list" } }
+                                attrs: { to: { name: "app.riders" } }
                               },
                               [
                                 _c("i", {}, [
@@ -1225,7 +1261,7 @@ var render = function() {
                                     {
                                       staticClass: "svg-icon",
                                       attrs: {
-                                        id: "mm-user-1-3",
+                                        id: "mm-user-1-2",
                                         xmlns: "http://www.w3.org/2000/svg",
                                         fill: "none",
                                         viewBox: "0 0 24 24",
@@ -1239,14 +1275,59 @@ var render = function() {
                                           "stroke-linejoin": "round",
                                           "stroke-width": "2",
                                           d:
-                                            "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                                            "M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
                                         }
                                       })
                                     ]
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _c("span", [_vm._v("List Users")])
+                                _c("span", [_vm._v("Riders")])
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "li",
+                          { staticClass: " " },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "svg-icon",
+                                attrs: { to: { name: "app.clients" } }
+                              },
+                              [
+                                _c("i", {}, [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass: "svg-icon",
+                                      attrs: {
+                                        id: "mm-user-1-2",
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        fill: "none",
+                                        viewBox: "0 0 24 24",
+                                        stroke: "currentColor"
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          "stroke-linecap": "round",
+                                          "stroke-linejoin": "round",
+                                          "stroke-width": "2",
+                                          d:
+                                            "M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("span", [_vm._v("Users")])
                               ]
                             )
                           ],
@@ -1333,7 +1414,7 @@ var render = function() {
                               "router-link",
                               {
                                 staticClass: "svg-icon",
-                                attrs: { to: { name: "app.response-list" } }
+                                attrs: { to: { name: "app.order-list" } }
                               },
                               [
                                 _c("i", {}, [
@@ -1402,7 +1483,52 @@ var render = function() {
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _c("span", [_vm._v("Response Results")])
+                                _c("span", [_vm._v("All Orders")])
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "li",
+                          { staticClass: " " },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "svg-icon",
+                                attrs: { to: { name: "app.order-list" } }
+                              },
+                              [
+                                _c("i", {}, [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass: "svg-icon",
+                                      attrs: {
+                                        id: "mm-user-1-3",
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        fill: "none",
+                                        viewBox: "0 0 24 24",
+                                        stroke: "currentColor"
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          "stroke-linecap": "round",
+                                          "stroke-linejoin": "round",
+                                          "stroke-width": "2",
+                                          d:
+                                            "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("span", [_vm._v("Track Order")])
                               ]
                             )
                           ],

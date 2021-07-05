@@ -1,0 +1,62 @@
+<template>
+    <div class="container-fluid">
+         <div class="row">
+            <div class="col-lg-12">
+               <div class="card card-block card-stretch card-height">
+                  <div class="card-header d-flex justify-content-between">
+                     <div class="header-title">
+                        <h4 class="card-title mb-0">Client List</h4>
+                     </div>
+                  </div>
+                  <div class="card-body">
+                     <b-table-simple responsive>
+                        <b-thead>
+                           <b-th>#</b-th>
+                           <b-th>Name</b-th>
+                           <b-th>Email</b-th>
+                           <b-th>Phone Number</b-th>
+                           <b-th>Date Added</b-th>
+                        </b-thead>
+                        <b-tbody>
+                           <b-tr v-for="(user, index) in users" :key="'user' + index">
+                              <b-th>{{index+1}}</b-th>
+                              <b-td>{{user.first_name}} {{user.last_name}}</b-td>
+                              <b-td>{{user.email}}</b-td>
+                              <b-td>{{user.phone_number}}</b-td>
+                              <b-td>{{user.created_at | dateFilter}}</b-td>
+                           </b-tr>
+                        </b-tbody>
+                     </b-table-simple>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+</template>
+<script>
+import {is401} from '../../../config/response'
+export default {
+   name:'ClientList',
+   created() {
+      this.getUsers()
+   },
+   data() {
+      return {
+         users: []
+      }
+   },
+   methods: {
+      async getUsers() {
+         try {
+            const response = await axios.get('/api/admin/users')
+            this.users = response.data.data
+         } catch (error) {
+            console.log(error)
+            if(is401(error)) {
+               this.$logOut()
+            }
+         }
+      }
+   },
+}
+</script>

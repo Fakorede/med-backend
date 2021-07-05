@@ -173,7 +173,7 @@
                             <h4 class="card-title">Recent Orders</h4>
                         </div>
                         <div class="card-header-toolbar d-flex align-items-center">
-                            <router-link :to="{name: 'app.response-list'}" class="btn btn-outline-primary">View All</router-link>
+                            <router-link :to="{name: 'app.order-list'}" class="btn btn-outline-primary">View All</router-link>
                         </div>
                     </div>
                     <div class="card-body">
@@ -190,15 +190,15 @@
                                 <b-th>View Details</b-th>
                             </b-thead>
                             <b-tbody>
-                                <b-tr v-for="(response, index) in responses" :key="'response' + index">
+                                <b-tr v-for="(order, index) in orders" :key="'order' + index">
                                     <b-th>{{index+1}}</b-th>
-                                    <b-td>{{response.gender}}</b-td>
-                                    <b-td>{{response.age}}</b-td>
+                                    <b-td>{{order.gender}}</b-td>
+                                    <b-td>{{order.age}}</b-td>
                                     <b-td>
-                                        <template v-if="response.exposure_risk === 'high'">
+                                        <template v-if="order.exposure_risk === 'high'">
                                         <span class="badge badge-danger">High</span>
                                         </template>
-                                        <template v-else-if="response.exposure_risk === 'medium'">
+                                        <template v-else-if="order.exposure_risk === 'medium'">
                                         <span class="badge badge-warning">Medium</span>
                                         </template>
                                         <template v-else>
@@ -206,33 +206,33 @@
                                         </template>
                                     </b-td>
                                     <b-td>
-                                        <template v-if="response.high_risk_group">
+                                        <template v-if="order.high_risk_group">
                                         <span class="badge badge-danger">High Risk</span>
                                         </template>
                                         <template v-else>
                                         <span class="badge badge-success">Not High Risk</span>
                                         </template>
                                     </b-td>
-                                    <b-td>{{response.date_difference}}</b-td>
-                                    <b-td>{{response.county ? response.county : '-'}}</b-td>
-                                    <b-td>{{response.state ? response.state : '-'}}</b-td>
+                                    <b-td>{{order.date_difference}}</b-td>
+                                    <b-td>{{order.county ? order.county : '-'}}</b-td>
+                                    <b-td>{{order.state ? order.state : '-'}}</b-td>
                                     <b-td>
-                                         <!-- Button to trigger modal -->
-                                        <button type="button" class="btn btn-primary btn-sm" data-id="response.id" @click="showModal(response)">
-                                        View Response
+                                        <!-- Button to trigger modal -->
+                                        <button type="button" class="btn btn-primary btn-sm" data-id="order.id" @click="showModal(order)">
+                                        View Order
                                         </button>
                                         <!-- Modal -->
-                                        <div class="modal fade" id="responseModal" tabindex="-1" role="dialog" aria-labelledby="responseModal" aria-hidden="true">
+                                        <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModal" aria-hidden="true">
                                         <div class="modal-dialog modal-xl" role="document">
                                             <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title"><strong>DETAILED RESPONSE FOR: #{{singleResponse.id}}</strong></h5>
+                                                <h5 class="modal-title"><strong>DETAILED ORDER FOR: #{{singleOrder.id}}</strong></h5>
                                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <response-body :response="singleResponse"></response-body>
+                                                <order-body :order="singleOrder"></order-body>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -258,7 +258,7 @@ import ApexChart from '../../components/charts/ApexChart'
 export default {
     name:'Dashboard',
     beforeCreate() {
-        this.$options.components.ResponseBody = require('../../views/backend/response/ResponseModal').default
+        this.$options.components.OrderBody = require('../../views/backend/orders/OrderModal').default
     },
     components:{
         ApexChart,
@@ -347,8 +347,8 @@ export default {
                     enabled: false
                 }
             },
-            responses: [],
-            singleResponse: {},
+            orders: [],
+            singleOrder: {},
             pageStats: []
         }
     },
@@ -356,13 +356,13 @@ export default {
         this.getPageStats()
     },
     created() {
-        this.getResponses()
+        this.getOrders()
     },
     methods: {
-        async getResponses() {
+        async getOrders() {
             try {
-                const {data} = await axios.get('/backend/dashboard/responses/10')
-                this.responses = data.data
+                const {data} = await axios.get('/backend/dashboard/orders/10')
+                this.orders = data.data
             } catch (error) {
                 console.log(error)
                 if(is401(error)) {
@@ -399,10 +399,10 @@ export default {
                 }
             }
         },
-        showModal(response) {
-            this.singleResponse = {}
-            $('#responseModal').modal('show')
-            this.singleResponse = response
+        showModal(order) {
+            this.singleOrder = {}
+            $('#orderModal').modal('show')
+            this.singleOrder = order
         }
     }
 }

@@ -174,7 +174,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("p", { staticClass: "mb-1" }, [
                       _vm._v(
-                        "\n                            A email has been sent to your email. Please check for an\n                            email from us and click on the included link to reset your password.\n                        "
+                        "\n                            A reset link has been sent to your email. Please check for an\n                            email from us and click on the link to reset your password.\n                        "
                       )
                     ]),
                     _vm._v(" "),
@@ -215,7 +215,7 @@ var render = function() {
                             { attrs: { to: { name: "auth.login" } } },
                             [
                               _c("span", { staticClass: "text-white" }, [
-                                _vm._v(" Back to Login")
+                                _vm._v(" Back to Login Page")
                               ])
                             ]
                           )

@@ -17,7 +17,7 @@ class OrderController extends Controller
     // filter by date, payment status
     public function getAllOrders($per_page=50)
     {
-        $orders = Order::paginate($per_page)->get();
+        $orders = Order::paginate($per_page)->latest()->get();
         return OrderResource::collection($orders);
     }
 

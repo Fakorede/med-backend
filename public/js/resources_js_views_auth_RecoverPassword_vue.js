@@ -90,7 +90,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.validating = true;
                 _context.prev = 1;
                 _context.next = 4;
-                return axios.post('/backend/password/forgot', {
+                return axios.post('/api/auth/password/forgot', {
                   email: _this.email
                 });
 

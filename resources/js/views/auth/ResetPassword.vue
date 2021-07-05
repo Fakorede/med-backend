@@ -30,10 +30,10 @@
                       </div>
                     </div>
                     <div class="col-lg-6">
-                      <div class="mb-3 custom-control custom-checkbox">
+                      <!-- <div class="mb-3 custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="customCheck1">
                         <label class="custom-control-label" for="customCheck1">Remember Me</label>
-                      </div>
+                      </div> -->
                     </div>
                     <div class="col-lg-6">
                       <router-link :to="{name: 'auth.recover-password'}" class="float-right text-primary">Forgot Password?</router-link>
@@ -92,7 +92,7 @@ export default {
       this.validating = true
 
       try {
-        const {data} = await axios.post('/backend/password/reset', {
+        const {data} = await axios.post('/api/auth/password/reset', {
           ...this.user
         })
 
@@ -100,10 +100,8 @@ export default {
         await this.$router.push({name: 'auth.login'})
       } catch(error) {
         if(is422(error)) {
-          this.errors = error.response.data.errors
+          this.errors = error.response.data.errors.password[0]
         }
-
-        this.$toasted.error(error.response.data.status)
       }
 
       this.validating = false

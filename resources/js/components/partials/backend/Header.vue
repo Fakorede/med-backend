@@ -32,7 +32,7 @@
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /> </svg> <h4><span class="ml-2">Settings</span></h4> <i class="ri-arrow-right-s-line mm-arrow-right"></i> </a>
 							<b-collapse tag="ul" id="auth" class="mm-submenu sub-scrll" data-parent="#mm-sidebar-toggle" v-hover>
 								<li class=" ">
-									<router-link :to="{ name: 'app.user-add'}" class="svg-icon">
+									<router-link :to="{ name: 'app.admins'}" class="svg-icon">
 										<i class="">
 											<svg class="svg-icon" id="mm-user-1-2" xmlns="http://www.w3.org/2000/svg"
 												fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -40,10 +40,34 @@
 													d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
 											</svg>
 										</i>
-										<span>Add User</span>
+										<span>Admins</span>
 									</router-link>
 								</li>
 								<li class=" ">
+									<router-link :to="{ name: 'app.riders'}" class="svg-icon">
+										<i class="">
+											<svg class="svg-icon" id="mm-user-1-2" xmlns="http://www.w3.org/2000/svg"
+												fill="none" viewBox="0 0 24 24" stroke="currentColor">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+													d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+											</svg>
+										</i>
+										<span>Riders</span>
+									</router-link>
+								</li>
+								<li class=" ">
+									<router-link :to="{ name: 'app.clients'}" class="svg-icon">
+										<i class="">
+											<svg class="svg-icon" id="mm-user-1-2" xmlns="http://www.w3.org/2000/svg"
+												fill="none" viewBox="0 0 24 24" stroke="currentColor">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+													d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+											</svg>
+										</i>
+										<span>Users</span>
+									</router-link>
+								</li>
+								<!-- <li class=" ">
 									<router-link :to="{ name: 'app.user-list'}" class="svg-icon">
 										<i class="">
 											<svg class="svg-icon" id="mm-user-1-3" xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +78,7 @@
 										</i>
 										<span>List Users</span>
 									</router-link>
-								</li>
+								</li> -->
 							</b-collapse>
 						</li>
 						<li class=" ">
@@ -65,7 +89,7 @@
 								</svg> <h4><span class="ml-2">Orders</span></h4> <i class="ri-arrow-right-s-line mm-arrow-right"></i> </a>
 							<b-collapse tag="ul" id="survey" class="mm-submenu sub-scrll" data-parent="#mm-sidebar-toggle" v-hover>
 								<li class=" ">
-									<router-link :to="{ name: 'app.response-list'}" class="svg-icon">
+									<router-link :to="{ name: 'app.order-list'}" class="svg-icon">
 										<i class="">
 											<svg class="svg-icon" id="mm-form-2" xmlns="http://www.w3.org/2000/svg" width="20"
 												viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none"
@@ -77,7 +101,19 @@
 												<line x1="9" y1="15" x2="13" y2="15" />
 											</svg>
 										</i>
-										<span>Response Results</span>
+										<span>All Orders</span>
+									</router-link>
+								</li>
+								<li class=" ">
+									<router-link :to="{ name: 'app.order-list'}" class="svg-icon">
+										<i class="">
+											<svg class="svg-icon" id="mm-user-1-3" xmlns="http://www.w3.org/2000/svg"
+												fill="none" viewBox="0 0 24 24" stroke="currentColor">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+													d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+											</svg>
+										</i>
+										<span>Track Order</span>
 									</router-link>
 								</li>
 							</b-collapse>

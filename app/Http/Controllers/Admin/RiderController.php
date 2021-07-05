@@ -22,7 +22,7 @@ class RiderController extends Controller
 
     public function riders($per_page=10)
     {
-        $users = User::where('role_id', 2)->paginate($per_page);
+        $users = User::where('role_id', 2)->latest()->paginate($per_page);
         return response()->json($users, Response::HTTP_OK);
     }
 
