@@ -48,7 +48,7 @@ class RegisterController extends Controller
         }  catch (\Exception $e) {
             DB::rollBack();
             Log::debug($e);
-            return $this->error('Error: unable to add user, please try again', 500);
+            return $this->error($e->getMessage(), 500);
         }
     }
 
