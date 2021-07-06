@@ -152,7 +152,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   _this.$toasted.error(_context.t0.response.data.error);
                 }
 
-                _this.$toasted.error("Error: login request failed");
+                _this.$toasted.error(_context.t0.response.data.error); // this.$toasted.error("Error: login request failed")
+
 
               case 18:
                 _this.validating = false;

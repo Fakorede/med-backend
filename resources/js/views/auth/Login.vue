@@ -96,7 +96,8 @@ export default {
                this.$toasted.error(error.response.data.error)
             }
 
-            this.$toasted.error("Error: login request failed")
+            this.$toasted.error(error.response.data.error)
+            // this.$toasted.error("Error: login request failed")
          }
 
          this.validating = false

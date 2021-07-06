@@ -21,11 +21,13 @@ import logOut from './mixins/logOut'
 //   baseURL: 'domain.nl/path/to/my/api'
 // })
 
-if (process.env.MIX_APP_ENV === 'production') {
-  axios.defaults.baseURL = "https://medng.herokuapp.com";
-} else {
-  axios.defaults.baseURL = "http://localhost:8000";
-}
+// if (process.env.MIX_APP_ENV === 'production') {
+//   axios.defaults.baseURL = "https://medng.herokuapp.com";
+// } else {
+//   axios.defaults.baseURL = "http://localhost:8000";
+// }
+
+axios.defaults.baseURL = "https://medng.herokuapp.com";
 
 
 axios.defaults.withCredentials = true
