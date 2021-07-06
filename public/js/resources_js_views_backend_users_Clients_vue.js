@@ -55,6 +55,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ClientList',
@@ -63,7 +77,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      users: []
+      users: [],
+      loading: false
     };
   },
   methods: {
@@ -76,31 +91,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
+                _this.loading = true;
+                _context.prev = 1;
+                _context.next = 4;
                 return axios.get('/api/admin/users');
 
-              case 3:
+              case 4:
                 response = _context.sent;
                 _this.users = response.data.data;
-                _context.next = 11;
+                _context.next = 12;
                 break;
 
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context["catch"](0);
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](1);
                 console.log(_context.t0);
 
                 if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is401)(_context.t0)) {
                   _this.$logOut();
                 }
 
-              case 11:
+              case 12:
+                _this.loading = false;
+
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 7]]);
+        }, _callee, null, [[1, 8]]);
       }))();
     }
   }
@@ -259,38 +278,84 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c(
-                    "b-tbody",
-                    _vm._l(_vm.users, function(user, index) {
-                      return _c(
+                  _vm.loading
+                    ? _c(
                         "b-tr",
-                        { key: "user" + index },
+                        { staticClass: "text-center" },
                         [
-                          _c("b-th", [_vm._v(_vm._s(index + 1))]),
+                          _c("b-td"),
                           _vm._v(" "),
-                          _c("b-td", [
-                            _vm._v(
-                              _vm._s(user.first_name) +
-                                " " +
-                                _vm._s(user.last_name)
-                            )
-                          ]),
+                          _c("b-td"),
                           _vm._v(" "),
-                          _c("b-td", [_vm._v(_vm._s(user.email))]),
+                          _c(
+                            "b-td",
+                            [
+                              _c("b-spinner", {
+                                attrs: {
+                                  variant: "primary",
+                                  type: "grow",
+                                  label: "Spinning"
+                                }
+                              })
+                            ],
+                            1
+                          ),
                           _vm._v(" "),
-                          _c("b-td", [_vm._v(_vm._s(user.phone_number))]),
+                          _c("b-td"),
                           _vm._v(" "),
-                          _c("b-td", [
-                            _vm._v(
-                              _vm._s(_vm._f("dateFilter")(user.created_at))
-                            )
-                          ])
+                          _c("b-td")
                         ],
                         1
                       )
-                    }),
-                    1
-                  )
+                    : _vm.users.length > 0
+                    ? _c(
+                        "b-tbody",
+                        _vm._l(_vm.users, function(user, index) {
+                          return _c(
+                            "b-tr",
+                            { key: "user" + index },
+                            [
+                              _c("b-th", [_vm._v(_vm._s(index + 1))]),
+                              _vm._v(" "),
+                              _c("b-td", [
+                                _vm._v(
+                                  _vm._s(user.first_name) +
+                                    " " +
+                                    _vm._s(user.last_name)
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("b-td", [_vm._v(_vm._s(user.email))]),
+                              _vm._v(" "),
+                              _c("b-td", [_vm._v(_vm._s(user.phone_number))]),
+                              _vm._v(" "),
+                              _c("b-td", [
+                                _vm._v(
+                                  _vm._s(_vm._f("dateFilter")(user.created_at))
+                                )
+                              ])
+                            ],
+                            1
+                          )
+                        }),
+                        1
+                      )
+                    : _c(
+                        "b-tbody",
+                        [
+                          _c(
+                            "b-tr",
+                            { staticClass: "text-center" },
+                            [
+                              _c("b-td", { attrs: { colspan: "6" } }, [
+                                _vm._v("No result match your search.")
+                              ])
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
                 ],
                 1
               )

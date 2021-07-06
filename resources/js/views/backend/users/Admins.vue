@@ -37,7 +37,15 @@
                   <b-th>Date Added</b-th>
                   <b-th>Invite Status</b-th>
                 </b-thead>
-                <b-tbody>
+                <b-tr class="text-center" v-if="loading">
+                  <b-td></b-td>
+                  <b-td></b-td>
+                  <b-td></b-td>
+                  <b-td><b-spinner variant="primary" type="grow" label="Spinning"></b-spinner></b-td>
+                  <b-td></b-td>
+                  <b-td></b-td>
+                </b-tr>
+                <b-tbody v-else-if="users.length > 0">
                   <b-tr v-for="(user, index) in users" :key="'user' + index">
                     <b-th>{{index+1}}</b-th>
                     <b-td>{{user.first_name}} {{user.last_name}}</b-td>
@@ -52,6 +60,11 @@
                         <span class="badge badge-info">Pending</span>
                       </template>
                     </b-td>
+                  </b-tr>
+                </b-tbody>
+                <b-tbody v-else>
+                  <b-tr class="text-center">
+                    <b-td colspan="6">No result match your search.</b-td>
                   </b-tr>
                 </b-tbody>
               </b-table-simple>
@@ -72,11 +85,13 @@ export default {
   },
   data() {
     return {
-      users: []
+      users: [],
+      loading: false,
     }
   },
   methods: {
     async getUsers() {
+      this.loading = true
       try {
         const response = await axios.get('/api/admin/admins')
         this.users = response.data.data
@@ -86,6 +101,8 @@ export default {
           this.$logOut()
         }
       }
+
+      this.loading = false
     },
     showModal() {
       $('#addUserModal').modal('show')
