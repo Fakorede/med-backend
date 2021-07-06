@@ -8,7 +8,6 @@ use App\Mail\AdminInvite;
 use App\Models\AdminInvitation;
 use App\Models\User;
 use App\Traits\ParseResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -38,7 +37,7 @@ class RegisterController extends Controller
 
             $user->save();
 
-            $user->profile()->create();
+            // $user->profile()->create();
 
             AdminInvitation::create([
                 'user_id' => $user->id,
