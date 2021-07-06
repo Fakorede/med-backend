@@ -17,7 +17,17 @@ import Success from "./components/messages/Success.vue"
 import Error from "./components/messages/Error.vue"
 import logOut from './mixins/logOut'
 
-//axios.defaults.baseURL = 'url/backend/';
+// axios.create({
+//   baseURL: 'domain.nl/path/to/my/api'
+// })
+
+if (process.env.MIX_APP_ENV === 'production') {
+  axios.defaults.baseURL = "https://medng.herokuapp.com";
+} else {
+  axios.defaults.baseURL = "http://localhost:8000";
+}
+
+
 axios.defaults.withCredentials = true
 
 Vue.config.productionTip = false
