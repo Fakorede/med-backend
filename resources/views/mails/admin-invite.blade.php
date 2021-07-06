@@ -227,7 +227,7 @@
                         You are advised to reset your password before carrying out any action on the app. Kindly do so by clicking the below button:
                     </div>
                     <div class="container-login100-form-btn top">
-                        <a href="{{ url('/password/reset') }}" style="text-decoration: none;"`><button class="login100-form-btn">
+                        <a href="{{ url('/password/recover') }}" style="text-decoration: none;"`><button class="login100-form-btn">
                             Reset Password
                         </button>
                         </a>

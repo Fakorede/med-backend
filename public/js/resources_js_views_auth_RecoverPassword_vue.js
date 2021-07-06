@@ -232,7 +232,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("p", [
                   _vm._v(
-                    "Enter your email address and we'll send you an email with instructions to reset your password."
+                    "Enter your email address and we'll send you a mail with instructions to reset your password."
                   )
                 ]),
                 _vm._v(" "),

@@ -6,7 +6,7 @@
                   <div class="card">
                      <div class="card-body">
                         <h2 class="mb-2 text-center">Recover Password</h2>
-                        <p>Enter your email address and we'll send you an email with instructions to reset your password.</p>
+                        <p>Enter your email address and we'll send you a mail with instructions to reset your password.</p>
                         <form @submit.prevent="recover">
                            <div class="row">
                               <div class="col-lg-12">
