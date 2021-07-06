@@ -114,7 +114,9 @@
             ...this.user, 
             role_id: this.usertype
           })
-          $('#addUserModal').modal('hide')
+          // $('#addUserModal').modal('hide')
+          // this.user = {}
+          this.$router.go()
           this.$toasted.success(response.data.message)
         } catch (error) {
           console.log(error)
@@ -131,7 +133,6 @@
           this.status = error.response.status
         }
 
-        this.user = {}
         this.validating = false
       },
       showModal() {

@@ -39,11 +39,11 @@ class RegisterController extends Controller
 
             // $user->profile()->create();
 
-            AdminInvitation::create([
-                'user_id' => $user->id,
-                'admin_id' => auth()->id(),
-                'user_role' => $user->role_id,
-            ]);
+            // AdminInvitation::create([
+            //     'user_id' => $user->id,
+            //     'admin_id' => auth()->id(),
+            //     'user_role' => $user->role_id,
+            // ]);
 
             DB::commit();
 

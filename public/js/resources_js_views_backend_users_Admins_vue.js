@@ -150,7 +150,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 7:
                 response = _context.sent;
-                $('#addUserModal').modal('hide');
+
+                // $('#addUserModal').modal('hide')
+                // this.user = {}
+                _this.$router.go();
 
                 _this.$toasted.success(response.data.message);
 
@@ -175,10 +178,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.status = _context.t0.response.status;
 
               case 18:
-                _this.user = {};
                 _this.validating = false;
 
-              case 20:
+              case 19:
               case "end":
                 return _context.stop();
             }

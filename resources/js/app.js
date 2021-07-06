@@ -27,7 +27,7 @@ import logOut from './mixins/logOut'
 //   axios.defaults.baseURL = "http://localhost:8000";
 // }
 
-axios.defaults.baseURL = "https://medng.herokuapp.com";
+axios.defaults.baseURL = process.env.MIX_APP_URL
 
 
 axios.defaults.withCredentials = true
