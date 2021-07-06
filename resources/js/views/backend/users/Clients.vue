@@ -48,7 +48,7 @@
       </div>
 </template>
 <script>
-import {is401} from '../../../config/response'
+import {is401, is403} from '../../../config/response'
 export default {
    name:'ClientList',
    created() {
@@ -70,6 +70,9 @@ export default {
             console.log(error)
             if(is401(error)) {
                this.$logOut()
+            }
+            if(is403(error)) {
+               this.$toasted.error("Kindly verify your account before performing any actions!")
             }
          }
 

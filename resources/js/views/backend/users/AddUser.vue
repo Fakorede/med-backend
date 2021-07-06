@@ -103,8 +103,6 @@
     },
     methods: {
       async addUser() {
-        console.log('adding...', this.usertype)
-
         this.errors = null
         this.status = null
         this.validating = true

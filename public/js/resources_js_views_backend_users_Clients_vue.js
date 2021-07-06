@@ -99,7 +99,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 4:
                 response = _context.sent;
                 _this.users = response.data.data;
-                _context.next = 12;
+                _context.next = 13;
                 break;
 
               case 8:
@@ -111,10 +111,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.$logOut();
                 }
 
-              case 12:
-                _this.loading = false;
+                if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is403)(_context.t0)) {
+                  _this.$toasted.error("Kindly verify your account before performing any actions!");
+                }
 
               case 13:
+                _this.loading = false;
+
+              case 14:
               case "end":
                 return _context.stop();
             }

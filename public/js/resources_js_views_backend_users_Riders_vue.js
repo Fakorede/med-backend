@@ -138,17 +138,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log('adding...', _this.usertype);
                 _this.errors = null;
                 _this.status = null;
                 _this.validating = true;
-                _context.prev = 4;
-                _context.next = 7;
+                _context.prev = 3;
+                _context.next = 6;
                 return axios.post('/api/settings/invite', _objectSpread(_objectSpread({}, _this.user), {}, {
                   role_id: _this.usertype
                 }));
 
-              case 7:
+              case 6:
                 response = _context.sent;
 
                 // $('#addUserModal').modal('hide')
@@ -157,12 +156,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this.$toasted.success(response.data.message);
 
-                _context.next = 18;
+                _context.next = 17;
                 break;
 
-              case 12:
-                _context.prev = 12;
-                _context.t0 = _context["catch"](4);
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](3);
                 console.log(_context.t0);
 
                 if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is422)(_context.t0)) {
@@ -177,15 +176,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this.status = _context.t0.response.status;
 
-              case 18:
+              case 17:
                 _this.validating = false;
 
-              case 19:
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[4, 12]]);
+        }, _callee, null, [[3, 11]]);
       }))();
     },
     showModal: function showModal() {
@@ -330,7 +329,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 4:
                 response = _context.sent;
                 _this.users = response.data.data;
-                _context.next = 12;
+                _context.next = 13;
                 break;
 
               case 8:
@@ -342,10 +341,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.$logOut();
                 }
 
-              case 12:
-                _this.loading = false;
+                if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is403)(_context.t0)) {
+                  _this.$toasted.error("Kindly verify your account before performing any actions!");
+                }
 
               case 13:
+                _this.loading = false;
+
+              case 14:
               case "end":
                 return _context.stop();
             }
