@@ -139,7 +139,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 11:
                 _this.$toasted.success('Successfully logged in!');
 
-                _context.next = 18;
+                _context.next = 19;
                 break;
 
               case 14:
@@ -150,12 +150,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   _this.errors = _context.t0.response.data.error;
                 }
 
+                console.log(_context.t0.response.data);
+
                 _this.$toasted.error("Error: login request failed");
 
-              case 18:
+              case 19:
                 _this.validating = false;
 
-              case 19:
+              case 20:
               case "end":
                 return _context.stop();
             }

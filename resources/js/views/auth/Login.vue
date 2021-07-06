@@ -94,6 +94,7 @@ export default {
             if(is400(error)) {
                this.errors = error.response.data.error
             }
+            console.log(error.response.data)
             this.$toasted.error("Error: login request failed")
          }
 
