@@ -17,7 +17,7 @@ class Order extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'order_type', 'tracking_number' 
+        'user_id', 'rider_id', 'item', 'quantity', 'price', 'description', 'order_type', 'pickup_location', 'dropoff_location', 'payment_method', 'transaction_ref', 'tracking_number', 'order_type', 'order_status',
     ];
 
     /**
@@ -48,6 +48,19 @@ class Order extends Model
 
 
     // methods
+    public function updateOrderReceiver($data)
+    {
+        $this['receiver_name'] = $data['receiver_name'];
+        $this['receiver_mobile'] = $data['receiver_mobile'];
+        $this->save();
+    }
+
+    public function updateOrderRider($rider_id)
+    {
+        $this['rider_id'] = $rider_id;
+        $this->save();
+    }
+
     public function updatePaidOrder($paid_at)
     {
         $this['payment_verified'] = 1;

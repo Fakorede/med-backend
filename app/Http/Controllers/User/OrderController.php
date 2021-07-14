@@ -4,7 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateOrderRequest;
+use App\Http\Requests\UpdateOrderReceiverRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Http\Requests\UpdateOrderRiderRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Traits\ParseResponse;
@@ -36,52 +38,52 @@ class OrderController extends Controller
     {
         $data = $request->validated();
 
-        // generate order/tracking no
-        $tracking_number = rand();
+        $tracking_number = now()->valueOf();
         $tx_ref = $this->generateTxRef();
+
+        // calculate price
+        $amount = $this->calculateOrderAmount();
 
         $order = Order::create([
             'user_id' => auth()->id(),
-            'rider_id' => $data['rider_id'],
-            'tracking_number' => $tracking_number,
-            'order_type' => $data['order_type'], // 'Order'
-            'order_status' => 'Created',
             'item' => $data['item'],
             'quantity' => $data['quantity'],
-            'price' => $data['price'],
+            'price' => $amount,
             'description' => $data['description'],
-            'pickup_location' => $data['pickup_location'],
-            'dropoff_location' => $data['dropoff_location'],
-            'payment_method' => $data['payment_method'], // 'Paystack',
+            'pickup_location' => $request->pickup_location,
+            'dropoff_location' => $request->dropoff_location,
+            'payment_method' => $data['payment_method'], // 'Paystack', 'Pay On Delivery'
             'transaction_ref' => $tx_ref,
+            'tracking_number' => $tracking_number,
+            'order_type' => $data['order_type'], // 'Order', 'Dispatch'
+            'order_status' => 'Created',
         ]);
 
-        return new OrderResource($order);
+        return $this->success([
+            'order_id' => $order['id'],
+            'amount' => $amount,
+            'transaction_reference' => $tx_ref,
+        ], 'Order Created!', 201);
     }
 
-    public function updateOrderReceiver(UpdateOrderRequest $request, $id) 
+    public function updateOrderReceiver(UpdateOrderReceiverRequest $request) 
     {
         $data = $request->validated();
 
-        $order = Order::findOrFail($id);
+        $order = Order::findOrFail($data['order_id']);
+        $order->updateOrderReceiver($data);
 
-        $order->update([
-            'order_type' => $data['order_type'], // 'Dispatch'
-            'receiver_name' => $data['receiver_name'],
-            'receiver_mobile' => $data['receiver_mobile'],
-            'payment_method' => $data['payment_method'], // 'Paystack', 'Pay On Delivery'
-        ]);
-
-        return $this->success(null, 'Receiver details Updated');
+        return $this->success(null, 'Receiver details Updated!');
     }
 
-    public function updateOrderRider($id)
+    public function updateOrderRider(UpdateOrderRiderRequest $request)
     {
-        $order = Order::findOrFail($id);
+        $data = $request->validated();
 
-        // TODO: update w rider details
+        $order = Order::findOrFail($data['order_id']);
+        $order->updateOrderRider($data['rider_id']);
         
-        return $this->success(null, 'Rider details Updated');
+        return $this->success(null, 'Rider details Updated!');
     }
 
     // POST - verify payment /api/verify_transaction?reference=reference
@@ -120,21 +122,6 @@ class OrderController extends Controller
         } 
     }
 
-    public function getAvailableRiders()
-    {
-
-    }
-    
-    public function calculatePickupDropoffDistance()
-    {
-        
-    }
-    
-    public function calculateOrderAmount()
-    {
-
-    }
-
     public function trackOrder(Request $request) {
         $data = $request->validate([
             'tracking_number' => $request->tracking_number,
@@ -146,7 +133,22 @@ class OrderController extends Controller
         ]);
     }
 
-    public function generateTxRef()
+    public function getAvailableRiders()
+    {
+
+    }
+    
+    private function calculatePickupDropoffDistance()
+    {
+        
+    }
+    
+    private function calculateOrderAmount()
+    {
+        return 300.75;
+    }
+
+    private function generateTxRef()
     {
         $reference = TransRef::getHashedToken();
         return $reference;

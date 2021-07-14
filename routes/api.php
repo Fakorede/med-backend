@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Shared\RegisterController as SharedRegisterController;
 use App\Http\Controllers\Shared\SettingsController;
 use App\Http\Controllers\User\OrderController;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +38,11 @@ Route::middleware(['auth:api'])->group(function () {
 
     # USERS api
     Route::group(['namespace' => 'User', 'prefix' => 'user', 'middleware' => ['verified', 'role:user']], function () {
-
+        Route::get('/my/orders', [OrderController::class, 'getUserOrders']);
+        Route::get('/my/order/{id}', [OrderController::class, 'getOrderById']);
+        Route::post('/place-order', [OrderController::class, 'placeOrder']);
+        Route::post('/order-receiver', [OrderController::class, 'updateOrderReceiver']);
+        Route::post('/order-rider', [OrderController::class, 'updateOrderRider']);
     });
 
     # RIDERS api
@@ -66,6 +71,9 @@ Route::middleware(['auth:api'])->group(function () {
 # 3. MISC
 Route::get('/admin/stats', StatsController::class)->middleware('role:admin');
 Route::get('/transaction/reference', [OrderController::class, 'generateTxRef']);
+Route::get('/available/riders', [OrderController::class, 'getAvailableRiders']);
+Route::get('/verify/payment', [OrderController::class, 'verifyPayment']);
+Route::get('/track/order', [OrderController::class, 'trackOrder']);
 Route::get('/heroku/db', function() {
     return database_vars();
 });
