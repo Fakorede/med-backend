@@ -23,7 +23,8 @@ class UsersSeeder extends Seeder
                 'email_verified_at' => now(),
                 'phone_number' => '+14231929985',
                 'role_id' => 1,
-                'password' => Hash::make('MedAdmin0621')
+                'password' => Hash::make('MedAdmin0621'),
+                'created_at' => now(),
             ],
             [
                 'first_name' => 'Rider',
@@ -32,9 +33,9 @@ class UsersSeeder extends Seeder
                 'email_verified_at' => now(),
                 'phone_number' => '+14231929986',
                 'role_id' => 2,
-                'password' => Hash::make('TestRider0621')
+                'password' => Hash::make('TestRider0621'),
+                'created_at' => now(),
             ],
-    
             [
                 'first_name' => 'User',
                 'last_name' => 'User',
@@ -42,7 +43,8 @@ class UsersSeeder extends Seeder
                 'email_verified_at' => now(),
                 'phone_number' => '+14231929987',
                 'role_id' => 3,
-                'password' => Hash::make('TestUser0621')
+                'password' => Hash::make('TestUser0621'),
+                'created_at' => now(),
             ],
         ]);
 

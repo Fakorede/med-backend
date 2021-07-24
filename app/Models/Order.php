@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, SpatialTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -18,8 +19,12 @@ class Order extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'rider_id', 'pickup_location', 'dropoff_location', 'pickup_address', 'dropoff_address', 'sender_name', 'sender_mobile', 'receiver_name', 'receiver_mobile', 'delivery_note', 'tracking_number', 'order_status', 'order_type', 'payment_method', 'personnel_option', 'payment_status', 'payment_verified', 'transaction_ref', 'paid_at', 'delivered_at',
+        'user_id', 'rider_id', 'pickup_location_longitude', 'pickup_location_latitude', 'dropoff_location_longitude', 'dropoff_location_latitude', 'pickup_address', 'dropoff_address', 'sender_name', 'sender_mobile', 'receiver_name', 'receiver_mobile', 'delivery_note', 'tracking_number', 'order_status', 'order_type', 'payment_method', 'personnel_option', 'payment_status', 'payment_verified', 'transaction_ref', 'paid_at', 'delivered_at',
     ];
+
+    // protected $spatialFields = [
+    //     'pickup_location', 'dropoff_location,
+    // ];
 
     /**
      * The attributes that should be cast to native types.

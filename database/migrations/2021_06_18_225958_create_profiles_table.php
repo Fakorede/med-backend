@@ -25,7 +25,9 @@ class CreateProfilesTable extends Migration
             $table->string('local_government')->nullable();
             $table->string('address')->nullable();
             $table->boolean('is_available')->nullable();
-            $table->double('location')->nullable(); //$table->point('location')->nullable();
+            // $table->point('location')->nullable();
+            $table->double('location_longitude')->nullable();
+            $table->double('location_latitude')->nullable();
 
             $table->softDeletes();
 

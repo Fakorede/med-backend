@@ -34,6 +34,7 @@ class RegisterController extends Controller
             $user->email = $request->email;
             $user->role_id = $request->role_id;
             $user->password = Hash::make($pass);
+            $user->email_verified_at = now();
 
             $user->save();
 

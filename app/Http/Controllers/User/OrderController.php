@@ -65,8 +65,12 @@ class OrderController extends Controller
 
             $order = Order::create([
                 'user_id' => auth()->id(),
-                'pickup_location' => $request->pickup_location['latitude'], // 'pickup_location' => $pickup_location,
-                'dropoff_location' => $request->dropoff_location['longitude'], // 'dropoff_location' => $dropoff_location,
+                // 'pickup_location' => $pickup_location,
+                'pickup_location_longitude' => $request->pickup_location['longitude'], 
+                'pickup_location_latitude' => $request->pickup_location['latitude'], 
+                // 'dropoff_location' => $dropoff_location,
+                'dropoff_location_longitude' => $request->dropoff_location['longitude'], 
+                'dropoff_location_latitude' => $request->dropoff_location['latitude'], 
                 'pickup_address' => $request->pickup_location['address'],
                 'dropoff_address' => $request->dropoff_location['address'],
                 'sender_name' => $request->sender_name,

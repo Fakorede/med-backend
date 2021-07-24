@@ -26,19 +26,21 @@ class SettingsController extends Controller
     public function updateCurrentLocation(Request $request)
     {
         $data = $request->validate([
-            'point.latitude' => ['required', 'numeric'],
-            'point.longitude' => ['required', 'numeric'],
+            'location.latitude' => ['required', 'numeric'],
+            'location.longitude' => ['required', 'numeric'],
         ]);
 
-        $lat = null;
-        $lng = null;
+        // TODO: refactor location to spatial data type  
+        // $location = new Point($request->location['latitude'], $request->location['longitude']);
 
-        $point = new Point($lat, $lng);
 
-        $user = auth()->user()->profile;
+        $profile = auth()->user()->profile;
 
-        $user->update([
-            'point' => $point,
+        $profile->update([
+            // 'location' => $location,
+            'location_longitude' => $request->location['longitude'],
+            'location_latitude' => $request->location['latitude'],
+            'address' => $request->location['address']
         ]);
 
         return $this->success();

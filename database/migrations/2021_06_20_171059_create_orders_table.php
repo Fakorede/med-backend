@@ -26,8 +26,12 @@ class CreateOrdersTable extends Migration
             ->constrained('users')
             ->onDelete('set null');
 
-            $table->double('pickup_location')->nullable(); // TODO: refactor to point type
-            $table->double('dropoff_location')->nullable(); // TODO: refactor to point type
+            // $table->point('pickup_location')->nullable();
+            $table->double('pickup_location_longitude')->nullable();
+            $table->double('pickup_location_latitude')->nullable();
+            // $table->point('dropoff_location')->nullable();
+            $table->double('dropoff_location_longitude')->nullable();
+            $table->double('dropoff_location_latitude')->nullable();
             $table->text('pickup_address')->nullable();
             $table->text('dropoff_address')->nullable();
             $table->string('sender_name')->nullable();

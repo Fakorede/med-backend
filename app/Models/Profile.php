@@ -17,7 +17,7 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'address', 'is_available', 'location' // remove
+        'user_id', 'address', 'is_available', 'location_longitude', 'location_latitude',
     ];
 
     // protected $spatialFields = [
