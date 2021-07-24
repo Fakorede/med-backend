@@ -12,8 +12,13 @@ use App\Http\Controllers\Shared\RegisterController as SharedRegisterController;
 use App\Http\Controllers\Shared\SettingsController;
 use App\Http\Controllers\User\OrderController as UserOrderController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 
+if (App::environment('production')) {
+    URL::forceScheme('https');
+}
 
 # 1. Guest Routes
 Route::group(['middleware' => ['guest:api'], 'namespace' => 'Auth', 'prefix' => 'auth'], function() {
