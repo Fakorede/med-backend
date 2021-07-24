@@ -59,9 +59,9 @@ Route::middleware(['auth:api'])->group(function () {
 
     # SHARED SETTINGS
     Route::group(['namespace' => 'Shared', 'prefix' => 'settings'], function () {
-        Route::get('/profile', [SettingsController::class, 'userProfile']);
         Route::put('/profile/update', [SettingsController::class, 'updateProfile']);
         Route::put('/password/update', [SettingsController::class, 'updatePassword']);
+        Route::put('/location/update', [SettingsController::class, 'updateCurrentLocation']);
         Route::post('/invite', [SharedRegisterController::class , 'addUser'])->middleware('role:admin');
     });
 
@@ -81,6 +81,9 @@ Route::get('/transaction/reference', [OrderController::class, 'generateTxRef']);
 Route::get('/available/riders', [OrderController::class, 'getAvailableRiders']);
 Route::get('/verify_transaction', [OrderController::class, 'verifyPayment']);
 Route::get('/track/order', [OrderController::class, 'trackOrder']);
-Route::get('/heroku/db', function() {
+Route::get('/heroku/postgresdb', function() {
     return database_vars();
+});
+Route::get('/heroku/cleardb', function() {
+    return cleardb_vars();
 });
