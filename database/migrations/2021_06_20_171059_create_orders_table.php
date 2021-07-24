@@ -26,19 +26,21 @@ class CreateOrdersTable extends Migration
             ->constrained('users')
             ->onDelete('set null');
 
-            $table->string('item');
-            $table->integer('quantity');
-            $table->decimal('price', 13, 4);
-            $table->text('description');
-            $table->text('pickup_location')->nullable();
-            $table->text('dropoff_location')->nullable();
+            $table->double('pickup_location')->nullable(); // TODO: refactor to point type
+            $table->double('dropoff_location')->nullable(); // TODO: refactor to point type
+            $table->text('pickup_address')->nullable();
+            $table->text('dropoff_address')->nullable();
+            $table->string('sender_name')->nullable();
+            $table->string('sender_mobile')->nullable();
             $table->string('receiver_name')->nullable();
             $table->string('receiver_mobile')->nullable();
+            $table->text('delivery_note')->nullable();
             
             $table->string('tracking_number');
             $table->string('order_status')->nullable();
-            $table->enum('order_type', ['Order', 'Dispatch']);
+            $table->enum('order_type', ['Dispatch', 'Errand']);
             $table->enum('payment_method', ['Paystack', 'Pay On Delivery']);
+            $table->enum('personnel_option', ['Sender', 'Receiver', 'Third-party']);
 
             $table->string('payment_status')->default('Not Paid');
             $table->boolean('payment_verified')->default(false);
@@ -46,6 +48,7 @@ class CreateOrdersTable extends Migration
             $table->timestamp('paid_at')->nullable();
             $table->timestamp('delivered_at')->nullable();
 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

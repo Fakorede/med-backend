@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Profile extends Model
+class OrderItem extends Model
 {
-    use HasFactory, SoftDeletes, SpatialTrait;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -17,10 +16,11 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'address', 'is_available', 'location' // remove
+        'order_id', 'item', 'quantity', 'description', 'price',
     ];
 
-    // protected $spatialFields = [
-    //     'location',
-    // ];
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }

@@ -24,12 +24,23 @@ class CreateOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'item' => ['required'],
-            'quantity' => ['required'],
-            // 'price' => ['required'],
-            'description' => ['required'],
+            'orderItems.*.item' => ['required'],
+            'orderItems.*.quantity' => ['required'],
+            'orderItems.*.description' => ['required'],
+            'orderItems.*.price' => ['required'],
+            'pickup_location.latitude' => ['required'],
+            'pickup_location.longitude' => ['required'],
+            'pickup_location.address' => ['required'],
+            'dropoff_location.latitude' => ['required'],
+            'dropoff_location.longitude' => ['required'],
+            'dropoff_location.address' => ['required'],
+            // 'sender_name' => ['required'],
+            // 'sender_mobile' => ['required'],
+            // 'receiver_name' => ['required'],
+            // 'receiver_mobile' => ['required'],
             'order_type' => ['required'],
             'payment_method' => ['required'],
+            'personnel_option' => ['required'],
         ];
     }
 }

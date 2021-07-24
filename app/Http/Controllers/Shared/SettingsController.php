@@ -43,4 +43,12 @@ class SettingsController extends Controller
 
         return $this->success();
     }
+
+    public function appCharges()
+    {
+        return response()->json([
+            'base_price' => (float) config('settings.base_price'),
+            'price_per_km' => (float) config('settings.price_per_km'),
+        ]);
+    }
 }
