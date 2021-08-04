@@ -943,7 +943,7 @@ var render = function() {
                               _c(
                                 "b-td",
                                 [
-                                  user.email_verified_at
+                                  user.is_verified
                                     ? [
                                         _c(
                                           "span",

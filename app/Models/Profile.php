@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
+// use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Profile extends Model
 {
-    use HasFactory, SoftDeletes, SpatialTrait;
+    use HasFactory, SoftDeletes; // SpatialTrait;
 
     /**
      * The attributes that are mass assignable.

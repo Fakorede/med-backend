@@ -277,7 +277,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("b-th", [_vm._v("Phone Number")]),
                       _vm._v(" "),
-                      _c("b-th", [_vm._v("Date Added")])
+                      _c("b-th", [_vm._v("Date Joined")])
                     ],
                     1
                   ),

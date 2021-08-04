@@ -53,7 +53,7 @@
                     <b-td>{{user.phone_number}}</b-td>
                     <b-td>{{user.created_at | dateFilter}}</b-td>
                     <b-td>
-                      <template v-if="user.email_verified_at">
+                      <template v-if="user.is_verified">
                         <span class="badge badge-success">Accepted</span>
                       </template>
                       <template v-else>

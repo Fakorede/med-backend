@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class UpdatePasswordRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdatePasswordRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,8 @@ class UpdatePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'old_password' => 'required',
+            'password' => ['required', 'confirmed', Password::min(8)->letters()->mixedCase()->numbers()->uncompromised()],
         ];
     }
 }

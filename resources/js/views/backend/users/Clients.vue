@@ -15,7 +15,7 @@
                            <b-th>Name</b-th>
                            <b-th>Email</b-th>
                            <b-th>Phone Number</b-th>
-                           <b-th>Date Added</b-th>
+                           <b-th>Date Joined</b-th>
                         </b-thead>
                         <b-tr class="text-center" v-if="loading">
                            <b-td></b-td>

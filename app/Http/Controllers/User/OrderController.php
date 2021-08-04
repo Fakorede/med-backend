@@ -12,6 +12,7 @@ use App\Http\Requests\VerifyPaymentRequest;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Notifications\SendPushNotification;
 use App\Traits\ParseResponse;
 use App\Utils\TransRef;
 use Illuminate\Http\Request;
@@ -73,6 +74,7 @@ class OrderController extends Controller
                 'dropoff_location_latitude' => $request->dropoff_location['latitude'], 
                 'pickup_address' => $request->pickup_location['address'],
                 'dropoff_address' => $request->dropoff_location['address'],
+                'total_price' => $request->total_price,
                 'sender_name' => $request->sender_name,
                 'sender_mobile' => $request->sender_mobile,
                 'receiver_name' => $request->receiver_name,
@@ -99,11 +101,13 @@ class OrderController extends Controller
 
             DB::commit();
 
-            $total_amount = $order->getTotalPrice();
+            // $total_amount = $order->getTotalPrice();
+
+            auth()->user()->notify(new SendPushNotification('New Order Created!', '', ''));
 
             return $this->success([
                 'order_id' => $order['id'],
-                'total_amount' => $total_amount,
+                'total_price' => $order['total_price'],
                 'transaction_reference' => $tx_ref,
             ], 'Order Created!', 201);
 
@@ -149,9 +153,14 @@ class OrderController extends Controller
 
         $order = Order::where('tracking_number', $data['tracking_number'])->first();
 
-        return $this->success([
-            'order_status' => $order->order_status
-        ]);
+        if($order) {
+            return $this->success([
+                'order_status' => $order->order_status
+            ]);
+        } else {
+            return $this->error($data='Incorrect Tracking Number');
+        }
+        
     }
 
     public function updateOrderRider(UpdateOrderRiderRequest $request)

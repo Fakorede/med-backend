@@ -59,9 +59,10 @@ Route::middleware(['auth:api'])->group(function () {
 
     # SHARED SETTINGS
     Route::group(['namespace' => 'Shared', 'prefix' => 'settings'], function () {
-        Route::put('/profile/update', [SettingsController::class, 'updateProfile']);
-        Route::put('/password/update', [SettingsController::class, 'updatePassword']);
-        Route::put('/location/update', [SettingsController::class, 'updateCurrentLocation']);
+        Route::put('/update-profile', [SettingsController::class, 'updateProfile']);
+        Route::put('/update-password', [SettingsController::class, 'updatePassword']);
+        Route::put('/fcm-token', [SettingsController::class, 'updateFCMToken']);
+        Route::put('/update-location', [SettingsController::class, 'updateCurrentLocation']);
         Route::post('/invite', [SharedRegisterController::class , 'addUser'])->middleware('role:admin');
     });
 
@@ -77,10 +78,10 @@ Route::middleware(['auth:api'])->group(function () {
 # 3. MISC
 Route::get('/admin/stats', StatsController::class)->middleware('role:admin');
 Route::get('/charges', [SettingsController::class, 'appCharges']);
-Route::get('/transaction/reference', [OrderController::class, 'generateTxRef']);
+Route::get('/transaction/reference', [UserOrderController::class, 'generateTxRef']);
+Route::get('/verify_transaction', [UserOrderController::class, 'verifyPayment']);
+Route::get('/track/order', [UserOrderController::class, 'trackOrder']);
 Route::get('/available/riders', [OrderController::class, 'getAvailableRiders']);
-Route::get('/verify_transaction', [OrderController::class, 'verifyPayment']);
-Route::get('/track/order', [OrderController::class, 'trackOrder']);
 Route::get('/heroku/postgresdb', function() {
     return database_vars();
 });

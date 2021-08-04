@@ -39,7 +39,8 @@ class AuthService {
         'last_name' => $user->last_name,
         'phone_number' => $user->phone_number,
         'email' => $user->email,
-        'role' => $user->role->name,
+        'role' => $user->user_role,
+        'is_verified' => $user->is_verified,
       ],
       'token_type' => 'bearer',
       'expires_in' => config('sanctum.expiration')

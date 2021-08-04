@@ -24,7 +24,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'phone_number', 'email', 'password', 
+        'first_name', 'last_name', 'phone_number', 'email', 'password', 'fcm_token',
     ];
 
     /**
@@ -33,8 +33,12 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $hidden = [
+        'role_id',
+        'updated_at', 
+        'deleted_at',
         'password',
         'remember_token',
+        'email_verified_at',
     ];
 
     /**
@@ -44,6 +48,11 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $appends = [
+        'is_verified',
+        'user_role'
     ];
 
     /**
@@ -67,7 +76,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Get the role that owns the user.
+     * Get the>role->name; that owns the user.
      */
     public function role(): BelongsTo
     {
@@ -100,5 +109,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(
             Order::class, 'role_id'
         )->where('rider_id', auth()->id());
+    }
+
+    // accessors
+    public function getIsVerifiedAttribute()
+    {
+        return !is_null($this->email_verified_at) ? true : false;
+    }
+
+    public function getUserRoleAttribute()
+    {
+        return $this->role->name;
     }
 }
