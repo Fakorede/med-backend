@@ -113,8 +113,8 @@ class OrderController extends Controller
             // auth()->user()->notify(new RealTimeNotification('Login Notification', 'Welcome to our Dashboard.'));
 
             // admin notifications
-            $users = User::where('role_id', 1)->get();
-            Notification::send($users, new OrderNotification('Order Created', "A new Order has been placed by $user->first_name $user->last_name ($user->email)", $order));
+            // $users = User::where('role_id', 1)->get();
+            // Notification::send($users, new OrderNotification('Order Created', "A new Order has been placed by $user->first_name $user->last_name ($user->email)", $order));
 
             return $this->success([
                 'order_id' => $order['id'],
