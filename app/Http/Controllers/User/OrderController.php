@@ -10,8 +10,12 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Requests\UpdateOrderRiderRequest;
 use App\Http\Requests\VerifyPaymentRequest;
 use App\Http\Resources\OrderResource;
+use App\Http\Resources\SummarizedOrderResource;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\User;
+use App\Notifications\OrderNotification;
+use App\Notifications\RealTimeNotification;
 use App\Notifications\SendPushNotification;
 use App\Traits\ParseResponse;
 use App\Utils\TransRef;
@@ -19,6 +23,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 
 class OrderController extends Controller
 {
@@ -37,11 +42,12 @@ class OrderController extends Controller
             ->latest()
             ->get();
 
-        return OrderResource::collection($orders);
+        return SummarizedOrderResource::collection($orders);
     }
 
     public function placeOrder(CreateOrderRequest $request) 
     {
+        $user = auth()->user();
         $tracking_number = now()->valueOf();
         $tx_ref = $this->generateTxRef();
 
@@ -65,7 +71,7 @@ class OrderController extends Controller
             DB::beginTransaction();
 
             $order = Order::create([
-                'user_id' => auth()->id(),
+                'user_id' => $user->id,
                 // 'pickup_location' => $pickup_location,
                 'pickup_location_longitude' => $request->pickup_location['longitude'], 
                 'pickup_location_latitude' => $request->pickup_location['latitude'], 
@@ -103,11 +109,16 @@ class OrderController extends Controller
 
             // $total_amount = $order->getTotalPrice();
 
-            auth()->user()->notify(new SendPushNotification('New Order Created!', '', ''));
+            // current user notification
+            // auth()->user()->notify(new RealTimeNotification('Login Notification', 'Welcome to our Dashboard.'));
+
+            // admin notifications
+            $users = User::where('role_id', 1)->get();
+            Notification::send($users, new OrderNotification('Order Created', "A new Order has been placed by $user->first_name $user->last_name ($user->email)", $order));
 
             return $this->success([
                 'order_id' => $order['id'],
-                'total_price' => $order['total_price'],
+                'total_amount' => $order['total_price'],
                 'transaction_reference' => $tx_ref,
             ], 'Order Created!', 201);
 

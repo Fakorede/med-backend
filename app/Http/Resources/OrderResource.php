@@ -20,7 +20,7 @@ class OrderResource extends JsonResource
             'user' => new UserResource($this->user),
             'rider' => new UserResource($this->rider),
             'order_items' => OrderItemResource::collection($this->order_items),
-            'total_price' => $this->total_price,
+            'total_amount' => $this->total_price,
             'pickup_address' => $this->pickup_address,
             'dropoff_address' => $this->dropoff_address,
             'sender_name' => $this->sender_name,
