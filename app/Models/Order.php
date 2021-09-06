@@ -19,7 +19,7 @@ class Order extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'rider_id', 'pickup_location_longitude', 'pickup_location_latitude', 'dropoff_location_longitude', 'dropoff_location_latitude', 'pickup_address', 'dropoff_address', 'sender_name', 'sender_mobile', 'receiver_name', 'receiver_mobile', 'delivery_note', 'tracking_number', 'order_status', 'order_type', 'payment_method', 'personnel_option', 'payment_status', 'payment_verified', 'transaction_ref', 'paid_at', 'delivered_at', 'total_price',
+        'user_id', 'rider_id', 'pickup_location_longitude', 'pickup_location_latitude', 'dropoff_location_longitude', 'dropoff_location_latitude', 'pickup_address', 'dropoff_address', 'sender_name', 'sender_mobile', 'receiver_name', 'receiver_mobile', 'delivery_note', 'store_name', 'tracking_number', 'order_status', 'order_type', 'payment_method', 'personnel_option', 'payment_status', 'payment_verified', 'transaction_ref', 'paid_at', 'delivered_at', 'total_price',
     ];
 
     // protected $spatialFields = [
@@ -65,10 +65,10 @@ class Order extends Model
     }
 
     // accessor
-    public function getTotalPriceAttribute()
-    {
-        return $this->getTotalPrice();
-    }
+    // public function getTotalPriceAttribute()
+    // {
+    //     return $this->getTotalPrice();
+    // }
 
     // methods
     // public function getTotalPrice()

@@ -86,6 +86,7 @@ class OrderController extends Controller
                 'receiver_name' => $request->receiver_name,
                 'receiver_mobile' => $request->receiver_mobile,
                 'delivery_note' => $request->delivery_note,
+                'store_name' => $request->store_name,
                 'tracking_number' => $tracking_number,
                 'order_status' => 'Created',
                 'order_type' => $order_type,

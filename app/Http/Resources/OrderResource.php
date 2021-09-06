@@ -28,6 +28,7 @@ class OrderResource extends JsonResource
             'receiver_name' => $this->receiver_name,
             'receiver_mobile' => $this->receiver_mobile,
             'delivery_note' => $this->delivery_note,
+            'store_name' => $this->store_name,
             'tracking_number' => $this->tracking_number,
             'order_status' => $this->order_status,
             'order_type' => $this->order_type,
