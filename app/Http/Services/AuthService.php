@@ -21,8 +21,7 @@ class AuthService {
    */
   public function logout() {
     auth()->user()->tokens()->delete();
-    $cookie = cookie()->forget('access_token');
-    return response(['message' => 'User logged out successfully!'])->withCookie($cookie);
+    return response(['message' => 'User logged out successfully!']);
   }
 
   /**
@@ -32,9 +31,13 @@ class AuthService {
    */
   protected function respondWithToken() {
     $user = request()->user();
+
+    //session(['user' => $user]);
+
     return [
       'access_token' => $this->parseToken(auth()->user()->createToken('Auth Token')->plainTextToken),
       'user' => [
+        'id' => $user->id,
         'first_name' => $user->first_name,
         'last_name' => $user->last_name,
         'phone_number' => $user->phone_number,

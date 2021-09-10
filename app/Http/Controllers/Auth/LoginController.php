@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\RealTimeEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Services\AuthService;
+use App\Models\User;
+use App\Notifications\RealTimeNotification;
 use App\Traits\ParseResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Notification;
 
 class LoginController extends Controller
 {
@@ -35,9 +39,9 @@ class LoginController extends Controller
             return $this->error('Email or password is incorrect', Response::HTTP_BAD_REQUEST);
         }
 
-        $cookie = cookie('access_token', $userToken['access_token'], $userToken['expires_in']);
+        // $cookie = cookie('access_token', $userToken['access_token'], $userToken['expires_in']);
 
-        return $this->success($userToken)->withCookie($cookie);
+        return $this->success($userToken);
     }
 
     /**
