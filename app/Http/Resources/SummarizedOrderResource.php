@@ -19,6 +19,8 @@ class SummarizedOrderResource extends JsonResource
             'order_status' => $this->order_status,
             'total_amount' => $this->total_price,
             'transaction_reference' => $this->transaction_ref,
+            'pickup_address' => $this->pickup_address,
+            'dropoff_address' => $this->dropoff_address,
         ];
     }
 }
