@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class AdminInvite extends Mailable
+class AdminInvite extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -38,11 +38,11 @@ class AdminInvite extends Mailable
     public function build()
     {
         if ($this->role_id == 1) {
-            return $this->from("admin@magicexpress.com")
+            return $this->from('admin@magicexpressdelivery.com', 'Magic Express Delivery')
                 ->subject("Admin Dashboard Access")
                 ->view('mails.admin-invite');
         } else {
-            return $this->from("admin@magicexpress.com")
+            return $this->from('admin@magicexpressdelivery.com', 'Magic Express Delivery')
                 ->subject("Rider App Access")
                 ->view('mails.admin-invite');
         }

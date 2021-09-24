@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\RiderController;
 use App\Http\Controllers\Admin\StatsController;
 use App\Http\Controllers\Admin\UserController;
@@ -37,14 +38,15 @@ Route::group(['middleware' => ['guest:api'], 'namespace' => 'Auth', 'prefix' => 
 # 2. Protected Routes
 Route::middleware(['auth:api'])->group(function () {
     # ADMIN api // verified
-    Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['role:admin']], function () {
+    Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['verified', 'role:admin']], function () {
         Route::get('/admins/{per_page?}', [UserController::class ,'admins'])->name('admins');
         Route::get('/users/{per_page?}', [UserController::class ,'users'])->name('users');
         Route::get('/riders/{per_page?}', [RiderController::class ,'riders'])->name('riders');
+        Route::get('/orders/{per_page?}', [AdminOrderController::class ,'getAllOrders']);
     });
 
     # USERS api // verified
-    Route::group(['namespace' => 'User', 'prefix' => 'user', 'middleware' => ['role:user']], function () {
+    Route::group(['namespace' => 'User', 'prefix' => 'user', 'middleware' => ['verified', 'role:user']], function () {
         Route::get('/orders', [UserOrderController::class, 'getUserOrders']);
         Route::get('/order/{id}', [UserOrderController::class, 'getOrderById']);
         Route::post('/place-order', [UserOrderController::class, 'placeOrder']);
@@ -52,7 +54,7 @@ Route::middleware(['auth:api'])->group(function () {
     });
 
     # RIDERS api // verified
-    Route::group(['namespace' => 'Rider', 'prefix' => 'rider', 'middleware' => ['role:rider']], function () {
+    Route::group(['namespace' => 'Rider', 'prefix' => 'rider', 'middleware' => ['verified', 'role:rider']], function () {
         Route::get('/orders', [RiderOrderController::class, 'getRiderOrders']);
         Route::get('/order/{id}', [RiderOrderController::class, 'getOrderById']);
         Route::post('/order/{id}/status', [RiderOrderController::class, 'updateOrderStatus']);
@@ -88,7 +90,7 @@ Route::middleware(['auth:api'])->group(function () {
 });
 
 # 3. MISC
-Route::get('/admin/stats', StatsController::class)->middleware('role:admin');
+Route::get('/admin/get/stats', StatsController::class)->middleware(['auth:api', 'role:admin']);
 Route::get('/charges', [SettingsController::class, 'appCharges']);
 Route::get('/transaction/reference', [UserOrderController::class, 'generateTxRef']);
 Route::get('/verify_transaction', [UserOrderController::class, 'verifyPayment']);

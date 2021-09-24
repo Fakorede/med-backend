@@ -16,6 +16,7 @@ import ValidationErrors from "./components/messages/ValidationErrors.vue"
 import Success from "./components/messages/Success.vue"
 import Error from "./components/messages/Error.vue"
 import logOut from './mixins/logOut'
+import broadcast from './mixins/broadcast'
 
 // axios.create({
 //   baseURL: 'domain.nl/path/to/my/api'
@@ -43,8 +44,10 @@ Vue.use(Toasted, {
 })
 
 Vue.mixin(logOut)
+Vue.mixin(broadcast)
 
 Vue.filter("dateFilter", value => moment(value).format('LLLL'));
+Vue.filter("formatType", value => value.split("\\")[2]);
 
 Vue.component('pagination', require('laravel-vue-pagination'))
 
@@ -55,8 +58,8 @@ Vue.component("v-errors", ValidationErrors);
 const app = new Vue({
   router,
   store,
-  beforeCreate() {
-    this.$store.dispatch('auth/retreiveUser')
+  async beforeCreate() {
+    await this.$store.dispatch('auth/retreiveUser')
   },
   render: h => h(App),
 }).$mount('#app');

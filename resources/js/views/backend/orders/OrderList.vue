@@ -13,80 +13,76 @@
                      <div class="card-body">
                          <form>
                              <div class="form-group">
-                                 <label>Date:</label><label class="clear-filters" @click="clearFilters">clear filters</label>
+                                 <label><strong>Date:</strong></label><label class="clear-filters" @click="clearFilters">clear filters</label>
                                  <b-datepicker size="sm" :hide-header="true" v-model="params.date" id="datepicker-buttons" placeholder="Filter by date" today-button reset-button close-button></b-datepicker>
                              </div>
                              <div class="form-group">
-                                 <label>Gender:</label>
+                                 <label><strong>Order Type:</strong></label>
                                  <div class="custom-control custom-radio">
-                                     <input type="radio" id="male" name="gender" class="custom-control-input" value="male" v-model="params.gender">
-                                     <label class="custom-control-label" for="male"> Male </label>
+                                     <input type="radio" id="Dispatch" name="order_type" class="custom-control-input" value="Dispatch" v-model="params.order_type">
+                                     <label class="custom-control-label" for="Dispatch">Dispatch</label>
                                  </div>
                                  <div class="custom-control custom-radio">
-                                     <input type="radio" id="female" name="gender" class="custom-control-input" v-model="params.gender" value="female">
-                                     <label class="custom-control-label" for="female"> female </label>
+                                     <input type="radio" id="Errand" name="order_type" class="custom-control-input" v-model="params.order_type" value="Errand">
+                                     <label class="custom-control-label" for="Errand"> Errand </label>
                                  </div>
                                  <div class="custom-control custom-radio">
-                                     <input type="radio" id="all" name="gender" class="custom-control-input" checked="checked" v-model="params.gender" value="all">
+                                     <input type="radio" id="all" name="order_type" class="custom-control-input" checked="checked" v-model="params.order_type" value="all">
                                      <label class="custom-control-label" for="all"> All </label>
                                  </div>
                              </div>
                              <div class="form-group">
-                                 <label>Covid Exposure Risk:</label>
+                                 <label><strong>Order Status:</strong></label>
                                  <div class="custom-control custom-radio">
-                                     <input type="radio" id="low1" name="risk_group" class="custom-control-input" value="low" v-model="params.covidRisk">
-                                     <label class="custom-control-label" for="low1"> Low </label>
+                                     <input type="radio" id="Created" name="order_status" class="custom-control-input" value="Created" v-model="params.order_status">
+                                     <label class="custom-control-label" for="Created">Created</label>
                                  </div>
                                  <div class="custom-control custom-radio">
-                                     <input type="radio" id="medium1" name="risk_group" class="custom-control-input" v-model="params.covidRisk" value="medium">
-                                     <label class="custom-control-label" for="medium1"> Medium </label>
+                                     <input type="radio" id="Processed" name="order_status" class="custom-control-input" v-model="params.order_status" value="Processed">
+                                     <label class="custom-control-label" for="Processed">Processed</label>
                                  </div>
                                  <div class="custom-control custom-radio">
-                                     <input type="radio" id="high1" name="risk_group" class="custom-control-input" v-model="params.covidRisk" value="high">
-                                     <label class="custom-control-label" for="high1"> High </label>
+                                     <input type="radio" id="Assigned" name="order_status" class="custom-control-input" v-model="params.order_status" value="Assigned">
+                                     <label class="custom-control-label" for="Assigned">Assigned</label>
+                                 </div>
+                                 <div class="custom-control custom-radio">
+                                     <input type="radio" id="In-Transit" name="order_status" class="custom-control-input" v-model="params.order_status" value="In-Transit">
+                                     <label class="custom-control-label" for="In-Transit">In Transit</label>
+                                 </div>
+                                 <div class="custom-control custom-radio">
+                                     <input type="radio" id="Delivered" name="order_status" class="custom-control-input" v-model="params.order_status" value="Delivered">
+                                     <label class="custom-control-label" for="Delivered">Delivered</label>
+                                 </div>
+                                 <div class="custom-control custom-radio">
+                                     <input type="radio" id="all" name="order_status" class="custom-control-input" checked="checked" v-model="params.order_status" value="all">
+                                     <label class="custom-control-label" for="all"> All </label>
+                                 </div>
+                             </div>
+                            <div class="form-group">
+                                 <label><strong>Personnel Option:</strong></label>
+                                 <div class="custom-control custom-radio">
+                                     <input type="radio" id="Sender" name="personnel_option" class="custom-control-input" value="Sender" v-model="params.personnel_option">
+                                     <label class="custom-control-label" for="Sender">Sender</label>
+                                 </div>
+                                 <div class="custom-control custom-radio">
+                                     <input type="radio" id="Receiver" name="personnel_option" class="custom-control-input" v-model="params.personnel_option" value="Receiver">
+                                     <label class="custom-control-label" for="Receiver"> Receiver </label>
+                                 </div>
+                                 <div class="custom-control custom-radio">
+                                     <input type="radio" id="Third-party" name="personnel_option" class="custom-control-input" v-model="params.personnel_option" value="Third-party">
+                                     <label class="custom-control-label" for="Third-party"> Third-party </label>
+                                 </div>
+                                 <div class="custom-control custom-radio">
+                                     <input type="radio" id="all" name="personnel_option" class="custom-control-input" checked="checked" v-model="params.personnel_option" value="all">
+                                     <label class="custom-control-label" for="all"> All </label>
                                  </div>
                              </div>
                              <div class="form-group">
-                                 <label> VACCINATED ? </label>
+                                 <label><strong>PAID ?</strong></label>
                                  <div class="custom-control custom-checkbox custom-checkbox-color-check">
-                                     <input v-model="params.vaccinated" name="vaccinated" id="vaccinated" type="checkbox" class="custom-control-input bg-primary" value="yes">
-                                     <label class="custom-control-label" for="vaccinated"> YES </label>
+                                     <input v-model="params.payment_status" name="payment_status" id="payment_status" type="checkbox" class="custom-control-input bg-primary" value="Paid">
+                                     <label class="custom-control-label" for="payment_status"> YES </label>
                                  </div>
-                             </div>
-                             <div class="form-group">
-                                 <label>Severity of Illness:</label>
-                                 <div v-for="(val, key) in severitySymptoms" class="custom-control custom-checkbox custom-checkbox-color-check" :key="key">
-                                     <input v-model="params.selectedIllness" type="checkbox" :id="key" class="custom-control-input bg-primary" :value="val">
-                                     <label class="custom-control-label" :for="key"> {{ val }}</label>
-                                 </div>
-                             </div>
-                             <div class="form-group">
-                                 <label>Attendant Symptoms:</label>
-                                 <div v-for="(l, i) in otherSymptoms" class="custom-control custom-checkbox custom-checkbox-color-check" :key="i+'_other'">
-                                     <input v-model="params.selectedOtherSymptoms" type="checkbox" :id="i+'_other'" class="custom-control-input bg-primary" :value="l">
-                                     <label class="custom-control-label" :for="i+'_other'"> {{ l }}</label>
-                                 </div>
-                                 <div v-for="(v, k) in coughSymptoms" class="custom-control custom-checkbox custom-checkbox-color-check" :key="k+'_cough'">
-                                     <input v-model="params.selectedCoughSymptoms" type="checkbox" :id="k+'_cough'" class="custom-control-input bg-primary" :value="v">
-                                     <label class="custom-control-label" :for="k+'_cough'"> {{ v }}</label>
-                                 </div>
-                                 <div v-for="(list, index) in breathingSymptoms" class="custom-control custom-checkbox custom-checkbox-color-check" :key="index+'_breathing'">
-                                     <input v-model="params.selectedBreathingSymptoms" type="checkbox" :id="index+'_breathing'" class="custom-control-input bg-primary" :value="list">
-                                     <label class="custom-control-label" :for="index+'_breathing'"> {{ list }}</label>
-                                 </div>
-                             </div>
-                             <div class="form-group">
-                                 <label> States: </label>
-                                 <select class="form-control" id="states" name="states" @change="countyInState($event.target.value)" v-model="params.selectedState">
-                                     <option value="" selected="selected"> select a state </option>
-                                     <option v-for="l in locations" :value="l.name">{{ l.name }}</option>
-                                 </select>
-                             </div>
-                             <div class="form-group" v-if="counties">
-                                 <label> Select County : </label>
-                                 <select class="form-control" id="county" name="county" v-model="params.selectedCounty">
-                                     <option v-for="c in counties" :value="c.name">{{ c.name }}</option>
-                                 </select>
                              </div>
                          </form>
                      </div>
@@ -96,35 +92,34 @@
                <div class="card card-block card-stretch card-height">
                   <div class="card-header d-flex justify-content-between">
                       <div class="header-title">
-                          <h4 class="card-title mb-0">All Responses<small> ( {{ responses.total }} total responses)</small></h4>
+                          <h4 class="card-title mb-0">All Orders<small> ( {{ orders.total }} total orders)</small></h4>
                       </div>
-                      <a href="#" @click="downloadData" data-toggle="modal" class="btn btn-primary">
+                      <!-- <a href="#" @click="downloadData" data-toggle="modal" class="btn btn-primary">
                           Download filtered response
                           &nbsp; <b-spinner small variant="default" class="float-right" v-if="downloading"></b-spinner>
-                      </a>
+                      </a> -->
                   </div>
                   <div class="card-body">
                      <b-table-simple responsive hover>
                         <b-thead>
-                            <b-th>Gender</b-th>
+                            <b-th>Amount(&#8358;)</b-th>
+                            <b-th>Pickup Address</b-th>
+                            <b-th>Dropoff Address</b-th>
                             <b-th>
-                                <a href="#" @click.prevent="changeSort('age')">Age</a>
-                                <span v-if="params.sort_field == 'age' && params.sort_direction == 'asc'">&uarr;</span>
-                                <span v-if="params.sort_field == 'age' && params.sort_direction == 'desc'">&darr;</span>
-                            </b-th>
-                            <b-th>Exposure Risk</b-th>
-                            <b-th>
-                                <a href="#" @click.prevent="changeSort('high_risk_group')">High Risk Group</a>
-                                <span v-if="params.sort_field == 'high_risk_group' && params.sort_direction == 'asc'">&uarr;</span>
-                                <span v-if="params.sort_field == 'high_risk_group' && params.sort_direction == 'desc'">&darr;</span>
+                                <a href="#" @click.prevent="changeSort('order_type')">Order Type</a>
+                                <span v-if="params.sort_field == 'order_type' && params.sort_direction == 'asc'">&uarr;</span>
+                                <span v-if="params.sort_field == 'order_type' && params.sort_direction == 'desc'">&darr;</span>
                             </b-th>
                             <b-th>
-                              <a href="#" @click.prevent="changeSort('date')">Date Submitted</a>
-                              <span v-if="params.sort_field == 'date' && params.sort_direction == 'asc'">&uarr;</span>
-                              <span v-if="params.sort_field == 'date' && params.sort_direction == 'desc'">&darr;</span>
+                              <a href="#" @click.prevent="changeSort('order_status')">Order Status</a>
+                              <span v-if="params.sort_field == 'order_status' && params.sort_direction == 'asc'">&uarr;</span>
+                              <span v-if="params.sort_field == 'order_status' && params.sort_direction == 'desc'">&darr;</span>
                             </b-th>
-                            <b-th> County </b-th>
-                            <b-th> State </b-th>
+                            <b-th>
+                              <a href="#" @click.prevent="changeSort('created_at')">Order Date</a>
+                              <span v-if="params.sort_field == 'created_at' && params.sort_direction == 'asc'">&uarr;</span>
+                              <span v-if="params.sort_field == 'created_at' && params.sort_direction == 'desc'">&darr;</span>
+                            </b-th>
                             <b-th>View Details</b-th>
                         </b-thead>
                          <b-tr class="text-center" v-if="loading">
@@ -135,11 +130,26 @@
                              <b-td></b-td>
                              <b-td></b-td>
                          </b-tr>
-                        <b-tbody v-else-if="responses.data.length > 0">
-                           <b-tr v-for="(response, index) in responses.data" :key="'response' + index">
-                              <b-td>{{response.gender}}</b-td>
-                              <b-td>{{response.age}}</b-td>
+                        <b-tbody v-else-if="orders.data.length > 0">
+                           <b-tr v-for="(order, index) in orders.data" :key="'order' + index">
+                              <b-td>&#8358;{{new Intl.NumberFormat().format(order.total_price)}}</b-td>
+                              <b-td>{{order.pickup_address}}</b-td>
+                              <b-td>{{order.dropoff_address}}</b-td>
                               <b-td>
+                                <template v-if="order.order_type === 'Dispatch'">
+                                  <span class="badge badge-primary">
+                                    {{ order.order_type }}
+                                  </span>
+                                </template>
+                                <template v-if="order.order_type === 'Errand'">
+                                  <span class="badge badge-info">
+                                    {{ order.order_type }}
+                                  </span>
+                                </template>
+                              </b-td>
+                              <b-td>{{order.order_status}}</b-td>
+                              <b-td>{{order.created_at | dateFilter}}</b-td>
+                              <!-- <b-td>
                                 <template v-if="response.exposure_risk == 'high'">
                                   <span class="badge badge-danger">High</span>
                                 </template>
@@ -160,11 +170,11 @@
                               </b-td>
                               <b-td>{{response.date_difference}}</b-td>
                               <b-td>{{response.county ? response.county : '-'}}</b-td>
-                              <b-td>{{response.state ? response.state : '-'}}</b-td>
+                              <b-td>{{response.state ? response.state : '-'}}</b-td> -->
                               <b-td>
                                 <!-- Button to trigger modal -->
-                                <button type="button" class="btn btn-primary btn-sm" data-id="response.id" @click="showModal(response)">
-                                    <small>view response</small>
+                                <button type="button" class="btn btn-primary btn-sm" data-id="order.id" @click="showModal(order)">
+                                    <small>view order</small>
                                 </button>
                                 <!-- Modal -->
                                 <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModal" aria-hidden="true">
@@ -177,7 +187,7 @@
                                         </button>
                                       </div>
                                       <div class="modal-body">
-                                        <response-body :response="singleOrder"></response-body>
+                                        <order-body :order="singleOrder"></order-body>
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -214,7 +224,7 @@
                               </div>
                           </div>
                           <div class="col-xl-8 col-lg-7">
-                              <pagination :data="responses" :limit="1" @pagination-change-page="getResponses"></pagination>
+                              <pagination :data="orders" :limit="1" @pagination-change-page="getOrders"></pagination>
                           </div>
                       </div>
                   </div>
@@ -226,41 +236,42 @@
 <script>
 import OrderBody from './OrderModal'
 import { is401 } from '../../../config/response'
-// import { OTHER_SYMPTOMS_LIST, BREATHING_SYMPTOMS_LIST, COUGH_SYMPTOMS_LIST, SEVERITY_OF_ILLNESS, LOCATIONS } from "../../../config/symptoms";
 
 export default {
   name:'OrderList',
   components: {OrderBody},
-  created() {
-    this.getOrders()
+  async mounted() {
+    await this.getOrders()
+    await this.$broadcast()
   },
   data() {
     return {
       loading: false,
       downloading: false,
       orders: {},
-      params: {
-        sort_field: 'date',
-        sort_direction: 'desc',
-        high_risk_group: '',
-        date: '',
-        gender: '',
-        covidRisk: '',
-        selectedIllness: [],
-        selectedCoughSymptoms: [],
-        selectedBreathingSymptoms: [],
-        selectedOtherSymptoms: [],
-        perPage: 10,
-        selectedState: '',
-        selectedCounty: '',
-        vaccinated: ''
-      },
       singleOrder: {},
-      otherSymptoms: OTHER_SYMPTOMS_LIST,
-      coughSymptoms: COUGH_SYMPTOMS_LIST,
-      breathingSymptoms: BREATHING_SYMPTOMS_LIST,
-      severitySymptoms: SEVERITY_OF_ILLNESS,
-      locations: LOCATIONS,
+      params: {
+        perPage: 10,
+        sort_field: 'created_at',
+        sort_direction: 'desc',
+        order_type: '',
+        order_status: '',
+        payment_status: '',
+        personnel_option: '',
+        // high_risk_group: '',
+        // date: '',
+        // gender: '',
+        // covidRisk: '',
+        // selectedIllness: [],
+        // selectedCoughSymptoms: [],
+        // selectedBreathingSymptoms: [],
+        // selectedOtherSymptoms: [],
+      },
+      otherSymptoms: [],
+      coughSymptoms: [],
+      breathingSymptoms: [],
+      severitySymptoms: [],
+      locations: [],
       counties: null
     }
   },
@@ -279,14 +290,15 @@ export default {
     async getOrders(page=1) {
       this.loading = true
       try {
-        const response = await axios.get('/backend/dashboard/responses/'+this.params.perPage, {
+        const response = await axios.get('/api/admin/orders/'+this.params.perPage, {
           params: {
             page,
             ...this.params
-          }
+          },
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('sserpxe_cigam')}` }
         })
         this.loading = false
-        this.responses = response.data
+        this.orders = response.data
       } catch (error) {
         console.log(error)
         this.loading = false
@@ -303,79 +315,79 @@ export default {
         this.params.sort_direction = 'asc'
       }
 
-      this.getResponses()
+      this.getOrders()
     },
-    showModal(response) {
+    showModal(order) {
       this.singleOrder = {}
       $('#orderModal').modal('show')
-      this.singleOrder = response
+      this.singleOrder = order
     },
     changePageParam (val) {
-        this.params.perPage = parseInt(val)
+      this.params.perPage = parseInt(val)
     },
     countyInState (val) {
-        const list = this.locations.filter((state) => state.name === val)
+    //     const list = this.locations.filter((state) => state.name === val)
 
-        if (list.length > 0) {
-            this.counties = list[0].counties
-        }else {
-            this.counties = null
-        }
+    //     if (list.length > 0) {
+    //         this.counties = list[0].counties
+    //     }else {
+    //         this.counties = null
+    //     }
     },
     clearFilters () {
-        this.params.sort_field = 'date'
-        this.params.sort_direction = 'desc'
-        this.params.high_risk_group = ''
-        this.params.date = ''
-        this.params.gender = ''
-        this.params.covidRisk = ''
-        this.params.selectedIllness = []
-        this.params.selectedCoughSymptoms = []
-        this.params.selectedBreathingSymptoms = []
-        this.params.selectedOtherSymptoms = []
-        this.params.perPage = 10
-        this.params.selectedCounty = null
-        this.params.selectedState = ''
-        this.counties = null
+    //     this.params.sort_field = 'date'
+    //     this.params.sort_direction = 'desc'
+    //     this.params.high_risk_group = ''
+    //     this.params.date = ''
+    //     this.params.gender = ''
+    //     this.params.covidRisk = ''
+    //     this.params.selectedIllness = []
+    //     this.params.selectedCoughSymptoms = []
+    //     this.params.selectedBreathingSymptoms = []
+    //     this.params.selectedOtherSymptoms = []
+    //     this.params.perPage = 10
+    //     this.params.selectedCounty = null
+    //     this.params.selectedState = ''
+    //     this.counties = null
 
-        this.getResponses()
+    //     this.getOrders()
     },
     async downloadData () {
-        this.downloading = true
-        try {
-            const response = await axios.get('/backend/response/download', {
-                params: {
-                    ...this.params
-                }
-            })
-            this.downloading = false
-            this.forceDownload(response.data)
-        } catch (error) {
-            console.log(error)
-            this.downloading = false
-            if(is401(error)){
-                this.$logOut()
-            }
-            this.$toasted.error('Error: unable to download responses')
-        }
+    //     this.downloading = true
+    //     try {
+    //         const response = await axios.get('/backend/response/download', {
+    //             params: {
+    //                 ...this.params
+    //             }
+    //         })
+    //         this.downloading = false
+    //         this.forceDownload(response.data)
+    //     } catch (error) {
+    //         console.log(error)
+    //         this.downloading = false
+    //         if(is401(error)){
+    //             this.$logOut()
+    //         }
+    //         this.$toasted.error('Error: unable to download orders')
+    //     }
     },
     forceDownload (response) {
-          const blob = new Blob([response], { type: 'data:application/octet-stream' })
-          const blobURL = window.URL.createObjectURL(blob)
-          const tempLink = document.createElement('a')
-          tempLink.style.display = 'none'
-          tempLink.href = blobURL
-          tempLink.setAttribute('download', 'RESPONSES.csv')
-          if (typeof tempLink.download === 'undefined') {
-              tempLink.setAttribute('target', '_blank')
-          }
-          document.body.appendChild(tempLink)
-          tempLink.click()
-          document.body.removeChild(tempLink)
-          setTimeout(() => {
-              window.URL.revokeObjectURL(blobURL)
-          }, 100)
-      },
+    //       const blob = new Blob([response], { type: 'data:application/octet-stream' })
+    //       const blobURL = window.URL.createObjectURL(blob)
+    //       const tempLink = document.createElement('a')
+    //       tempLink.style.display = 'none'
+    //       tempLink.href = blobURL
+    //       tempLink.setAttribute('download', 'ORDERS.csv')
+    //       if (typeof tempLink.download === 'undefined') {
+    //           tempLink.setAttribute('target', '_blank')
+    //       }
+    //       document.body.appendChild(tempLink)
+    //       tempLink.click()
+    //       document.body.removeChild(tempLink)
+    //       setTimeout(() => {
+    //           window.URL.revokeObjectURL(blobURL)
+    //       }, 100)
+    },
   },
 }
 </script>

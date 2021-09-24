@@ -111,6 +111,8 @@
           const response = await axios.post('/api/settings/invite', {
             ...this.user, 
             role_id: this.usertype
+          }, {
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('sserpxe_cigam')}` }
           })
           // $('#addUserModal').modal('hide')
           // this.user = {}

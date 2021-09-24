@@ -14,6 +14,7 @@ use App\Http\Resources\SummarizedOrderResource;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
+use App\Notifications\AdminOrderNotification;
 use App\Notifications\OrderNotification;
 use App\Notifications\RealTimeNotification;
 use App\Notifications\SendPushNotification;
@@ -32,6 +33,7 @@ class OrderController extends Controller
     public function getOrderById($id)
     {
         $order = Order::findOrFail($id);
+        $this->authorize('view-order', $order);
         return new OrderResource($order);
     }
 
@@ -47,20 +49,22 @@ class OrderController extends Controller
 
     public function placeOrder(CreateOrderRequest $request) 
     {
+        $this->authorize('create-order');
+
         $user = auth()->user();
         $tracking_number = now()->valueOf();
         $tx_ref = $this->generateTxRef();
 
-        $order_type = $request->order_type == 1 ? 'Dispatch' : 'Errand';
-        $payment_method = $request->payment_method == 1 ? 'Paystack' : 'Pay On Delivery';
+        $order_type = $request->order_type == 1 ? Controller::ORDER_TYPE_1 : Controller::ORDER_TYPE_2;
+        $payment_method = $request->payment_method == 1 ? Controller::PAYMENT_METHOD_1 : Controller::PAYMENT_METHOD_2;
         
         switch ($request->personnel_option) {
             case 1:
-                $personnel_option = 'Sender';
+                $personnel_option = Controller::PERSONNEL_OPTION_1;
             case 2:
-                $personnel_option = 'Receiver';
+                $personnel_option = Controller::PERSONNEL_OPTION_2;
             case 3:
-                $personnel_option = 'Third-party';
+                $personnel_option = Controller::PERSONNEL_OPTION_3;
         } 
 
         // TODO: refactor pickup_location and dropoff_location to spatial data type  
@@ -88,7 +92,7 @@ class OrderController extends Controller
                 'delivery_note' => $request->delivery_note,
                 'store_name' => $request->store_name,
                 'tracking_number' => $tracking_number,
-                'order_status' => 'Created',
+                'order_status' => Controller::ORDER_STATUS_1,
                 'order_type' => $order_type,
                 'payment_method' => $payment_method,
                 'personnel_option' => $personnel_option,
@@ -110,12 +114,7 @@ class OrderController extends Controller
 
             // $total_amount = $order->getTotalPrice();
 
-            // current user notification
-            // auth()->user()->notify(new RealTimeNotification('Login Notification', 'Welcome to our Dashboard.'));
-
-            // admin notifications
-            // $users = User::where('role_id', 1)->get();
-            // Notification::send($users, new OrderNotification('Order Created', "A new Order has been placed by $user->first_name $user->last_name ($user->email)", $order));
+            $this->_sendNotifications($user, $order);
 
             return $this->success([
                 'order_id' => $order['id'],
@@ -194,5 +193,15 @@ class OrderController extends Controller
     {
         $reference = TransRef::getHashedToken();
         return $reference;
+    }
+
+    private function _sendNotifications($user, $order)
+    {
+        // current user notification
+        auth()->user()->notify(new OrderNotification('Order Created', 'You just placed an Order', $order));
+
+        // admin notifications
+        $users = User::where('role_id', 1)->get();
+        Notification::send($users, new AdminOrderNotification('Order Created', "A new Order has been placed by $user->first_name $user->last_name ($user->email)", $order));
     }
 }

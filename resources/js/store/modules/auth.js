@@ -18,8 +18,8 @@ export const auth = {
     async retreiveUser({dispatch}) {
       if(loggedIn()) {
         try {
-          const {data} = await axios.get('/backend/user')
-          dispatch('loadUser', data.data)
+          const response = await axios.get('/api/user')
+          dispatch('loadUser', response.data)
         } catch (error) {
           console.log(error)
         }
@@ -31,8 +31,13 @@ export const auth = {
     },
     async logOut({commit}) {
       logOut()
+
       commit('setUser', null)
       commit('setAuthenticated', false)
+      commit('notifications/setAll', [], { root: true })
+      commit('notifications/setRead', [], { root: true })
+      commit('notifications/setUnread', [], { root: true })
+      
     }
   },
   getters: {

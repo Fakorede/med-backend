@@ -39,8 +39,6 @@ class LoginController extends Controller
             return $this->error('Email or password is incorrect', Response::HTTP_BAD_REQUEST);
         }
 
-        // $cookie = cookie('access_token', $userToken['access_token'], $userToken['expires_in']);
-
         return $this->success($userToken);
     }
 

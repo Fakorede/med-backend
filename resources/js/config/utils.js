@@ -8,4 +8,5 @@ export function logIn() {
 
 export function logOut() {
   localStorage.removeItem("isLoggedIn")
+  localStorage.removeItem("sserpxe_cigam")
 }

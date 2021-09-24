@@ -41,7 +41,7 @@ class Order extends Model
      *
      * @var array
      */
-    protected $appends = ['total_price'];
+    // protected $appends = ['total_price'];
 
     /**
      * Get the user that owns the order.

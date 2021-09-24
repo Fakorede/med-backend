@@ -15,13 +15,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _config_response__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../config/response */ "./resources/js/config/response.js");
 /* harmony import */ var _mixins_validationErrors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../mixins/validationErrors */ "./resources/js/mixins/validationErrors.js");
-
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -111,6 +111,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       error: null
     };
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.$broadcast();
+
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
   computed: {
     buttonText: function buttonText() {
       return this.validating === true ? 'Submitting...' : 'Submit';
@@ -121,59 +140,59 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     resetPassword: function resetPassword() {
-      var _this = this;
+      var _this2 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _this.error = null;
-                _this.errors = null;
-                _this.status = null;
-                _this.validating = true;
-                _this.success = false;
-                _this.successMsg = '';
-                _context.prev = 6;
-                _context.next = 9;
-                return axios.post('/backend/password/update', _objectSpread({}, _this.user));
+                _this2.error = null;
+                _this2.errors = null;
+                _this2.status = null;
+                _this2.validating = true;
+                _this2.success = false;
+                _this2.successMsg = '';
+                _context2.prev = 6;
+                _context2.next = 9;
+                return axios.post('/backend/password/update', _objectSpread({}, _this2.user));
 
               case 9:
-                response = _context.sent;
-                _this.successMsg = response.data.message;
-                _this.success = true;
-                _context.next = 21;
+                response = _context2.sent;
+                _this2.successMsg = response.data.message;
+                _this2.success = true;
+                _context2.next = 21;
                 break;
 
               case 14:
-                _context.prev = 14;
-                _context.t0 = _context["catch"](6);
-                console.log(_context.t0);
+                _context2.prev = 14;
+                _context2.t0 = _context2["catch"](6);
+                console.log(_context2.t0);
 
-                if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is422)(_context.t0)) {
-                  _this.errors = _context.t0.response.data.errors;
+                if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is422)(_context2.t0)) {
+                  _this2.errors = _context2.t0.response.data.errors;
                 }
 
-                if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is400)(_context.t0)) {
-                  _this.error = _context.t0.response.data.error;
+                if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is400)(_context2.t0)) {
+                  _this2.error = _context2.t0.response.data.error;
                 }
 
-                if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is401)(_context.t0)) {
-                  _this.$logOut();
+                if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is401)(_context2.t0)) {
+                  _this2.$logOut();
                 }
 
-                _this.status = _context.t0.response.status;
+                _this2.status = _context2.t0.response.status;
 
               case 21:
-                _this.validating = false;
+                _this2.validating = false;
 
               case 22:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, null, [[6, 14]]);
+        }, _callee2, null, [[6, 14]]);
       }))();
     }
   }

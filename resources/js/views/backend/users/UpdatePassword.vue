@@ -84,6 +84,9 @@ export default {
          error: null
       }
    },
+   async mounted() {
+      await this.$broadcast()
+   },
    computed: {
       buttonText() {
          return this.validating === true ? 'Submitting...' : 'Submit'

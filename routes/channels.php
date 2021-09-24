@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
+use Illuminate\Support\Facades\Log;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,11 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+  Log::info("user id => ${id}");
+  Log::info("user => ${user}");
+  return (int) $user->id === (int) $id;
+});
+
+Broadcast::channel('events', function ($user) {
+  return true;
 });

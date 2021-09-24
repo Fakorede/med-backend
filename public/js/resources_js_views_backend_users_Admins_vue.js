@@ -145,7 +145,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 6;
                 return axios.post('/api/settings/invite', _objectSpread(_objectSpread({}, _this.user), {}, {
                   role_id: _this.usertype
-                }));
+                }), {
+                  headers: {
+                    'Authorization': "Bearer ".concat(localStorage.getItem('sserpxe_cigam'))
+                  }
+                });
 
               case 6:
                 response = _context.sent;
@@ -302,6 +306,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   created: function created() {
     this.getUsers();
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.$broadcast();
+
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
   data: function data() {
     return {
       users: [],
@@ -310,47 +333,51 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     getUsers: function getUsers() {
-      var _this = this;
+      var _this2 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         var response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
-                _this.loading = true;
-                _context.prev = 1;
-                _context.next = 4;
-                return axios.get('/api/admin/admins');
+                _this2.loading = true;
+                _context2.prev = 1;
+                _context2.next = 4;
+                return axios.get('/api/admin/admins', {
+                  headers: {
+                    'Authorization': "Bearer ".concat(localStorage.getItem('sserpxe_cigam'))
+                  }
+                });
 
               case 4:
-                response = _context.sent;
-                _this.users = response.data.data;
-                _context.next = 13;
+                response = _context2.sent;
+                _this2.users = response.data.data;
+                _context2.next = 13;
                 break;
 
               case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](1);
-                console.log(_context.t0);
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](1);
+                console.log(_context2.t0);
 
-                if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is401)(_context.t0)) {
-                  _this.$logOut();
+                if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is401)(_context2.t0)) {
+                  _this2.$logOut();
                 }
 
-                if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is403)(_context.t0)) {
-                  _this.$toasted.error("Kindly verify your account before performing any actions!");
+                if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is403)(_context2.t0)) {
+                  _this2.$toasted.error("Kindly verify your account before performing any actions!");
                 }
 
               case 13:
-                _this.loading = false;
+                _this2.loading = false;
 
               case 14:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, null, [[1, 8]]);
+        }, _callee2, null, [[1, 8]]);
       }))();
     },
     showModal: function showModal() {
@@ -867,9 +894,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("b-th", [_vm._v("Phone Number")]),
                       _vm._v(" "),
-                      _c("b-th", [_vm._v("Date Added")]),
-                      _vm._v(" "),
-                      _c("b-th", [_vm._v("Invite Status")])
+                      _c("b-th", [_vm._v("Date Added")])
                     ],
                     1
                   ),
@@ -931,31 +956,7 @@ var render = function() {
                                 _vm._v(
                                   _vm._s(_vm._f("dateFilter")(user.created_at))
                                 )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "b-td",
-                                [
-                                  user.is_verified
-                                    ? [
-                                        _c(
-                                          "span",
-                                          {
-                                            staticClass: "badge badge-success"
-                                          },
-                                          [_vm._v("Accepted")]
-                                        )
-                                      ]
-                                    : [
-                                        _c(
-                                          "span",
-                                          { staticClass: "badge badge-info" },
-                                          [_vm._v("Pending")]
-                                        )
-                                      ]
-                                ],
-                                2
-                              )
+                              ])
                             ],
                             1
                           )

@@ -5,8 +5,9 @@ const DashboardLayout = () => import("../layouts/DashboardLayout")
 // auth
 const Login = () => import('../views/auth/Login')
 const RecoverPassword = () => import('../views/auth/RecoverPassword')
-const ResetPassword = () => import('../views/auth/ResetPassword')
 const ConfirmMail = () => import('../views/auth/ConfirmMail')
+const ResetPassword = () => import('../views/auth/ResetPassword')
+const VerifyEmail = () => import('../views/auth/VerifyEmail')
 
 // views
 const Dashboard = () => import('../views/backend/Dashboard')
@@ -22,6 +23,10 @@ const UpdatePassword = () =>import('../views/backend/users/UpdatePassword')
 // orders
 const OrderList = () =>import('../views/backend/orders/OrderList')
 const OrderView = () =>import('../views/backend/orders/OrderView')
+const OrderTrack = () => import('../views/backend/orders/OrderTrack')
+
+const ReadNotifications = () =>import('../views/backend/notifications/Read')
+const UnreadNotifications = () =>import('../views/backend/notifications/Unread')
 
 // 404
 const Error404 = () => import('../views/Error404')
@@ -75,6 +80,24 @@ const childRoutes = () => [
     meta: {  name: 'order-view' },
     component: OrderView
   },
+  {
+    path: 'track-orders',
+    name: 'app.order-track',
+    meta: {  name: 'order-track' },
+    component: OrderTrack
+  },
+  {
+    path: 'notifications/read',
+    name: 'app.notifications-read',
+    meta: {  name: 'notifications-read' },
+    component: ReadNotifications
+  },
+  {
+    path: 'notifications/unread',
+    name: 'app.notifications-unread',
+    meta: {  name: 'notifications-unread' },
+    component: UnreadNotifications
+  },
 ]
 
 const routes = [
@@ -112,6 +135,19 @@ const routes = [
     ]
   },
   {
+    path: '/confirm/mail',
+    name: '',
+    component: BlankLayout,
+    children: [
+      {
+        path: '',
+        name: 'auth.confirm-mail',
+        meta: {  name: 'Confirm Mail' },
+        component: ConfirmMail
+      },
+    ]
+  },
+  {
     path: '/password/reset/:token',
     name: '',
     component: BlankLayout,
@@ -125,15 +161,15 @@ const routes = [
     ]
   },
   {
-    path: '/confirm/mail',
+    path: '/auth/verify/:verifyUrl',
     name: '',
     component: BlankLayout,
     children: [
       {
         path: '',
-        name: 'auth.confirm-mail',
-        meta: {  name: 'Confirm Mail' },
-        component: ConfirmMail
+        name: 'auth.verify-email',
+        meta: {  name: 'Verify Email' },
+        component: VerifyEmail
       },
     ]
   },

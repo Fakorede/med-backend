@@ -15,7 +15,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 //  implements MustVerifyEmail
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, SoftDeletes, Notifiable;
 
@@ -90,6 +90,16 @@ class User extends Authenticatable
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
+    }
+
+    /**
+     * Get user orders.
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(
+            Order::class, 'user_id'
+        )->where('role_id', 3);
     }
 
     /**

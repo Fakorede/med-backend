@@ -185,9 +185,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _config_pluginInit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../config/pluginInit */ "./resources/js/config/pluginInit.js");
-/* harmony import */ var _fullscreen_Fullscreen__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../fullscreen/Fullscreen */ "./resources/js/components/fullscreen/Fullscreen.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _config_pluginInit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../config/pluginInit */ "./resources/js/config/pluginInit.js");
+/* harmony import */ var _fullscreen_Fullscreen__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../fullscreen/Fullscreen */ "./resources/js/components/fullscreen/Fullscreen.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -362,52 +364,189 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Header",
   components: {
-    Fullscreen: _fullscreen_Fullscreen__WEBPACK_IMPORTED_MODULE_2__.default
+    Fullscreen: _fullscreen_Fullscreen__WEBPACK_IMPORTED_MODULE_3__.default
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)({
+  mounted: function mounted() {
+    var _this = this;
+
+    setTimeout(function () {
+      _this.getUnread();
+    }, 3000);
+  },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)({
     logo: 'app/darklogo',
     sidelogo: 'app/logo',
-    user: 'auth/user'
+    user: 'auth/user',
+    notifications: 'notifications/unread'
   })),
-  methods: {
+  filters: {
+    dateTime: function dateTime(value) {
+      if (!value) return '';
+      return moment__WEBPACK_IMPORTED_MODULE_1___default()(value).format('DD-MM-YY hh:mm:ss');
+    }
+  },
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)({
+    getNotifications: 'notifications/getNotifications'
+  })), {}, {
     miniSidebar: function miniSidebar() {
-      _config_pluginInit__WEBPACK_IMPORTED_MODULE_1__.core.triggerSet();
+      _config_pluginInit__WEBPACK_IMPORTED_MODULE_2__.core.triggerSet();
     },
-    logOut: function logOut() {
-      var _this = this;
+    getUnread: function getUnread() {
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return _this.$store.dispatch('auth/logOut');
+                try {
+                  _this2.getNotifications('unread');
+                } catch (error) {
+                  console.log(error);
 
-              case 2:
-                _context.next = 4;
-                return _this.$router.push({
-                  name: 'auth.login'
-                });
+                  if (is401(error)) {
+                    _this2.$logOut();
+                  }
 
-              case 4:
-                _this.$toasted.success('Successfully loggged out!');
+                  if (is403(error)) {
+                    _this2.$toasted.error("Kindly verify your account before performing any actions!");
+                  }
+                }
 
-              case 5:
+              case 1:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
       }))();
+    },
+    logOut: function logOut() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this3.$store.dispatch('auth/logOut');
+
+              case 2:
+                _context2.next = 4;
+                return _this3.$router.push({
+                  name: 'auth.login'
+                });
+
+              case 4:
+                _this3.$toasted.success('Successfully loggged out!');
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
-  }
+  })
 });
 
 /***/ }),
@@ -1349,8 +1488,8 @@ var render = function() {
                         directives: [
                           {
                             name: "b-toggle",
-                            rawName: "v-b-toggle.survey",
-                            modifiers: { survey: true }
+                            rawName: "v-b-toggle.orders",
+                            modifiers: { orders: true }
                           }
                         ],
                         staticClass: "collapsed",
@@ -1401,7 +1540,7 @@ var render = function() {
                         staticClass: "mm-submenu sub-scrll",
                         attrs: {
                           tag: "ul",
-                          id: "survey",
+                          id: "orders",
                           "data-parent": "#mm-sidebar-toggle"
                         }
                       },
@@ -1498,7 +1637,7 @@ var render = function() {
                               "router-link",
                               {
                                 staticClass: "svg-icon",
-                                attrs: { to: { name: "app.order-list" } }
+                                attrs: { to: { name: "app.order-track" } }
                               },
                               [
                                 _c("i", {}, [
@@ -1528,7 +1667,212 @@ var render = function() {
                                   )
                                 ]),
                                 _vm._v(" "),
-                                _c("span", [_vm._v("Track Order")])
+                                _c("span", [_vm._v("Track Orders")])
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: " " },
+                  [
+                    _c(
+                      "a",
+                      {
+                        directives: [
+                          {
+                            name: "b-toggle",
+                            rawName: "v-b-toggle.notifications",
+                            modifiers: { notifications: true }
+                          }
+                        ],
+                        staticClass: "collapsed",
+                        attrs: {
+                          "data-toggle": "collapse",
+                          "aria-expanded": "false"
+                        }
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "svg-icon text-primary",
+                            attrs: {
+                              id: "mm-app-1",
+                              width: "20",
+                              xmlns: "http://www.w3.org/2000/svg",
+                              fill: "none",
+                              viewBox: "0 0 24 24",
+                              stroke: "currentColor"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                "stroke-linecap": "round",
+                                "stroke-linejoin": "round",
+                                "stroke-width": "2",
+                                d:
+                                  "M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm._m(2),
+                        _vm._v(" "),
+                        _c("i", {
+                          staticClass: "ri-arrow-right-s-line mm-arrow-right"
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "b-collapse",
+                      {
+                        directives: [{ name: "hover", rawName: "v-hover" }],
+                        staticClass: "mm-submenu sub-scrll",
+                        attrs: {
+                          tag: "ul",
+                          id: "notifications",
+                          "data-parent": "#mm-sidebar-toggle"
+                        }
+                      },
+                      [
+                        _c(
+                          "li",
+                          { staticClass: " " },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "svg-icon",
+                                attrs: {
+                                  to: { name: "app.notifications-unread" }
+                                }
+                              },
+                              [
+                                _c("i", {}, [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass: "svg-icon",
+                                      attrs: {
+                                        id: "mm-form-2",
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        width: "20",
+                                        viewBox: "0 0 24 24",
+                                        "stroke-width": "1.5",
+                                        stroke: "#2c3e50",
+                                        fill: "none",
+                                        "stroke-linecap": "round",
+                                        "stroke-linejoin": "round"
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          stroke: "none",
+                                          d: "M0 0h24v24H0z",
+                                          fill: "none"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("rect", {
+                                        attrs: {
+                                          x: "5",
+                                          y: "3",
+                                          width: "14",
+                                          height: "18",
+                                          rx: "2"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("line", {
+                                        attrs: {
+                                          x1: "9",
+                                          y1: "7",
+                                          x2: "15",
+                                          y2: "7"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("line", {
+                                        attrs: {
+                                          x1: "9",
+                                          y1: "11",
+                                          x2: "15",
+                                          y2: "11"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("line", {
+                                        attrs: {
+                                          x1: "9",
+                                          y1: "15",
+                                          x2: "13",
+                                          y2: "15"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("span", [_vm._v("Unread Notifications")])
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "li",
+                          { staticClass: " " },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "svg-icon",
+                                attrs: {
+                                  to: { name: "app.notifications-read" }
+                                }
+                              },
+                              [
+                                _c("i", {}, [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass: "svg-icon",
+                                      attrs: {
+                                        id: "mm-user-1-3",
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        fill: "none",
+                                        viewBox: "0 0 24 24",
+                                        stroke: "currentColor"
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          "stroke-linecap": "round",
+                                          "stroke-linejoin": "round",
+                                          "stroke-width": "2",
+                                          d:
+                                            "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("span", [_vm._v("Read Notifications")])
                               ]
                             )
                           ],
@@ -1655,6 +1999,218 @@ var render = function() {
                       _c(
                         "a",
                         {
+                          staticClass: "search-toggle dropdown-toggle",
+                          attrs: {
+                            href: "#",
+                            id: "dropdownMenuButton",
+                            "data-toggle": "dropdown",
+                            "aria-haspopup": "true",
+                            "aria-expanded": "false"
+                          }
+                        },
+                        [
+                          _c(
+                            "svg",
+                            {
+                              staticClass:
+                                "svg-icon feather feather-bell text-primary",
+                              attrs: {
+                                id: "mm-bell-2",
+                                xmlns: "http://www.w3.org/2000/svg",
+                                width: "20",
+                                viewBox: "0 0 24 24",
+                                fill: "none",
+                                stroke: "currentColor",
+                                "stroke-width": "2",
+                                "stroke-linecap": "round",
+                                "stroke-linejoin": "round"
+                              }
+                            },
+                            [
+                              _c("path", {
+                                attrs: {
+                                  d:
+                                    "M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("path", {
+                                attrs: { d: "M13.73 21a2 2 0 0 1-3.46 0" }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "bg-primary dots" })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "mm-sub-dropdown dropdown-menu",
+                          attrs: { "aria-labelledby": "dropdownMenuButton" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "card shadow-none m-0 border-0" },
+                            [
+                              _c("div", { staticClass: "card-body p-0 " }, [
+                                _c("div", { staticClass: "cust-title p-3" }, [
+                                  _c("h5", { staticClass: "mb-0" }, [
+                                    _vm._v("All Notifications")
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "p-3" },
+                                  [
+                                    _vm.notifications.length
+                                      ? [
+                                          _vm._l(_vm.notifications, function(
+                                            notification,
+                                            index
+                                          ) {
+                                            return [
+                                              _c(
+                                                "a",
+                                                {
+                                                  key: "notification" + index,
+                                                  staticClass: "mm-sub-card",
+                                                  attrs: { href: "#" }
+                                                },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "media align-items-center"
+                                                    },
+                                                    [
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "media-body ml-3"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "h6",
+                                                            {
+                                                              staticClass:
+                                                                "mb-0"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t" +
+                                                                  _vm._s(
+                                                                    notification.data.message.substring(
+                                                                      0,
+                                                                      25
+                                                                    )
+                                                                  ) +
+                                                                  "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                                                              ),
+                                                              _c(
+                                                                "small",
+                                                                {
+                                                                  staticClass:
+                                                                    "badge badge-success float-right"
+                                                                },
+                                                                [_vm._v("New")]
+                                                              )
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "p",
+                                                            {
+                                                              staticClass:
+                                                                "mb-0 small"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t" +
+                                                                  _vm._s(
+                                                                    _vm._f(
+                                                                      "dateTime"
+                                                                    )(
+                                                                      notification.created_at
+                                                                    )
+                                                                  ) +
+                                                                  "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          })
+                                        ]
+                                      : [_vm._v("No New Notifications")]
+                                  ],
+                                  2
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass:
+                                      "right-ic btn btn-primary btn-block position-relative p-2",
+                                    attrs: { href: "#", role: "button" }
+                                  },
+                                  [
+                                    _c("div", { staticClass: "dd-icon" }, [
+                                      _c("i", {
+                                        staticClass: "las la-arrow-right mr-0"
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "router-link",
+                                      {
+                                        attrs: {
+                                          to: {
+                                            name: "app.notifications-unread"
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "span",
+                                          { staticClass: "text-white" },
+                                          [_vm._v("View All")]
+                                        )
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    {
+                      directives: [
+                        { name: "nav-toggle", rawName: "v-nav-toggle" }
+                      ],
+                      staticClass: "nav-item nav-icon dropdown"
+                    },
+                    [
+                      _c(
+                        "a",
+                        {
                           staticClass:
                             "nav-item nav-icon dropdown-toggle pr-0 search-toggle",
                           attrs: {
@@ -1665,8 +2221,10 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._v("\n\t\t\t\t\t\t\t\tWelcome, Admin "),
-                          _vm.user ? [_vm._v(_vm._s(_vm.user.name))] : _vm._e()
+                          _vm._v("\n\t\t\t\t\t\t\t\tWelcome, "),
+                          _vm.user
+                            ? [_vm._v(_vm._s(_vm.user.first_name))]
+                            : _vm._e()
                         ],
                         2
                       ),
@@ -1795,6 +2353,14 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("h4", [_c("span", { staticClass: "ml-2" }, [_vm._v("Orders")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h4", [
+      _c("span", { staticClass: "ml-2" }, [_vm._v("Notifications")])
+    ])
   }
 ]
 render._withStripped = true

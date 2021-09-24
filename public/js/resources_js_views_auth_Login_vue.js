@@ -128,22 +128,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _yield$axios$post = _context.sent;
                 data = _yield$axios$post.data;
                 _context.next = 9;
-                return _this.$store.dispatch('auth/logIn', data.data.user);
+                return localStorage.setItem('sserpxe_cigam', data.data.access_token);
 
               case 9:
                 _context.next = 11;
+                return _this.$store.dispatch('auth/logIn', data.data.user);
+
+              case 11:
+                _context.next = 13;
                 return _this.$router.push({
                   name: 'app.dashboard'
                 });
 
-              case 11:
-                _this.$toasted.success('Successfully logged in!');
+              case 13:
+                _context.next = 15;
+                return _this.$toasted.success('Successfully logged in!');
 
-                _context.next = 18;
+              case 15:
+                _context.next = 21;
                 break;
 
-              case 14:
-                _context.prev = 14;
+              case 17:
+                _context.prev = 17;
                 _context.t0 = _context["catch"](2);
 
                 if ((0,_config_response__WEBPACK_IMPORTED_MODULE_1__.is400)(_context.t0)) {
@@ -155,15 +161,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.$toasted.error(_context.t0.response.data.error); // this.$toasted.error("Error: login request failed")
 
 
-              case 18:
+              case 21:
                 _this.validating = false;
 
-              case 19:
+              case 22:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[2, 14]]);
+        }, _callee, null, [[2, 17]]);
       }))();
     }
   }

@@ -35,7 +35,7 @@
                   <b-th>Email</b-th>
                   <b-th>Phone Number</b-th>
                   <b-th>Date Added</b-th>
-                  <b-th>Invite Status</b-th>
+                  <!-- <b-th>Invite Status</b-th> -->
                 </b-thead>
                 <b-tr class="text-center" v-if="loading">
                   <b-td></b-td>
@@ -52,14 +52,14 @@
                     <b-td>{{user.email}}</b-td>
                     <b-td>{{user.phone_number}}</b-td>
                     <b-td>{{user.created_at | dateFilter}}</b-td>
-                    <b-td>
+                    <!-- <b-td>
                       <template v-if="user.is_verified">
                         <span class="badge badge-success">Accepted</span>
                       </template>
                       <template v-else>
                         <span class="badge badge-info">Pending</span>
                       </template>
-                    </b-td>
+                    </b-td> -->
                   </b-tr>
                 </b-tbody>
                 <b-tbody v-else>
@@ -83,6 +83,9 @@ export default {
   created() {
     this.getUsers()
   },
+  async mounted() {
+    await this.$broadcast()
+  },
   data() {
     return {
       users: [],
@@ -93,7 +96,9 @@ export default {
     async getUsers() {
       this.loading = true
       try {
-        const response = await axios.get('/api/admin/admins')
+        const response = await axios.get('/api/admin/admins', {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('sserpxe_cigam')}` }
+        })
         this.users = response.data.data
       } catch (error) {
         console.log(error)

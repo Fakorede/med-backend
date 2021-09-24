@@ -87,9 +87,11 @@ export default {
                password: this.password
             })
 
+            await localStorage.setItem('sserpxe_cigam', data.data.access_token)
             await this.$store.dispatch('auth/logIn', data.data.user)
             await this.$router.push({name: 'app.dashboard'})
-            this.$toasted.success('Successfully logged in!')
+            await this.$toasted.success('Successfully logged in!')
+
          } catch(error) {
             if(is400(error)) {
                this.errors = error.response.data.error

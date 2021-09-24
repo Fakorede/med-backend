@@ -15,13 +15,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _OrderModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OrderModal */ "./resources/js/views/backend/orders/OrderModal.vue");
 /* harmony import */ var _config_response__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../config/response */ "./resources/js/config/response.js");
-
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -252,44 +252,74 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
- // import { OTHER_SYMPTOMS_LIST, BREATHING_SYMPTOMS_LIST, COUGH_SYMPTOMS_LIST, SEVERITY_OF_ILLNESS, LOCATIONS } from "../../../config/symptoms";
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OrderList',
   components: {
     OrderBody: _OrderModal__WEBPACK_IMPORTED_MODULE_1__.default
   },
-  created: function created() {
-    this.getOrders();
+  mounted: function mounted() {
+    var _this = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return _this.getOrders();
+
+            case 2:
+              _context.next = 4;
+              return _this.$broadcast();
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   },
   data: function data() {
     return {
       loading: false,
       downloading: false,
       orders: {},
-      params: {
-        sort_field: 'date',
-        sort_direction: 'desc',
-        high_risk_group: '',
-        date: '',
-        gender: '',
-        covidRisk: '',
-        selectedIllness: [],
-        selectedCoughSymptoms: [],
-        selectedBreathingSymptoms: [],
-        selectedOtherSymptoms: [],
-        perPage: 10,
-        selectedState: '',
-        selectedCounty: '',
-        vaccinated: ''
-      },
       singleOrder: {},
-      otherSymptoms: OTHER_SYMPTOMS_LIST,
-      coughSymptoms: COUGH_SYMPTOMS_LIST,
-      breathingSymptoms: BREATHING_SYMPTOMS_LIST,
-      severitySymptoms: SEVERITY_OF_ILLNESS,
-      locations: LOCATIONS,
+      params: {
+        perPage: 10,
+        sort_field: 'created_at',
+        sort_direction: 'desc',
+        order_type: '',
+        order_status: '',
+        payment_status: '',
+        personnel_option: '' // high_risk_group: '',
+        // date: '',
+        // gender: '',
+        // covidRisk: '',
+        // selectedIllness: [],
+        // selectedCoughSymptoms: [],
+        // selectedBreathingSymptoms: [],
+        // selectedOtherSymptoms: [],
+
+      },
+      otherSymptoms: [],
+      coughSymptoms: [],
+      breathingSymptoms: [],
+      severitySymptoms: [],
+      locations: [],
       counties: null
     };
   },
@@ -308,175 +338,153 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     getOrders: function getOrders() {
       var _arguments = arguments,
-          _this = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var page, response;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
-                _this.loading = true;
-                _context.prev = 2;
-                _context.next = 5;
-                return axios.get('/backend/dashboard/responses/' + _this.params.perPage, {
-                  params: _objectSpread({
-                    page: page
-                  }, _this.params)
-                });
-
-              case 5:
-                response = _context.sent;
-                _this.loading = false;
-                _this.responses = response.data;
-                _context.next = 15;
-                break;
-
-              case 10:
-                _context.prev = 10;
-                _context.t0 = _context["catch"](2);
-                console.log(_context.t0);
-                _this.loading = false;
-
-                if ((0,_config_response__WEBPACK_IMPORTED_MODULE_2__.is401)(_context.t0)) {
-                  _this.$logOut();
-                }
-
-              case 15:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, null, [[2, 10]]);
-      }))();
-    },
-    changeSort: function changeSort(field) {
-      var _this2 = this;
+          _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var page, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (_this2.params.sort_field === field) {
-                  _this2.params.sort_direction = _this2.params.sort_direction === 'asc' ? 'desc' : 'asc';
-                } else {
-                  _this2.params.sort_field = field;
-                  _this2.params.sort_direction = 'asc';
+                page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
+                _this2.loading = true;
+                _context2.prev = 2;
+                _context2.next = 5;
+                return axios.get('/api/admin/orders/' + _this2.params.perPage, {
+                  params: _objectSpread({
+                    page: page
+                  }, _this2.params),
+                  headers: {
+                    'Authorization': "Bearer ".concat(localStorage.getItem('sserpxe_cigam'))
+                  }
+                });
+
+              case 5:
+                response = _context2.sent;
+                _this2.loading = false;
+                _this2.orders = response.data;
+                _context2.next = 15;
+                break;
+
+              case 10:
+                _context2.prev = 10;
+                _context2.t0 = _context2["catch"](2);
+                console.log(_context2.t0);
+                _this2.loading = false;
+
+                if ((0,_config_response__WEBPACK_IMPORTED_MODULE_2__.is401)(_context2.t0)) {
+                  _this2.$logOut();
                 }
 
-                _this2.getResponses();
-
-              case 2:
+              case 15:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, null, [[2, 10]]);
       }))();
     },
-    showModal: function showModal(response) {
-      this.singleOrder = {};
-      $('#orderModal').modal('show');
-      this.singleOrder = response;
-    },
-    changePageParam: function changePageParam(val) {
-      this.params.perPage = parseInt(val);
-    },
-    countyInState: function countyInState(val) {
-      var list = this.locations.filter(function (state) {
-        return state.name === val;
-      });
-
-      if (list.length > 0) {
-        this.counties = list[0].counties;
-      } else {
-        this.counties = null;
-      }
-    },
-    clearFilters: function clearFilters() {
-      this.params.sort_field = 'date';
-      this.params.sort_direction = 'desc';
-      this.params.high_risk_group = '';
-      this.params.date = '';
-      this.params.gender = '';
-      this.params.covidRisk = '';
-      this.params.selectedIllness = [];
-      this.params.selectedCoughSymptoms = [];
-      this.params.selectedBreathingSymptoms = [];
-      this.params.selectedOtherSymptoms = [];
-      this.params.perPage = 10;
-      this.params.selectedCounty = null;
-      this.params.selectedState = '';
-      this.counties = null;
-      this.getResponses();
-    },
-    downloadData: function downloadData() {
+    changeSort: function changeSort(field) {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _this3.downloading = true;
-                _context3.prev = 1;
-                _context3.next = 4;
-                return axios.get('/backend/response/download', {
-                  params: _objectSpread({}, _this3.params)
-                });
-
-              case 4:
-                response = _context3.sent;
-                _this3.downloading = false;
-
-                _this3.forceDownload(response.data);
-
-                _context3.next = 15;
-                break;
-
-              case 9:
-                _context3.prev = 9;
-                _context3.t0 = _context3["catch"](1);
-                console.log(_context3.t0);
-                _this3.downloading = false;
-
-                if ((0,_config_response__WEBPACK_IMPORTED_MODULE_2__.is401)(_context3.t0)) {
-                  _this3.$logOut();
+                if (_this3.params.sort_field === field) {
+                  _this3.params.sort_direction = _this3.params.sort_direction === 'asc' ? 'desc' : 'asc';
+                } else {
+                  _this3.params.sort_field = field;
+                  _this3.params.sort_direction = 'asc';
                 }
 
-                _this3.$toasted.error('Error: unable to download responses');
+                _this3.getOrders();
 
-              case 15:
+              case 2:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[1, 9]]);
+        }, _callee3);
       }))();
     },
-    forceDownload: function forceDownload(response) {
-      var blob = new Blob([response], {
-        type: 'data:application/octet-stream'
-      });
-      var blobURL = window.URL.createObjectURL(blob);
-      var tempLink = document.createElement('a');
-      tempLink.style.display = 'none';
-      tempLink.href = blobURL;
-      tempLink.setAttribute('download', 'RESPONSES.csv');
+    showModal: function showModal(order) {
+      this.singleOrder = {};
+      $('#orderModal').modal('show');
+      this.singleOrder = order;
+    },
+    changePageParam: function changePageParam(val) {
+      this.params.perPage = parseInt(val);
+    },
+    countyInState: function countyInState(val) {//     const list = this.locations.filter((state) => state.name === val)
+      //     if (list.length > 0) {
+      //         this.counties = list[0].counties
+      //     }else {
+      //         this.counties = null
+      //     }
+    },
+    clearFilters: function clearFilters() {//     this.params.sort_field = 'date'
+      //     this.params.sort_direction = 'desc'
+      //     this.params.high_risk_group = ''
+      //     this.params.date = ''
+      //     this.params.gender = ''
+      //     this.params.covidRisk = ''
+      //     this.params.selectedIllness = []
+      //     this.params.selectedCoughSymptoms = []
+      //     this.params.selectedBreathingSymptoms = []
+      //     this.params.selectedOtherSymptoms = []
+      //     this.params.perPage = 10
+      //     this.params.selectedCounty = null
+      //     this.params.selectedState = ''
+      //     this.counties = null
+      //     this.getOrders()
+    },
+    downloadData: function downloadData() {//     this.downloading = true
+      //     try {
+      //         const response = await axios.get('/backend/response/download', {
+      //             params: {
+      //                 ...this.params
+      //             }
+      //         })
+      //         this.downloading = false
+      //         this.forceDownload(response.data)
+      //     } catch (error) {
+      //         console.log(error)
+      //         this.downloading = false
+      //         if(is401(error)){
+      //             this.$logOut()
+      //         }
+      //         this.$toasted.error('Error: unable to download orders')
+      //     }
 
-      if (typeof tempLink.download === 'undefined') {
-        tempLink.setAttribute('target', '_blank');
-      }
-
-      document.body.appendChild(tempLink);
-      tempLink.click();
-      document.body.removeChild(tempLink);
-      setTimeout(function () {
-        window.URL.revokeObjectURL(blobURL);
-      }, 100);
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    forceDownload: function forceDownload(response) {//       const blob = new Blob([response], { type: 'data:application/octet-stream' })
+      //       const blobURL = window.URL.createObjectURL(blob)
+      //       const tempLink = document.createElement('a')
+      //       tempLink.style.display = 'none'
+      //       tempLink.href = blobURL
+      //       tempLink.setAttribute('download', 'ORDERS.csv')
+      //       if (typeof tempLink.download === 'undefined') {
+      //           tempLink.setAttribute('target', '_blank')
+      //       }
+      //       document.body.appendChild(tempLink)
+      //       tempLink.click()
+      //       document.body.removeChild(tempLink)
+      //       setTimeout(() => {
+      //           window.URL.revokeObjectURL(blobURL)
+      //       }, 100)
     }
   }
 });
@@ -1124,7 +1132,7 @@ var render = function() {
                 "div",
                 { staticClass: "form-group" },
                 [
-                  _c("label", [_vm._v("Date:")]),
+                  _vm._m(1),
                   _c(
                     "label",
                     {
@@ -1157,7 +1165,7 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Gender:")]),
+                _vm._m(2),
                 _vm._v(" "),
                 _c("div", { staticClass: "custom-control custom-radio" }, [
                   _c("input", {
@@ -1165,21 +1173,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.params.gender,
-                        expression: "params.gender"
+                        value: _vm.params.order_type,
+                        expression: "params.order_type"
                       }
                     ],
                     staticClass: "custom-control-input",
                     attrs: {
                       type: "radio",
-                      id: "male",
-                      name: "gender",
-                      value: "male"
+                      id: "Dispatch",
+                      name: "order_type",
+                      value: "Dispatch"
                     },
-                    domProps: { checked: _vm._q(_vm.params.gender, "male") },
+                    domProps: {
+                      checked: _vm._q(_vm.params.order_type, "Dispatch")
+                    },
                     on: {
                       change: function($event) {
-                        return _vm.$set(_vm.params, "gender", "male")
+                        return _vm.$set(_vm.params, "order_type", "Dispatch")
                       }
                     }
                   }),
@@ -1188,9 +1198,9 @@ var render = function() {
                     "label",
                     {
                       staticClass: "custom-control-label",
-                      attrs: { for: "male" }
+                      attrs: { for: "Dispatch" }
                     },
-                    [_vm._v(" Male ")]
+                    [_vm._v("Dispatch")]
                   )
                 ]),
                 _vm._v(" "),
@@ -1200,21 +1210,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.params.gender,
-                        expression: "params.gender"
+                        value: _vm.params.order_type,
+                        expression: "params.order_type"
                       }
                     ],
                     staticClass: "custom-control-input",
                     attrs: {
                       type: "radio",
-                      id: "female",
-                      name: "gender",
-                      value: "female"
+                      id: "Errand",
+                      name: "order_type",
+                      value: "Errand"
                     },
-                    domProps: { checked: _vm._q(_vm.params.gender, "female") },
+                    domProps: {
+                      checked: _vm._q(_vm.params.order_type, "Errand")
+                    },
                     on: {
                       change: function($event) {
-                        return _vm.$set(_vm.params, "gender", "female")
+                        return _vm.$set(_vm.params, "order_type", "Errand")
                       }
                     }
                   }),
@@ -1223,9 +1235,9 @@ var render = function() {
                     "label",
                     {
                       staticClass: "custom-control-label",
-                      attrs: { for: "female" }
+                      attrs: { for: "Errand" }
                     },
-                    [_vm._v(" female ")]
+                    [_vm._v(" Errand ")]
                   )
                 ]),
                 _vm._v(" "),
@@ -1235,22 +1247,22 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.params.gender,
-                        expression: "params.gender"
+                        value: _vm.params.order_type,
+                        expression: "params.order_type"
                       }
                     ],
                     staticClass: "custom-control-input",
                     attrs: {
                       type: "radio",
                       id: "all",
-                      name: "gender",
+                      name: "order_type",
                       checked: "checked",
                       value: "all"
                     },
-                    domProps: { checked: _vm._q(_vm.params.gender, "all") },
+                    domProps: { checked: _vm._q(_vm.params.order_type, "all") },
                     on: {
                       change: function($event) {
-                        return _vm.$set(_vm.params, "gender", "all")
+                        return _vm.$set(_vm.params, "order_type", "all")
                       }
                     }
                   }),
@@ -1267,7 +1279,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Covid Exposure Risk:")]),
+                _vm._m(3),
                 _vm._v(" "),
                 _c("div", { staticClass: "custom-control custom-radio" }, [
                   _c("input", {
@@ -1275,58 +1287,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.params.covidRisk,
-                        expression: "params.covidRisk"
+                        value: _vm.params.order_status,
+                        expression: "params.order_status"
                       }
                     ],
                     staticClass: "custom-control-input",
                     attrs: {
                       type: "radio",
-                      id: "low1",
-                      name: "risk_group",
-                      value: "low"
-                    },
-                    domProps: { checked: _vm._q(_vm.params.covidRisk, "low") },
-                    on: {
-                      change: function($event) {
-                        return _vm.$set(_vm.params, "covidRisk", "low")
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "label",
-                    {
-                      staticClass: "custom-control-label",
-                      attrs: { for: "low1" }
-                    },
-                    [_vm._v(" Low ")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "custom-control custom-radio" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.params.covidRisk,
-                        expression: "params.covidRisk"
-                      }
-                    ],
-                    staticClass: "custom-control-input",
-                    attrs: {
-                      type: "radio",
-                      id: "medium1",
-                      name: "risk_group",
-                      value: "medium"
+                      id: "Created",
+                      name: "order_status",
+                      value: "Created"
                     },
                     domProps: {
-                      checked: _vm._q(_vm.params.covidRisk, "medium")
+                      checked: _vm._q(_vm.params.order_status, "Created")
                     },
                     on: {
                       change: function($event) {
-                        return _vm.$set(_vm.params, "covidRisk", "medium")
+                        return _vm.$set(_vm.params, "order_status", "Created")
                       }
                     }
                   }),
@@ -1335,9 +1312,9 @@ var render = function() {
                     "label",
                     {
                       staticClass: "custom-control-label",
-                      attrs: { for: "medium1" }
+                      attrs: { for: "Created" }
                     },
-                    [_vm._v(" Medium ")]
+                    [_vm._v("Created")]
                   )
                 ]),
                 _vm._v(" "),
@@ -1347,21 +1324,23 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.params.covidRisk,
-                        expression: "params.covidRisk"
+                        value: _vm.params.order_status,
+                        expression: "params.order_status"
                       }
                     ],
                     staticClass: "custom-control-input",
                     attrs: {
                       type: "radio",
-                      id: "high1",
-                      name: "risk_group",
-                      value: "high"
+                      id: "Processed",
+                      name: "order_status",
+                      value: "Processed"
                     },
-                    domProps: { checked: _vm._q(_vm.params.covidRisk, "high") },
+                    domProps: {
+                      checked: _vm._q(_vm.params.order_status, "Processed")
+                    },
                     on: {
                       change: function($event) {
-                        return _vm.$set(_vm.params, "covidRisk", "high")
+                        return _vm.$set(_vm.params, "order_status", "Processed")
                       }
                     }
                   }),
@@ -1370,15 +1349,336 @@ var render = function() {
                     "label",
                     {
                       staticClass: "custom-control-label",
-                      attrs: { for: "high1" }
+                      attrs: { for: "Processed" }
                     },
-                    [_vm._v(" High ")]
+                    [_vm._v("Processed")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "custom-control custom-radio" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.order_status,
+                        expression: "params.order_status"
+                      }
+                    ],
+                    staticClass: "custom-control-input",
+                    attrs: {
+                      type: "radio",
+                      id: "Assigned",
+                      name: "order_status",
+                      value: "Assigned"
+                    },
+                    domProps: {
+                      checked: _vm._q(_vm.params.order_status, "Assigned")
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(_vm.params, "order_status", "Assigned")
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "custom-control-label",
+                      attrs: { for: "Assigned" }
+                    },
+                    [_vm._v("Assigned")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "custom-control custom-radio" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.order_status,
+                        expression: "params.order_status"
+                      }
+                    ],
+                    staticClass: "custom-control-input",
+                    attrs: {
+                      type: "radio",
+                      id: "In-Transit",
+                      name: "order_status",
+                      value: "In-Transit"
+                    },
+                    domProps: {
+                      checked: _vm._q(_vm.params.order_status, "In-Transit")
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(
+                          _vm.params,
+                          "order_status",
+                          "In-Transit"
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "custom-control-label",
+                      attrs: { for: "In-Transit" }
+                    },
+                    [_vm._v("In Transit")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "custom-control custom-radio" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.order_status,
+                        expression: "params.order_status"
+                      }
+                    ],
+                    staticClass: "custom-control-input",
+                    attrs: {
+                      type: "radio",
+                      id: "Delivered",
+                      name: "order_status",
+                      value: "Delivered"
+                    },
+                    domProps: {
+                      checked: _vm._q(_vm.params.order_status, "Delivered")
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(_vm.params, "order_status", "Delivered")
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "custom-control-label",
+                      attrs: { for: "Delivered" }
+                    },
+                    [_vm._v("Delivered")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "custom-control custom-radio" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.order_status,
+                        expression: "params.order_status"
+                      }
+                    ],
+                    staticClass: "custom-control-input",
+                    attrs: {
+                      type: "radio",
+                      id: "all",
+                      name: "order_status",
+                      checked: "checked",
+                      value: "all"
+                    },
+                    domProps: {
+                      checked: _vm._q(_vm.params.order_status, "all")
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(_vm.params, "order_status", "all")
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "custom-control-label",
+                      attrs: { for: "all" }
+                    },
+                    [_vm._v(" All ")]
                   )
                 ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v(" VACCINATED ? ")]),
+                _vm._m(4),
+                _vm._v(" "),
+                _c("div", { staticClass: "custom-control custom-radio" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.personnel_option,
+                        expression: "params.personnel_option"
+                      }
+                    ],
+                    staticClass: "custom-control-input",
+                    attrs: {
+                      type: "radio",
+                      id: "Sender",
+                      name: "personnel_option",
+                      value: "Sender"
+                    },
+                    domProps: {
+                      checked: _vm._q(_vm.params.personnel_option, "Sender")
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(
+                          _vm.params,
+                          "personnel_option",
+                          "Sender"
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "custom-control-label",
+                      attrs: { for: "Sender" }
+                    },
+                    [_vm._v("Sender")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "custom-control custom-radio" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.personnel_option,
+                        expression: "params.personnel_option"
+                      }
+                    ],
+                    staticClass: "custom-control-input",
+                    attrs: {
+                      type: "radio",
+                      id: "Receiver",
+                      name: "personnel_option",
+                      value: "Receiver"
+                    },
+                    domProps: {
+                      checked: _vm._q(_vm.params.personnel_option, "Receiver")
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(
+                          _vm.params,
+                          "personnel_option",
+                          "Receiver"
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "custom-control-label",
+                      attrs: { for: "Receiver" }
+                    },
+                    [_vm._v(" Receiver ")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "custom-control custom-radio" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.personnel_option,
+                        expression: "params.personnel_option"
+                      }
+                    ],
+                    staticClass: "custom-control-input",
+                    attrs: {
+                      type: "radio",
+                      id: "Third-party",
+                      name: "personnel_option",
+                      value: "Third-party"
+                    },
+                    domProps: {
+                      checked: _vm._q(
+                        _vm.params.personnel_option,
+                        "Third-party"
+                      )
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(
+                          _vm.params,
+                          "personnel_option",
+                          "Third-party"
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "custom-control-label",
+                      attrs: { for: "Third-party" }
+                    },
+                    [_vm._v(" Third-party ")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "custom-control custom-radio" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.params.personnel_option,
+                        expression: "params.personnel_option"
+                      }
+                    ],
+                    staticClass: "custom-control-input",
+                    attrs: {
+                      type: "radio",
+                      id: "all",
+                      name: "personnel_option",
+                      checked: "checked",
+                      value: "all"
+                    },
+                    domProps: {
+                      checked: _vm._q(_vm.params.personnel_option, "all")
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.$set(_vm.params, "personnel_option", "all")
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "custom-control-label",
+                      attrs: { for: "all" }
+                    },
+                    [_vm._v(" All ")]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _vm._m(5),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -1392,47 +1692,47 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.params.vaccinated,
-                          expression: "params.vaccinated"
+                          value: _vm.params.payment_status,
+                          expression: "params.payment_status"
                         }
                       ],
                       staticClass: "custom-control-input bg-primary",
                       attrs: {
-                        name: "vaccinated",
-                        id: "vaccinated",
+                        name: "payment_status",
+                        id: "payment_status",
                         type: "checkbox",
-                        value: "yes"
+                        value: "Paid"
                       },
                       domProps: {
-                        checked: Array.isArray(_vm.params.vaccinated)
-                          ? _vm._i(_vm.params.vaccinated, "yes") > -1
-                          : _vm.params.vaccinated
+                        checked: Array.isArray(_vm.params.payment_status)
+                          ? _vm._i(_vm.params.payment_status, "Paid") > -1
+                          : _vm.params.payment_status
                       },
                       on: {
                         change: function($event) {
-                          var $$a = _vm.params.vaccinated,
+                          var $$a = _vm.params.payment_status,
                             $$el = $event.target,
                             $$c = $$el.checked ? true : false
                           if (Array.isArray($$a)) {
-                            var $$v = "yes",
+                            var $$v = "Paid",
                               $$i = _vm._i($$a, $$v)
                             if ($$el.checked) {
                               $$i < 0 &&
                                 _vm.$set(
                                   _vm.params,
-                                  "vaccinated",
+                                  "payment_status",
                                   $$a.concat([$$v])
                                 )
                             } else {
                               $$i > -1 &&
                                 _vm.$set(
                                   _vm.params,
-                                  "vaccinated",
+                                  "payment_status",
                                   $$a.slice(0, $$i).concat($$a.slice($$i + 1))
                                 )
                             }
                           } else {
-                            _vm.$set(_vm.params, "vaccinated", $$c)
+                            _vm.$set(_vm.params, "payment_status", $$c)
                           }
                         }
                       }
@@ -1442,437 +1742,13 @@ var render = function() {
                       "label",
                       {
                         staticClass: "custom-control-label",
-                        attrs: { for: "vaccinated" }
+                        attrs: { for: "payment_status" }
                       },
                       [_vm._v(" YES ")]
                     )
                   ]
                 )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-group" },
-                [
-                  _c("label", [_vm._v("Severity of Illness:")]),
-                  _vm._v(" "),
-                  _vm._l(_vm.severitySymptoms, function(val, key) {
-                    return _c(
-                      "div",
-                      {
-                        key: key,
-                        staticClass:
-                          "custom-control custom-checkbox custom-checkbox-color-check"
-                      },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.params.selectedIllness,
-                              expression: "params.selectedIllness"
-                            }
-                          ],
-                          staticClass: "custom-control-input bg-primary",
-                          attrs: { type: "checkbox", id: key },
-                          domProps: {
-                            value: val,
-                            checked: Array.isArray(_vm.params.selectedIllness)
-                              ? _vm._i(_vm.params.selectedIllness, val) > -1
-                              : _vm.params.selectedIllness
-                          },
-                          on: {
-                            change: function($event) {
-                              var $$a = _vm.params.selectedIllness,
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = val,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      _vm.params,
-                                      "selectedIllness",
-                                      $$a.concat([$$v])
-                                    )
-                                } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      _vm.params,
-                                      "selectedIllness",
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
-                                }
-                              } else {
-                                _vm.$set(_vm.params, "selectedIllness", $$c)
-                              }
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass: "custom-control-label",
-                            attrs: { for: key }
-                          },
-                          [_vm._v(" " + _vm._s(val))]
-                        )
-                      ]
-                    )
-                  })
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-group" },
-                [
-                  _c("label", [_vm._v("Attendant Symptoms:")]),
-                  _vm._v(" "),
-                  _vm._l(_vm.otherSymptoms, function(l, i) {
-                    return _c(
-                      "div",
-                      {
-                        key: i + "_other",
-                        staticClass:
-                          "custom-control custom-checkbox custom-checkbox-color-check"
-                      },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.params.selectedOtherSymptoms,
-                              expression: "params.selectedOtherSymptoms"
-                            }
-                          ],
-                          staticClass: "custom-control-input bg-primary",
-                          attrs: { type: "checkbox", id: i + "_other" },
-                          domProps: {
-                            value: l,
-                            checked: Array.isArray(
-                              _vm.params.selectedOtherSymptoms
-                            )
-                              ? _vm._i(_vm.params.selectedOtherSymptoms, l) > -1
-                              : _vm.params.selectedOtherSymptoms
-                          },
-                          on: {
-                            change: function($event) {
-                              var $$a = _vm.params.selectedOtherSymptoms,
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = l,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      _vm.params,
-                                      "selectedOtherSymptoms",
-                                      $$a.concat([$$v])
-                                    )
-                                } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      _vm.params,
-                                      "selectedOtherSymptoms",
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
-                                }
-                              } else {
-                                _vm.$set(
-                                  _vm.params,
-                                  "selectedOtherSymptoms",
-                                  $$c
-                                )
-                              }
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass: "custom-control-label",
-                            attrs: { for: i + "_other" }
-                          },
-                          [_vm._v(" " + _vm._s(l))]
-                        )
-                      ]
-                    )
-                  }),
-                  _vm._v(" "),
-                  _vm._l(_vm.coughSymptoms, function(v, k) {
-                    return _c(
-                      "div",
-                      {
-                        key: k + "_cough",
-                        staticClass:
-                          "custom-control custom-checkbox custom-checkbox-color-check"
-                      },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.params.selectedCoughSymptoms,
-                              expression: "params.selectedCoughSymptoms"
-                            }
-                          ],
-                          staticClass: "custom-control-input bg-primary",
-                          attrs: { type: "checkbox", id: k + "_cough" },
-                          domProps: {
-                            value: v,
-                            checked: Array.isArray(
-                              _vm.params.selectedCoughSymptoms
-                            )
-                              ? _vm._i(_vm.params.selectedCoughSymptoms, v) > -1
-                              : _vm.params.selectedCoughSymptoms
-                          },
-                          on: {
-                            change: function($event) {
-                              var $$a = _vm.params.selectedCoughSymptoms,
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = v,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      _vm.params,
-                                      "selectedCoughSymptoms",
-                                      $$a.concat([$$v])
-                                    )
-                                } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      _vm.params,
-                                      "selectedCoughSymptoms",
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
-                                }
-                              } else {
-                                _vm.$set(
-                                  _vm.params,
-                                  "selectedCoughSymptoms",
-                                  $$c
-                                )
-                              }
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass: "custom-control-label",
-                            attrs: { for: k + "_cough" }
-                          },
-                          [_vm._v(" " + _vm._s(v))]
-                        )
-                      ]
-                    )
-                  }),
-                  _vm._v(" "),
-                  _vm._l(_vm.breathingSymptoms, function(list, index) {
-                    return _c(
-                      "div",
-                      {
-                        key: index + "_breathing",
-                        staticClass:
-                          "custom-control custom-checkbox custom-checkbox-color-check"
-                      },
-                      [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.params.selectedBreathingSymptoms,
-                              expression: "params.selectedBreathingSymptoms"
-                            }
-                          ],
-                          staticClass: "custom-control-input bg-primary",
-                          attrs: { type: "checkbox", id: index + "_breathing" },
-                          domProps: {
-                            value: list,
-                            checked: Array.isArray(
-                              _vm.params.selectedBreathingSymptoms
-                            )
-                              ? _vm._i(
-                                  _vm.params.selectedBreathingSymptoms,
-                                  list
-                                ) > -1
-                              : _vm.params.selectedBreathingSymptoms
-                          },
-                          on: {
-                            change: function($event) {
-                              var $$a = _vm.params.selectedBreathingSymptoms,
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = list,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      _vm.params,
-                                      "selectedBreathingSymptoms",
-                                      $$a.concat([$$v])
-                                    )
-                                } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      _vm.params,
-                                      "selectedBreathingSymptoms",
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
-                                }
-                              } else {
-                                _vm.$set(
-                                  _vm.params,
-                                  "selectedBreathingSymptoms",
-                                  $$c
-                                )
-                              }
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "label",
-                          {
-                            staticClass: "custom-control-label",
-                            attrs: { for: index + "_breathing" }
-                          },
-                          [_vm._v(" " + _vm._s(list))]
-                        )
-                      ]
-                    )
-                  })
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v(" States: ")]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.params.selectedState,
-                        expression: "params.selectedState"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { id: "states", name: "states" },
-                    on: {
-                      change: [
-                        function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.params,
-                            "selectedState",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        },
-                        function($event) {
-                          return _vm.countyInState($event.target.value)
-                        }
-                      ]
-                    }
-                  },
-                  [
-                    _c(
-                      "option",
-                      { attrs: { value: "", selected: "selected" } },
-                      [_vm._v(" select a state ")]
-                    ),
-                    _vm._v(" "),
-                    _vm._l(_vm.locations, function(l) {
-                      return _c("option", { domProps: { value: l.name } }, [
-                        _vm._v(_vm._s(l.name))
-                      ])
-                    })
-                  ],
-                  2
-                )
-              ]),
-              _vm._v(" "),
-              _vm.counties
-                ? _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v(" Select County : ")]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.params.selectedCounty,
-                            expression: "params.selectedCounty"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { id: "county", name: "county" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.params,
-                              "selectedCounty",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      _vm._l(_vm.counties, function(c) {
-                        return _c("option", { domProps: { value: c.name } }, [
-                          _vm._v(_vm._s(c.name))
-                        ])
-                      }),
-                      0
-                    )
-                  ])
-                : _vm._e()
+              ])
             ])
           ])
         ])
@@ -1886,35 +1762,12 @@ var render = function() {
             [
               _c("div", { staticClass: "header-title" }, [
                 _c("h4", { staticClass: "card-title mb-0" }, [
-                  _vm._v("All Responses"),
+                  _vm._v("All Orders"),
                   _c("small", [
-                    _vm._v(
-                      " ( " + _vm._s(_vm.responses.total) + " total responses)"
-                    )
+                    _vm._v(" ( " + _vm._s(_vm.orders.total) + " total orders)")
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { href: "#", "data-toggle": "modal" },
-                  on: { click: _vm.downloadData }
-                },
-                [
-                  _vm._v(
-                    "\n                      Download filtered response\n                        "
-                  ),
-                  _vm.downloading
-                    ? _c("b-spinner", {
-                        staticClass: "float-right",
-                        attrs: { small: "", variant: "default" }
-                      })
-                    : _vm._e()
-                ],
-                1
-              )
+              ])
             ]
           ),
           _vm._v(" "),
@@ -1929,7 +1782,11 @@ var render = function() {
                   _c(
                     "b-thead",
                     [
-                      _c("b-th", [_vm._v("Gender")]),
+                      _c("b-th", [_vm._v("Amount(₦)")]),
+                      _vm._v(" "),
+                      _c("b-th", [_vm._v("Pickup Address")]),
+                      _vm._v(" "),
+                      _c("b-th", [_vm._v("Dropoff Address")]),
                       _vm._v(" "),
                       _c("b-th", [
                         _c(
@@ -1939,47 +1796,19 @@ var render = function() {
                             on: {
                               click: function($event) {
                                 $event.preventDefault()
-                                return _vm.changeSort("age")
+                                return _vm.changeSort("order_type")
                               }
                             }
                           },
-                          [_vm._v("Age")]
+                          [_vm._v("Order Type")]
                         ),
                         _vm._v(" "),
-                        _vm.params.sort_field == "age" &&
+                        _vm.params.sort_field == "order_type" &&
                         _vm.params.sort_direction == "asc"
                           ? _c("span", [_vm._v("↑")])
                           : _vm._e(),
                         _vm._v(" "),
-                        _vm.params.sort_field == "age" &&
-                        _vm.params.sort_direction == "desc"
-                          ? _c("span", [_vm._v("↓")])
-                          : _vm._e()
-                      ]),
-                      _vm._v(" "),
-                      _c("b-th", [_vm._v("Exposure Risk")]),
-                      _vm._v(" "),
-                      _c("b-th", [
-                        _c(
-                          "a",
-                          {
-                            attrs: { href: "#" },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.changeSort("high_risk_group")
-                              }
-                            }
-                          },
-                          [_vm._v("High Risk Group")]
-                        ),
-                        _vm._v(" "),
-                        _vm.params.sort_field == "high_risk_group" &&
-                        _vm.params.sort_direction == "asc"
-                          ? _c("span", [_vm._v("↑")])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _vm.params.sort_field == "high_risk_group" &&
+                        _vm.params.sort_field == "order_type" &&
                         _vm.params.sort_direction == "desc"
                           ? _c("span", [_vm._v("↓")])
                           : _vm._e()
@@ -1993,27 +1822,49 @@ var render = function() {
                             on: {
                               click: function($event) {
                                 $event.preventDefault()
-                                return _vm.changeSort("date")
+                                return _vm.changeSort("order_status")
                               }
                             }
                           },
-                          [_vm._v("Date Submitted")]
+                          [_vm._v("Order Status")]
                         ),
                         _vm._v(" "),
-                        _vm.params.sort_field == "date" &&
+                        _vm.params.sort_field == "order_status" &&
                         _vm.params.sort_direction == "asc"
                           ? _c("span", [_vm._v("↑")])
                           : _vm._e(),
                         _vm._v(" "),
-                        _vm.params.sort_field == "date" &&
+                        _vm.params.sort_field == "order_status" &&
                         _vm.params.sort_direction == "desc"
                           ? _c("span", [_vm._v("↓")])
                           : _vm._e()
                       ]),
                       _vm._v(" "),
-                      _c("b-th", [_vm._v(" County ")]),
-                      _vm._v(" "),
-                      _c("b-th", [_vm._v(" State ")]),
+                      _c("b-th", [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.changeSort("created_at")
+                              }
+                            }
+                          },
+                          [_vm._v("Order Date")]
+                        ),
+                        _vm._v(" "),
+                        _vm.params.sort_field == "created_at" &&
+                        _vm.params.sort_direction == "asc"
+                          ? _c("span", [_vm._v("↑")])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.params.sort_field == "created_at" &&
+                        _vm.params.sort_direction == "desc"
+                          ? _c("span", [_vm._v("↓")])
+                          : _vm._e()
+                      ]),
                       _vm._v(" "),
                       _c("b-th", [_vm._v("View Details")])
                     ],
@@ -2051,91 +1902,78 @@ var render = function() {
                         ],
                         1
                       )
-                    : _vm.responses.data.length > 0
+                    : _vm.orders.data.length > 0
                     ? _c(
                         "b-tbody",
-                        _vm._l(_vm.responses.data, function(response, index) {
+                        _vm._l(_vm.orders.data, function(order, index) {
                           return _c(
                             "b-tr",
-                            { key: "response" + index },
+                            { key: "order" + index },
                             [
-                              _c("b-td", [_vm._v(_vm._s(response.gender))]),
-                              _vm._v(" "),
-                              _c("b-td", [_vm._v(_vm._s(response.age))]),
-                              _vm._v(" "),
-                              _c(
-                                "b-td",
-                                [
-                                  response.exposure_risk == "high"
-                                    ? [
-                                        _c(
-                                          "span",
-                                          { staticClass: "badge badge-danger" },
-                                          [_vm._v("High")]
-                                        )
-                                      ]
-                                    : response.exposure_risk == "medium"
-                                    ? [
-                                        _c(
-                                          "span",
-                                          {
-                                            staticClass: "badge badge-warning"
-                                          },
-                                          [_vm._v("Medium")]
-                                        )
-                                      ]
-                                    : [
-                                        _c(
-                                          "span",
-                                          {
-                                            staticClass: "badge badge-success"
-                                          },
-                                          [_vm._v("Low")]
-                                        )
-                                      ]
-                                ],
-                                2
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-td",
-                                [
-                                  response.high_risk_group
-                                    ? [
-                                        _c(
-                                          "span",
-                                          { staticClass: "badge badge-danger" },
-                                          [_vm._v("High Risk")]
-                                        )
-                                      ]
-                                    : [
-                                        _c(
-                                          "span",
-                                          {
-                                            staticClass: "badge badge-success"
-                                          },
-                                          [_vm._v("Not High Risk")]
-                                        )
-                                      ]
-                                ],
-                                2
-                              ),
-                              _vm._v(" "),
-                              _c("b-td", [
-                                _vm._v(_vm._s(response.date_difference))
-                              ]),
-                              _vm._v(" "),
                               _c("b-td", [
                                 _vm._v(
-                                  _vm._s(
-                                    response.county ? response.county : "-"
-                                  )
+                                  "₦" +
+                                    _vm._s(
+                                      new Intl.NumberFormat().format(
+                                        order.total_price
+                                      )
+                                    )
                                 )
                               ]),
                               _vm._v(" "),
                               _c("b-td", [
+                                _vm._v(_vm._s(order.pickup_address))
+                              ]),
+                              _vm._v(" "),
+                              _c("b-td", [
+                                _vm._v(_vm._s(order.dropoff_address))
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "b-td",
+                                [
+                                  order.order_type === "Dispatch"
+                                    ? [
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass: "badge badge-primary"
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                " +
+                                                _vm._s(order.order_type) +
+                                                "\n                              "
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  order.order_type === "Errand"
+                                    ? [
+                                        _c(
+                                          "span",
+                                          { staticClass: "badge badge-info" },
+                                          [
+                                            _vm._v(
+                                              "\n                                " +
+                                                _vm._s(order.order_type) +
+                                                "\n                              "
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    : _vm._e()
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _c("b-td", [_vm._v(_vm._s(order.order_status))]),
+                              _vm._v(" "),
+                              _c("b-td", [
                                 _vm._v(
-                                  _vm._s(response.state ? response.state : "-")
+                                  _vm._s(_vm._f("dateFilter")(order.created_at))
                                 )
                               ]),
                               _vm._v(" "),
@@ -2146,15 +1984,15 @@ var render = function() {
                                     staticClass: "btn btn-primary btn-sm",
                                     attrs: {
                                       type: "button",
-                                      "data-id": "response.id"
+                                      "data-id": "order.id"
                                     },
                                     on: {
                                       click: function($event) {
-                                        return _vm.showModal(response)
+                                        return _vm.showModal(order)
                                       }
                                     }
                                   },
-                                  [_c("small", [_vm._v("view response")])]
+                                  [_c("small", [_vm._v("view order")])]
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -2232,9 +2070,9 @@ var render = function() {
                                               "div",
                                               { staticClass: "modal-body" },
                                               [
-                                                _c("response-body", {
+                                                _c("order-body", {
                                                   attrs: {
-                                                    response: _vm.singleOrder
+                                                    order: _vm.singleOrder
                                                   }
                                                 })
                                               ],
@@ -2404,8 +2242,8 @@ var render = function() {
                   { staticClass: "col-xl-8 col-lg-7" },
                   [
                     _c("pagination", {
-                      attrs: { data: _vm.responses, limit: 1 },
-                      on: { "pagination-change-page": _vm.getResponses }
+                      attrs: { data: _vm.orders, limit: 1 },
+                      on: { "pagination-change-page": _vm.getOrders }
                     })
                   ],
                   1
@@ -2440,6 +2278,36 @@ var staticRenderFns = [
         ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("strong", [_vm._v("Date:")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("strong", [_vm._v("Order Type:")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("strong", [_vm._v("Order Status:")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("strong", [_vm._v("Personnel Option:")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("strong", [_vm._v("PAID ?")])])
   }
 ]
 render._withStripped = true

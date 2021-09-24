@@ -10,7 +10,9 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /> </svg>
                             </div>
                             <div class="mm-cart-text">
-                                <h2 class="font-weight-700">2743</h2>
+                                <h2 class="font-weight-700" v-if="pageStats.users">
+                                    {{pageStats.users.total_users}}
+                                </h2>
                                 <p class="mb-0 text-primary">Total Users</p>
                             </div>
                         </div>
@@ -37,7 +39,9 @@
                             </div>
                             <div class="mm-cart-text">
                                 <h2 class=""><b>  </b></h2>
-                                <h2 class=""><b>50</b></h2>
+                                <h2 class="" v-if="pageStats.users">
+                                    <b>{{pageStats.users.total_riders}}</b>
+                                </h2>
                                 <p class="mb-0 text-primary">Total Riders</p>
                             </div>
                         </div>
@@ -93,7 +97,9 @@
                                 </svg>
                             </div>
                             <div class="mm-cart-text">
-                                <h2 class=""><b>23</b></h2>
+                                <h2 class="" v-if="pageStats.users">
+                                    <b>{{pageStats.orders.pending_orders}}</b>
+                                </h2>
                                 <p class="mb-0 text-danger"> Pending Orders</p>
                             </div>
                         </div>
@@ -115,7 +121,9 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /> </svg>
                             </div>
                             <div class="mm-cart-text">
-                                <h2 class="font-weight-700">289</h2>
+                                <h2 class="font-weight-700" v-if="pageStats.users">
+                                    {{pageStats.orders.completed_orders}}
+                                </h2>
                                 <p class="mb-0 text-success">Completed Orders</p>
                             </div>
                         </div>
@@ -159,7 +167,7 @@
                             <b-spinner variant="primary" type="grow" label="Spinning"></b-spinner>
                         </div>
                         <div v-else>
-                            <ApexChart element="hospital-chart-03" :chartOption="chart2" />
+                            <ApexChart element="dash-chart-02" :chartOption="chart1" />
                         </div>
                     </div>
                 </div>
@@ -180,42 +188,49 @@
                         <b-table-simple foot-clone responsive outlined striped hover>
                             <b-thead>
                                 <b-th>#</b-th>
+                                <b-th>Total Amount(&#8358;)</b-th>
+                                <b-th>Pickup Address</b-th>
+                                <b-th>Dropoff Address</b-th>
                                 <b-th>Order Type</b-th>
-                                <b-th>Item</b-th>
-                                <b-th>Quantity</b-th>
-                                <b-th>Pickup Location</b-th>
-                                <b-th>Dropoff Location</b-th>
-                                <b-th>Description</b-th>
-                                <b-th>Status</b-th>
+                                <b-th>Order Status</b-th>
                                 <b-th>View Details</b-th>
                             </b-thead>
                             <b-tbody>
                                 <b-tr v-for="(order, index) in orders" :key="'order' + index">
                                     <b-th>{{index+1}}</b-th>
-                                    <b-td>{{order.gender}}</b-td>
-                                    <b-td>{{order.age}}</b-td>
+                                    <b-td>&#8358;{{new Intl.NumberFormat().format(order.total_price)}}</b-td>
+                                    <b-td>{{order.pickup_address}}</b-td>
+                                    <b-td>{{order.dropoff_address}}</b-td>
                                     <b-td>
-                                        <template v-if="order.exposure_risk === 'high'">
-                                        <span class="badge badge-danger">High</span>
+                                        <template v-if="order.order_type === 'Dispatch'">
+                                            <span class="badge badge-primary">
+                                                {{ order.order_type }}
+                                            </span>
                                         </template>
-                                        <template v-else-if="order.exposure_risk === 'medium'">
-                                        <span class="badge badge-warning">Medium</span>
-                                        </template>
-                                        <template v-else>
-                                        <span class="badge badge-success">Low</span>
+                                        <template v-if="order.order_type === 'Errand'">
+                                            <span class="badge badge-info">
+                                                {{ order.order_type }}
+                                            </span>
                                         </template>
                                     </b-td>
+                                    <!-- ['#37d5f2', '#4788ff', '#ffbf00', '#fe731c', '#4fd69c'] -->
                                     <b-td>
-                                        <template v-if="order.high_risk_group">
-                                        <span class="badge badge-danger">High Risk</span>
+                                        <template v-if="order.order_status === 'Created'">
+                                            <span class="badge badge-1">{{ order.order_status }}</span>
                                         </template>
-                                        <template v-else>
-                                        <span class="badge badge-success">Not High Risk</span>
+                                        <template v-if="order.order_status === 'Processed'">
+                                            <span class="badge badge-2">{{ order.order_status }}</span>
+                                        </template>
+                                        <template v-if="order.order_status === 'Assigned'">
+                                            <span class="badge badge-3">{{ order.order_status }}</span>
+                                        </template>
+                                        <template v-if="order.order_status === 'In-Transit'">
+                                            <span class="badge badge-4">{{ order.order_status }}</span>
+                                        </template>
+                                        <template v-if="order.order_status === 'Delivered'">
+                                            <span class="badge badge-5">{{ order.order_status }}</span>
                                         </template>
                                     </b-td>
-                                    <b-td>{{order.date_difference}}</b-td>
-                                    <b-td>{{order.county ? order.county : '-'}}</b-td>
-                                    <b-td>{{order.state ? order.state : '-'}}</b-td>
                                     <b-td>
                                         <!-- Button to trigger modal -->
                                         <button type="button" class="btn btn-primary btn-sm" data-id="order.id" @click="showModal(order)">
@@ -255,6 +270,7 @@
 import {is401} from '../../config/response'
 import MorrisChart from '../../components/charts/MorrisChart'
 import ApexChart from '../../components/charts/ApexChart'
+import {mapGetters, mapActions} from 'vuex'
 export default {
     name:'Dashboard',
     beforeCreate() {
@@ -271,97 +287,144 @@ export default {
             item:{
                 type:"donut",
                 id:"hospital-chart-02",
-                colors:  ["#fed81c", "#fe731c", "#ff4b4b"],
+                colors:  ["#0066ff", "#fe731c", "#4fd69c", "#37d5f2"],
                 resize: !0,
                 hideHover: "auto",
                 bodyData: [
                     {
-                        label: "low risk",
+                        label: "Active Users",
                         value: 0
                     },
                     {
-                        label: "medium risk",
+                        label: "Inactive Users",
                         value: 0
                     },
                     {
-                        label: "high risk",
+                        label: "Verified Users",
                         value: 0
-                    }
+                    },
+                    {
+                        label: "Unverified Users",
+                        value: 0
+                    },
                 ],
             },
-            chart2:{
-                series: [{
-                    name: 'low',
-                    data: [0,0,0]
-                }, {
-                    name: 'medium',
-                    data: [0,0,0]
-                }, {
-                    name: 'High',
-                    data: [0,0,0]
-                }],
-                colors: ['#4788ff', '#4fd69c', '#F6375B'],
-                chart: {
-                    type: 'bar',
-                    height: 340,
-                    stacked: false,
-                    zoom: {
-                    enabled: true
-                    }
-                },
-                responsive: [{
-                    breakpoint: 580,
-                    options: {
-                    legend: {
-                        position: 'bottom',
-                        offsetX: -30,
-                        offsetY: 0,
-                    }
-                    }
-                }],
-                plotOptions: {
-                    bar: {
-                    horizontal: false,
-                    borderRadius: 4
-                    },
-                },
-                xaxis: {
-                    type: 'category',
-                    categories: ['0-18', '19-45', '46-60', '65 & above'],
-                },
-                yaxis: {
-                    labels: {
-                        offsetY: 0,
-                        minWidth: 20,
-                        maxWidth: 20,
-                    }
-                },
-                legend: {
-                    position: 'top',
-                    offsetX: -35
-                },
-                fill: {
-                    opacity: 1
-                },
-                dataLabels: {
-                    enabled: false
-                }
-            },
+            // colors:  ["#4788ff", "#fe731c"], // #0066ff, #fe731c
+            chart1: {
+				series: [
+					{
+						name: 'Created',
+						data: []
+					},
+					{
+						name: 'Processed',
+						data: []
+					},
+					{
+						name: 'Assigned',
+						data: []
+					},
+					{
+						name: 'In-Transit',
+						data: []
+					},
+					{
+						name: 'Delivered',
+						data: []
+					},
+				],
+				colors: ['#37d5f2', '#4788ff', '#ffbf00', '#fe731c', '#4fd69c'],
+				chart: {
+					type: 'bar',
+					height: 275,
+					stacked: true,
+					zoom: {
+						enabled: true
+					}
+				},
+				options: {
+					legend: {
+						markers: {
+							radius: 12,
+						}
+					}
+				},
+				
+				responsive: [{
+					breakpoint: 480,
+					options: {
+						legend: {
+							position: 'bottom',
+							offsetX: -10,
+							offsetY: 0,
+							
+						}
+					}
+				}],
+				plotOptions: {
+					bar: {
+						horizontal: false,
+						// columnWidth: '45%',
+						borderRadius: 4,
+					},
+				},
+				xaxis: {
+					type: 'category',
+					categories: [],
+					labels: {
+							minHeight: 22,
+							maxHeight: 40,
+						}
+				},
+				yaxis: {
+					labels: {
+							// offsetX: -17,
+							offsetY: 0,
+							minWidth: 20,
+							maxWidth: 20,
+						}
+					},
+				legend: {
+					position: 'bottom',
+					offsetX: 0,
+					offsetY: 8
+
+				},
+				fill: {
+					opacity: 1
+				},
+				dataLabels: {
+					enabled: false
+				}
+			},
+
             orders: [],
             singleOrder: {},
-            pageStats: []
+            pageStats: [],
+            notification: null,
+            per_page: 5
         }
     },
-    mounted() {
-        this.getPageStats()
+    async created() {
+        await this.getOrders()
     },
-    created() {
-        this.getOrders()
+    async mounted() {
+        await setTimeout(() => {}, 3000)
+        await this.$broadcast()
+
+        await this.getPageStats()
+    },
+    computed: {
+        // ...mapGetters({
+		// 	user: 'auth/user'
+		// })
     },
     methods: {
-        async getOrders() {
+        async getOrders(page=1) {
             try {
-                const {data} = await axios.get('/backend/dashboard/orders/10')
+                const {data} = await axios.get(`/api/admin/orders/${this.per_page}?page=${page}`, {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('sserpxe_cigam')}` }
+                })
                 this.orders = data.data
             } catch (error) {
                 console.log(error)
@@ -372,24 +435,53 @@ export default {
         },
         async getPageStats() {
             try {
-                const {data} = await axios.get('/backend/dashboard/top-stats')
-                this.pageStats = data.data
-                let low = [];
-                let medium = [];
-                let high = [];
-                this.chart2.xaxis.categories.forEach((v) => {
-                    let d = this.pageStats.age_demographics[v]
-                    low.push((typeof d['low'] === 'undefined') ? 0 : d['low'])
-                    medium.push((typeof d['medium'] === 'undefined') ? 0 : d['medium'])
-                    high.push((typeof d['high'] === 'undefined') ? 0 : d['high'])
+                const {data} = await axios.get('/api/admin/get/stats', {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('sserpxe_cigam')}` }
                 })
-                this.chart2.series[0].data = low
-                this.chart2.series[1].data = medium
-                this.chart2.series[2].data = high
+                this.pageStats = data
 
-                this.item.bodyData[0].value = data.data.risk_by_category.filter((arr) => arr.exposure_risk === 'low')[0].total
-                this.item.bodyData[1].value = data.data.risk_by_category.filter((arr) => arr.exposure_risk === 'medium')[0].total
-                this.item.bodyData[2].value = data.data.risk_by_category.filter((arr) => arr.exposure_risk === 'high')[0].total
+                // morris chart
+                this.item.bodyData[0].value = data.users.active_users
+                this.item.bodyData[1].value = data.users.inactive_users
+                this.item.bodyData[2].value = data.users.verified_users
+                this.item.bodyData[3].value = data.users.unverified_users
+
+                // bar chart
+                const dateArr = data.order_status_stats.map(arrItem => arrItem.date)
+                const distinctDateArr = [...new Set(dateArr)];
+
+                this.chart1.xaxis.categories = distinctDateArr
+
+                let created = [];
+                let processed = [];
+                let assigned = [];
+                let inTransit = [];
+                let delivered = [];
+
+                this.chart1.xaxis.categories.forEach((date, index) => {
+                    let stats = this.pageStats.order_status_stats.filter(i => i.date === date)
+
+                    // console.log(date)
+                    //console.log(stats)
+
+                    stats.forEach((stat) => {
+                        stat.order_status === 'Created' ? created[index] = stat.total : ''
+                        stat.order_status === 'Processed' ? processed[index] = stat.total : ''
+                        stat.order_status === 'Assigned' ? assigned[index] = stat.total : ''
+                        stat.order_status === 'In-transit' ? inTransit[index] = stat.total : ''
+                        stat.order_status === 'Delivered' ? delivered[index] = stat.total : ''
+                    })
+
+                    // console.log(created, processed, assigned, inTransit, delivered)
+
+                })
+
+                this.chart1.series[0].data = created
+                this.chart1.series[1].data = processed
+                this.chart1.series[2].data = assigned
+                this.chart1.series[3].data = inTransit
+                this.chart1.series[4].data = delivered
+
                 this.showMorrisChart = true
                 this.showBarChart = true
             } catch (error) {
@@ -407,3 +499,27 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+/* ['#37d5f2', '#4788ff', '#ffbf00', '#fe731c', '#4fd69c'] */
+.badge-1 {
+    background-color: #37d5f2;
+    color: #fff;
+}
+.badge-2 {
+    background-color: #4788ff;
+    color: #fff;
+}
+.badge-3 {
+    background-color: #ffbf00;
+    color: #fff;
+}
+.badge-4 {
+    background-color: #fe731c;
+    color: #fff;
+}
+.badge-5 {
+    background-color: #4fd69c;
+    color: #fff;
+}
+</style>

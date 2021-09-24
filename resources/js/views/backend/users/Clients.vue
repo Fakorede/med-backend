@@ -54,6 +54,9 @@ export default {
    created() {
       this.getUsers()
    },
+   async mounted() {
+      await this.$broadcast()
+   },
    data() {
       return {
          users: [],
@@ -64,7 +67,9 @@ export default {
       async getUsers() {
          this.loading = true
          try {
-            const response = await axios.get('/api/admin/users')
+            const response = await axios.get('/api/admin/users', {
+               headers: { 'Authorization': `Bearer ${localStorage.getItem('sserpxe_cigam')}` }
+            })
             this.users = response.data.data
          } catch (error) {
             console.log(error)
