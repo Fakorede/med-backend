@@ -398,25 +398,7 @@ var render = function() {
                               }
                             })
                           ])
-                        ]),
-                        _vm._v(" "),
-                        _vm._m(0),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "col-lg-6" },
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "float-right text-primary",
-                                attrs: { to: { name: "auth.recover-password" } }
-                              },
-                              [_vm._v("Forgot Password?")]
-                            )
-                          ],
-                          1
-                        )
+                        ])
                       ]),
                       _vm._v(" "),
                       _c(
@@ -457,30 +439,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-6" }, [
-      _c("div", { staticClass: "mb-3 custom-control custom-checkbox" }, [
-        _c("input", {
-          staticClass: "custom-control-input",
-          attrs: { type: "checkbox", id: "customCheck1" }
-        }),
-        _vm._v(" "),
-        _c(
-          "label",
-          {
-            staticClass: "custom-control-label",
-            attrs: { for: "customCheck1" }
-          },
-          [_vm._v("Remember Me")]
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -130,7 +130,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this.validating = true;
                 _context.prev = 2;
                 _context.next = 5;
-                return axios.post('/api/auth/password/reset', _objectSpread({}, _this.user));
+                return axios.post('/api/auth/reset-password', _objectSpread({}, _this.user));
 
               case 5:
                 _yield$axios$post = _context.sent;
