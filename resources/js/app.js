@@ -28,7 +28,7 @@ import broadcast from './mixins/broadcast'
 //   axios.defaults.baseURL = "http://localhost:8000";
 // }
 
-axios.defaults.baseURL = process.env.MIX_APP_URL
+axios.defaults.baseURL = "https://www.magicexpressdelivery.com"
 
 
 axios.defaults.withCredentials = true
