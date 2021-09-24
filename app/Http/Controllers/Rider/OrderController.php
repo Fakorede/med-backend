@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Rider;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
+use App\Http\Resources\SummarizedOrderResource;
 use App\Models\Order;
 use App\Traits\ParseResponse;
 use Illuminate\Http\Request;
@@ -19,12 +20,13 @@ class OrderController extends Controller
             ->latest()
             ->get();
 
-        return OrderResource::collection($orders);
+        return SummarizedOrderResource::collection($orders);
     }
 
     public function getOrderById($id)
     {
         $order = Order::findOrFail($id);
+        // $this->authorize('view-order', $order);
         return new OrderResource($order);
     }
 
