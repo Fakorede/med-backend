@@ -92,7 +92,7 @@ export default {
       this.validating = true
 
       try {
-        const {data} = await axios.post('/api/auth/password/reset', {
+        const {data} = await axios.post('/api/auth/reset-password', {
           ...this.user
         })
 

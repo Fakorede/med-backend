@@ -54,7 +54,7 @@ export default {
          this.validating = true
 
          try {
-            const {data} = await axios.post('/api/auth/password/forgot', {email: this.email})
+            const {data} = await axios.post('/api/auth/forgot-password', {email: this.email})
 
             this.$toasted.success(data.status)
             this.$router.push({name: 'auth.confirm-mail'})

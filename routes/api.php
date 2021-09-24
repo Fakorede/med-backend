@@ -27,10 +27,10 @@ if (App::environment('production')) {
 Route::group(['middleware' => ['guest:api'], 'namespace' => 'Auth', 'prefix' => 'auth'], function() {
     # AUTH api
     Route::post('/register', [RegisterController::class, 'register']);
-    Route::post('/resend/verification', [VerificationController::class, 'resend']);
+    Route::post('/resend-verification', [VerificationController::class, 'resend']);
     Route::post('/verify/{user}', [VerificationController::class, 'verify'])->name('verification.verify');
-    Route::post('/password/forgot', [ResetPasswordController::class, 'passwordResetLink']);
-    Route::post('/password/reset', [ResetPasswordController::class, 'passwordReset']);
+    Route::post('/forgot-password', [ResetPasswordController::class, 'passwordResetLink']);
+    Route::post('/reset-password', [ResetPasswordController::class, 'passwordReset']);
     Route::post('/login', [LoginController::class, 'login']);
 });
 
