@@ -11,6 +11,8 @@ use App\Http\Requests\UpdateOrderRiderRequest;
 use App\Http\Requests\VerifyPaymentRequest;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\SummarizedOrderResource;
+use App\Mail\AdminOrderCreated;
+use App\Mail\OrderCreated;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\User;
@@ -24,6 +26,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 
 class OrderController extends Controller
@@ -197,11 +200,14 @@ class OrderController extends Controller
 
     private function _sendNotifications($user, $order)
     {
-        // current user notification
+        // current user mail/notification
+        Mail::to(auth()->user())->send(new OrderCreated('Order Created', 'You just placed an Order', $order));
         auth()->user()->notify(new OrderNotification('Order Created', 'You just placed an Order', $order));
 
-        // admin notifications
+        // admin mail/notification
         $users = User::where('role_id', 1)->get();
+
+        Mail::to($users)->send(new AdminOrderCreated('Order Created', "A new Order has been placed by $user->first_name $user->last_name ($user->email)", $order));
         Notification::send($users, new AdminOrderNotification('Order Created', "A new Order has been placed by $user->first_name $user->last_name ($user->email)", $order));
     }
 }

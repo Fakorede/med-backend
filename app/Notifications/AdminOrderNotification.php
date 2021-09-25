@@ -37,7 +37,7 @@ class AdminOrderNotification extends Notification implements ShouldQueue, Should
      */
     public function via($notifiable): array
     {
-        return ['mail', 'database', 'broadcast'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -53,22 +53,6 @@ class AdminOrderNotification extends Notification implements ShouldQueue, Should
     //         'broadcast' => 'broadcast-queue',
     //     ];
     // }
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-            ->subject("$this->subject on Magic Express Delivery")
-            ->view('mails.order-notifications', [
-                'msgData' => $this->message,
-                'order' => $this->order,
-            ]);
-    }
 
     /**
      * Get the array representation of the notification.

@@ -38,7 +38,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('viewWebSocketsDashboard', function ($user = null) {
             return in_array($user->email, [
-                'abiolafakorede@gmail.com',
+                //
             ]);
         });
     }

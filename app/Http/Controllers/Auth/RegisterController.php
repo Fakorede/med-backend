@@ -32,7 +32,8 @@ class RegisterController extends Controller
             $user->email = $request->email;
             $user->role_id = 3;
             $user->password = Hash::make($request->password);
-
+            $user->email_verified_at = now();
+            
             $user->save();
 
             $user->profile()->create();
