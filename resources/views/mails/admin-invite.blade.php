@@ -224,14 +224,14 @@
                         <p><span class="label-input100">Password: {{ $password }}</span></p>
                     </div>
                     <div class="container-login100-form-btn">
-                        You are advised to reset your password before carrying out any action on the app. Kindly do so by clicking the below button:
+                        You are advised to reset your password in the app settings.
                     </div>
-                    <div class="container-login100-form-btn top">
+                    {{-- <div class="container-login100-form-btn top">
                         <a href="{{ url('/password/recover') }}" style="text-decoration: none;"`><button class="login100-form-btn">
                             Reset Password
                         </button>
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="text-right foot">
                     © 2021 Magic Express Delivery. 

@@ -35,5 +35,11 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('create-order', function (User $user) {
             return $user->role_id === 3;
         });
+
+        Gate::define('viewWebSocketsDashboard', function ($user = null) {
+            return in_array($user->email, [
+                'abiolafakorede@gmail.com',
+            ]);
+        });
     }
 }
