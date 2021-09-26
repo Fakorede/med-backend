@@ -38,7 +38,7 @@ Route::group(['middleware' => ['guest:api'], 'namespace' => 'Auth', 'prefix' => 
 # 2. Protected Routes
 Route::middleware(['auth:api'])->group(function () {
     # ADMIN api // verified
-    Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['verified', 'role:admin']], function () {
+    Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['role:admin']], function () {
         Route::get('/admins/{per_page?}', [UserController::class ,'admins'])->name('admins');
         Route::get('/users/{per_page?}', [UserController::class ,'users'])->name('users');
         Route::get('/riders/{per_page?}', [RiderController::class ,'riders'])->name('riders');
@@ -47,7 +47,7 @@ Route::middleware(['auth:api'])->group(function () {
     });
 
     # USERS api // verified
-    Route::group(['namespace' => 'User', 'prefix' => 'user', 'middleware' => ['verified', 'role:user']], function () {
+    Route::group(['namespace' => 'User', 'prefix' => 'user', 'middleware' => ['role:user']], function () {
         Route::get('/orders', [UserOrderController::class, 'getUserOrders']);
         Route::get('/order/{id}', [UserOrderController::class, 'getOrderById']);
         Route::post('/place-order', [UserOrderController::class, 'placeOrder']);
@@ -55,7 +55,7 @@ Route::middleware(['auth:api'])->group(function () {
     });
 
     # RIDERS api // verified
-    Route::group(['namespace' => 'Rider', 'prefix' => 'rider', 'middleware' => ['verified', 'role:rider']], function () {
+    Route::group(['namespace' => 'Rider', 'prefix' => 'rider', 'middleware' => ['role:rider']], function () {
         Route::get('/orders', [RiderOrderController::class, 'getRiderOrders']);
         Route::get('/order/{id}', [RiderOrderController::class, 'getOrderById']);
         Route::post('/order/{id}/payment', [RiderOrderController::class, 'updatePaymentStatus']);
