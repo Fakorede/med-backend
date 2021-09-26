@@ -26,7 +26,6 @@ class VerifyPaymentRequest extends FormRequest
         return [
             'order_id' => ['required'],
             'reference' => ['required'],
-            'paid_at' => ['required'],
         ];
     }
 }

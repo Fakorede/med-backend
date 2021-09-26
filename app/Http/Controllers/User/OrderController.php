@@ -148,7 +148,7 @@ class OrderController extends Controller
             $response['message'] === 'Verification successful' 
             && $response['data']['status'] === 'success'
         ) {
-            $order->updatePaidOrder($data['paid_at']);
+            $order->updatePaidOrder($response['data']['transaction_date']);
             return $this->success(null, 'Verification successful');
         } else if (
             $response['message'] === 'Verification successful' 
