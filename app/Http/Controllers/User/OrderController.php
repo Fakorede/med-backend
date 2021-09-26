@@ -35,7 +35,7 @@ class OrderController extends Controller
 
     public function getOrderById($id)
     {
-        $order = Order::findOrFail($id);
+        $order = Order::with(['order_items', 'user', 'rider'])->findOrFail($id);
         $this->authorize('view-order', $order);
         return new OrderResource($order);
     }
@@ -137,8 +137,6 @@ class OrderController extends Controller
         $data = $request->validated();
         $order = Order::findOrFail($data['order_id']);
         $tx_ref = $data['reference'];
-
-        //$tx_ref = $request->query('reference');
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . config('paystack.secretKey'),

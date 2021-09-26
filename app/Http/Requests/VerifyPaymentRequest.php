@@ -24,8 +24,8 @@ class VerifyPaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            'reference' => ['required'],
             'order_id' => ['required'],
+            'reference' => ['required'],
             'paid_at' => ['required'],
         ];
     }
