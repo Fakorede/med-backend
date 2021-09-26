@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class OrderNotification extends Notification implements ShouldQueue, ShouldBroadcast
+class OrderNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -37,7 +37,7 @@ class OrderNotification extends Notification implements ShouldQueue, ShouldBroad
      */
     public function via($notifiable): array
     {
-        return ['database', 'broadcast'];
+        return ['database'];
     }
 
     /**

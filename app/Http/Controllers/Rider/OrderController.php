@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Rider;
 
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\User\OrderController as UserOrderController;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\SummarizedOrderResource;
 use App\Models\Order;
@@ -12,6 +14,13 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
     use ParseResponse;
+
+    public $orderCtl;
+
+    public function __construct(UserOrderController $orderCtl)
+    {
+        $this->orderCtl = $orderCtl;
+    }
 
     // get all rider orders
     public function getRiderOrders()
@@ -25,9 +34,22 @@ class OrderController extends Controller
 
     public function getOrderById($id)
     {
+        return $this->orderCtl->getOrderById($id);
+    }
+
+    // update order payment
+    public function updatePaymentStatus(Request $request, $id)
+    {
         $order = Order::findOrFail($id);
-        // $this->authorize('view-order', $order);
-        return new OrderResource($order);
+
+        $date = Carbon::now();
+
+        if ($order->payment_method === Controller::PAYMENT_METHOD_2) {
+            $order->updatePaidOrder($date);
+            return $this->success(null, 'Payment updated successfully');
+        }
+        
+        return $this->error();
     }
 
     // update order status

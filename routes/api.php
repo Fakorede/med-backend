@@ -43,6 +43,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/users/{per_page?}', [UserController::class ,'users'])->name('users');
         Route::get('/riders/{per_page?}', [RiderController::class ,'riders'])->name('riders');
         Route::get('/orders/{per_page?}', [AdminOrderController::class ,'getAllOrders']);
+        Route::get('/order/{id}', [AdminOrderController::class, 'getOrderById']);
     });
 
     # USERS api // verified
@@ -57,6 +58,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::group(['namespace' => 'Rider', 'prefix' => 'rider', 'middleware' => ['verified', 'role:rider']], function () {
         Route::get('/orders', [RiderOrderController::class, 'getRiderOrders']);
         Route::get('/order/{id}', [RiderOrderController::class, 'getOrderById']);
+        Route::post('/order/{id}/payment', [RiderOrderController::class, 'updatePaymentStatus']);
         Route::post('/order/{id}/status', [RiderOrderController::class, 'updateOrderStatus']);
         Route::post('/availability', [RiderOrderController::class, 'updateAvailableStatus']);
     });
@@ -66,7 +68,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::prefix('settings')->group(function () {
             Route::put('/update-profile', [SettingsController::class, 'updateProfile']);
             Route::put('/update-password', [SettingsController::class, 'updatePassword']);
-            // Route::put('/fcm-token', [SettingsController::class, 'updateFCMToken']);
+            Route::put('/fcm-token', [SettingsController::class, 'updateFCMToken']);
             Route::put('/update-location', [SettingsController::class, 'updateCurrentLocation']);
             Route::post('/invite', [SharedRegisterController::class , 'addUser'])->middleware('role:admin');
         });
@@ -93,7 +95,7 @@ Route::middleware(['auth:api'])->group(function () {
 Route::get('/admin/get/stats', StatsController::class)->middleware(['auth:api', 'role:admin']);
 Route::get('/charges', [SettingsController::class, 'appCharges']);
 Route::get('/transaction/reference', [UserOrderController::class, 'generateTxRef']);
-Route::get('/verify_transaction', [UserOrderController::class, 'verifyPayment']);
+Route::post('/verify_transaction', [UserOrderController::class, 'verifyPayment']);
 Route::get('/track/order', [UserOrderController::class, 'trackOrder']);
 Route::get('/available/riders', [RiderOrderController::class, 'getAvailableRiders']);
 Route::get('/heroku/postgresdb', function() {

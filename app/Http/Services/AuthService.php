@@ -36,6 +36,7 @@ class AuthService {
 
     return [
       'access_token' => $this->parseToken(auth()->user()->createToken('Auth Token')->plainTextToken),
+      'public_key' => auth()->user()->role_id === 3 ? config('paystack.publicKey') : null,
       'user' => [
         'id' => $user->id,
         'first_name' => $user->first_name,

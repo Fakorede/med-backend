@@ -2,105 +2,78 @@
   <div>
     <template v-if="loading">Loading...</template>
     <template v-else>
+      <div class="ml-4 mb-4">
+        <router-link :to="{name: 'app.order-list'}">
+          <span class="text-primary">&larr; Go back</span>
+        </router-link>
+      </div>
+      <div class="row mb-4 ml-2 mt-2">
+        <div class="col-md-6"><strong>ORDER DATE:</strong> {{order.date | dateFilter}}</div>
+        <div class="col-md-3">
+          <strong>ORDER TYPE:</strong>
+          <template v-if="order.order_type === 'Dispatch'">
+            <span class="badge badge-primary">
+              {{ order.order_type }}
+            </span>
+          </template>
+          <template v-if="order.order_type === 'Errand'">
+            <span class="badge badge-info">
+              {{ order.order_type }}
+            </span>
+          </template>
+        </div>
+        <div class="col-md-3">
+          <strong>ORDER STATUS:</strong>
+           <template v-if="order.order_status === 'Created'">
+              <span class="badge badge-1">{{ order.order_status }}</span>
+            </template>
+            <template v-if="order.order_status === 'Processed'">
+              <span class="badge badge-2">{{ order.order_status }}</span>
+            </template>
+            <template v-if="order.order_status === 'Assigned'">
+              <span class="badge badge-3">{{ order.order_status }}</span>
+            </template>
+            <template v-if="order.order_status === 'In-Transit'">
+              <span class="badge badge-4">{{ order.order_status }}</span>
+            </template>
+            <template v-if="order.order_status === 'Delivered'">
+              <span class="badge badge-5">{{ order.order_status }}</span>
+            </template>
+        </div>
+      </div>
       <!-- <div class="row mb-3 ml-2">
-        <div class="col-md-6"><strong>RESPONSE DATE:</strong> {{response.date | dateFilter}}</div>
-        <div class="col-md-3"><strong>RESPONDENT AGE:</strong> {{response.age}}</div>
-        <div class="col-md-3"><strong>RESPONDENT GENDER:</strong> {{response.gender}}</div>
-      </div>
-      <div class="row mb-3 ml-2">
-        <div class="col-md-6"><strong>STATE:</strong> {{response.state}}</div>
-        <div class="col-md-6"><strong>COUNTY:</strong> {{response.county}}</div>
-      </div>
+        <div class="col-md-6"><strong>STATE:</strong> </div>
+        <div class="col-md-6"><strong>COUNTY:</strong> </div>
+      </div> -->
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-12">
             <div class="card">
-                <div class="card-body">
-                  <div class="table-responsive pricing pt-2">
-                      <table id="my-table" class="table">
-                        <thead>
-                            <tr>
-                              <th class="text-center prc-wrap"></th>
-                              <th class="text-center prc-wrap">
-                                  <a href="#" class="btn btn-outline-primary mt-3">Yes</a>
-                              </th>
-                              <th class="text-center prc-wrap">
-                                  <a href="#" class="btn btn-primary mt-3">No</a>
-                              </th>
-                              <th class="text-center">
-                                  <a href="#" class="btn btn-primary-dark mt-3">Dont&nbsp;know</a>
-                              </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                              <th class="text-center" scope="row">
-                                Did you or anyone in your family become exposed to someone with a fever or a cough in the past 2 weeks?
-                              </th>
-                              <td class="text-center child-cell">
-                                <i v-if="response.exposed == 'yes'" class="ri-check-line ri-2x active"></i>
-                                <i v-else class="ri-close-line i_close"></i>
-                              </td>
-                              <td class="text-center child-cell">
-                                <i v-if="response.exposed == 'no'" class="ri-check-line ri-2x active"></i>
-                                <i v-else class="ri-close-line i_close"></i>
-                              </td>
-                              <td class="text-center child-cell">
-                                <i v-if="response.exposed == 'dont_know'" class="ri-check-line ri-2x active"></i>
-                                <i v-else class="ri-close-line i_close"></i>
-                              </td>
-                            </tr>
-                            <tr>
-                              <th class="text-center" scope="row">Do you feel week or fatigued?</th>
-                              <td class="text-center child-cell">
-                                <i v-if="response.fatigued == 'yes'" class="ri-check-line ri-2x active"></i>
-                                <i v-else class="ri-close-line i_close"></i>
-                              </td>
-                              <td class="text-center child-cell">
-                                <i v-if="response.fatigued == 'no'" class="ri-check-line ri-2x active"></i>
-                                <i v-else class="ri-close-line i_close"></i>
-                              </td>
-                              <td class="text-center child-cell">
-                                <i v-if="response.fatigued == 'dont_know'" class="ri-check-line ri-2x active"></i>
-                                <i v-else class="ri-close-line i_close"></i>
-                              </td>
-                            </tr>
-                            <tr>
-                              <th class="text-center" scope="row">
-                                Did you have a fever in the last 14 days?
-                                </th>
-                              <td class="text-center child-cell">
-                                <i v-if="response.fever == 'yes'" class="ri-check-line ri-2x active"></i>
-                                <i v-else class="ri-close-line i_close"></i>
-                              </td>
-                              <td class="text-center child-cell">
-                                <i v-if="response.fever == 'no'" class="ri-check-line ri-2x active"></i>
-                                <i v-else class="ri-close-line i_close"></i>
-                              </td>
-                              <td class="text-center child-cell">
-                                <i v-if="response.fever == 'dont_know'" class="ri-check-line ri-2x active"></i>
-                                <i v-else class="ri-close-line i_close"></i>
-                              </td>
-                            </tr>
-                            <tr>
-                              <th class="text-center" scope="row">Do you currently have a cough?</th>
-                              <td class="text-center child-cell">
-                                <i v-if="response.cough == 'yes'" class="ri-check-line ri-2x active"></i>
-                                <i v-else class="ri-close-line i_close"></i>
-                              </td>
-                              <td class="text-center child-cell">
-                                <i v-if="response.cough == 'no'" class="ri-check-line ri-2x active"></i>
-                                <i v-else class="ri-close-line i_close"></i>
-                              </td>
-                              <td class="text-center child-cell">
-                                <i v-if="response.cough == 'dont_know'" class="ri-check-line ri-2x active"></i>
-                                <i v-else class="ri-close-line i_close"></i>
-                              </td>
-                            </tr>
-                        </tbody>
-                      </table>
-                  </div>
+              <div class="card-header">
+                <div><strong>Order Items</strong></div>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive pricing pt-2">
+                    <b-table-simple foot-clone responsive outlined striped hover>
+                        <b-thead>
+                            <b-th>#</b-th>
+                            <b-th>Item</b-th>
+                            <b-th>Quantity</b-th>
+                            <b-th>Amount(&#8358;)</b-th>
+                            <b-th>Description</b-th>
+                        </b-thead>
+                        <b-tbody>
+                            <b-tr v-for="(orderItem, index) in order.order_items" :key="'order-item' + index">
+                                <b-th>{{index+1}}</b-th>
+                                <b-th>{{orderItem.item}}</b-th>
+                                <b-th>{{orderItem.quantity}}</b-th>
+                                <b-td>&#8358;{{new Intl.NumberFormat().format(orderItem.price)}}</b-td>
+                                <b-td>{{orderItem.description}}</b-td>
+                            </b-tr>
+                        </b-tbody>
+                    </b-table-simple>
                 </div>
+              </div>
             </div>
           </div>
         </div>
@@ -111,7 +84,7 @@
                <div class="card card-block card-stretch card-height">
                   <div class="card-header d-flex justify-content-between">
                      <div class="header-title">
-                        <h4 class="card-title mb-0">Symptoms</h4>
+                        <div><strong>User Information</strong></div>
                      </div>
                   </div>
                   <div class="card-body">
@@ -119,66 +92,50 @@
                         <b-tbody>
                            <b-tr>
                               <b-td>
-                                Coughing Symptoms
+                                <strong>Sender Name</strong>
                               </b-td>
                               <b-td>
-                                <template v-if="response.attendant_symptoms">
-                                  <template v-if="Array.isArray(response.attendant_symptoms.cough)">
-                                    <span v-for="(c, i) in response.attendant_symptoms.cough" :key="i">
-                                        {{c}} <span v-if="i !== response.attendant_symptoms.cough.length-1">, </span>
-                                    </span>
-                                  </template>
-                                  <template v-else>None</template>
-                                  <template v-else>{{response.attendant_symptoms.cough}}</template>
-                                </template>
+                               {{ order.sender_name}}
                               </b-td>
                            </b-tr>
                            <b-tr>
                               <b-td>
-                                Other Symptoms
+                                <strong>Sender Mobile</strong>
                               </b-td>
                               <b-td>
-                                <template v-if="response.attendant_symptoms">
-                                  <template v-if="Array.isArray(response.attendant_symptoms.others)">
-                                    <span v-for="(o, i) in response.attendant_symptoms.others" :key="i">
-                                      {{o}} <span v-if="i !== response.attendant_symptoms.others.length-1">, </span>
-                                    </span>
-                                  </template>
-                                    <template v-else>None</template>
-                                  <template v-else>{{response.attendant_symptoms.others}}</template>
-                                </template>
+                                {{ order.sender_mobile}}
                               </b-td>
                            </b-tr>
                            <b-tr>
                               <b-td>
-                                Breathing Symptoms
+                                <strong>Receiver Name</strong>
                               </b-td>
                               <b-td>
-                                <template v-if="response.attendant_symptoms">
-                                  <template v-if="Array.isArray(response.attendant_symptoms.breathing)">
-                                    <span v-for="(b, i) in response.attendant_symptoms.breathing" :key="i">
-                                      {{b}} <span v-if="i !== response.attendant_symptoms.breathing.length-1">, </span>
-                                    </span>
-                                  </template>
-                                    <template v-else>None</template>
-                                  <template v-else>{{response.attendant_symptoms.breathing}}</template>
-                                </template>
+                               {{ order.receiver_name}}
                               </b-td>
                            </b-tr>
                            <b-tr>
                               <b-td>
-                                Underlying Conditions
+                                <strong>Receiver Mobile</strong>
                               </b-td>
                               <b-td>
-                                <template v-if="response.underlying_condition">
-                                  <template v-if="Array.isArray(response.underlying_condition.conditions)">
-                                    <span v-for="(c, i) in response.underlying_condition.conditions" :key="i">
-                                      {{c}} <span v-if="i !== response.underlying_condition.conditions.length-1">, </span>
-                                    </span>
-                                  </template>
-                                </template>
-                                <template v-else>None</template>
-                                <template v-else>{{response.underlying_condition.conditions}}</template>
+                                {{ order.receiver_mobile}}
+                              </b-td>
+                           </b-tr>
+                           <b-tr>
+                              <b-td>
+                                <strong>Pickup Address</strong>
+                              </b-td>
+                              <b-td>
+                               {{ order.pickup_address}}
+                              </b-td>
+                           </b-tr>
+                           <b-tr>
+                              <b-td>
+                                <strong>Dropoff Address</strong>
+                              </b-td>
+                              <b-td>
+                                {{ order.dropoff_address}}
                               </b-td>
                            </b-tr>
                         </b-tbody>
@@ -188,43 +145,178 @@
             </div>
          </div>
       </div>
-       <div class="row mb-2 ml-2">
-        <div class="col-md-6"><strong>Cough Duration:</strong> {{response.cough_duration}} days</div>
-        <div class="col-md-6"><strong>Breathing Rate:</strong> {{response.breathing_rate}}</div>
-      </div>
-      <div class="row mb-3 ml-2">
-        <div class="col-md-6"><strong>Exposure Risk:</strong>
-          <template v-if="response.exposure_risk == 'high'">
-            <span class="badge badge-danger">High</span>
-          </template>
-          <template v-else-if="response.exposure_risk == 'medium'">
-            <span class="badge badge-warning">Medium</span>
-          </template>
-          <template v-else>
-            <span class="badge badge-success">Low</span>
-          </template>
-        </div>
-        <div class="col-md-6"><strong>High Risk Group:</strong>
-          <template v-if="response.high_risk_group">
-            <span class="badge badge-danger">High Risk</span>
-          </template>
-          <template v-else>
-            <span class="badge badge-success">Not High Risk</span>
-          </template>
-        </div>
-      </div>
-        <div class="row mb-3 ml-2">
-            <div class="col-md-6">
-                <strong>Vaccinated:</strong>
-                <template v-if="response.vaccination && response.vaccination.status === 'yes'">
-                    <span class="badge badge-success">YES</span>
-                </template>
-                <template v-else>
-                    <span class="badge badge-danger">NO</span>
-                </template>
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-lg-12">
+               <div class="card card-block card-stretch card-height">
+                  <div class="card-header d-flex justify-content-between">
+                     <div class="header-title">
+                        <div><strong>Rider Information</strong></div>
+                     </div>
+                  </div>
+                  <div class="card-body">
+                    <div v-if="order.rider">
+                      <b-table-simple responsive>
+                          <b-tbody>
+                            <b-tr>
+                                <b-td>
+                                  <strong>Sender Name</strong>
+                                </b-td>
+                                <b-td>
+                                {{ order.sender_name}}
+                                </b-td>
+                            </b-tr>
+                            <b-tr>
+                                <b-td>
+                                  <strong>Sender Mobile</strong>
+                                </b-td>
+                                <b-td>
+                                  {{ order.sender_mobile}}
+                                </b-td>
+                            </b-tr>
+                            <b-tr>
+                                <b-td>
+                                  <strong>Receiver Name</strong>
+                                </b-td>
+                                <b-td>
+                                {{ order.receiver_name}}
+                                </b-td>
+                            </b-tr>
+                            <b-tr>
+                                <b-td>
+                                  <strong>Receiver Mobile</strong>
+                                </b-td>
+                                <b-td>
+                                  {{ order.receiver_mobile}}
+                                </b-td>
+                            </b-tr>
+                            <b-tr>
+                                <b-td>
+                                  <strong>Pickup Address</strong>
+                                </b-td>
+                                <b-td>
+                                {{ order.pickup_address}}
+                                </b-td>
+                            </b-tr>
+                            <b-tr>
+                                <b-td>
+                                  <strong>Dropoff Address</strong>
+                                </b-td>
+                                <b-td>
+                                  {{ order.dropoff_address}}
+                                </b-td>
+                            </b-tr>
+                          </b-tbody>
+                      </b-table-simple>
+                    </div>
+                    <div v-else>
+                      <div class="row">
+                        <label class="ml-3">Assign a Rider to this Order</label>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <select class="form-control" name="" id="rider" v-model="rider">
+                            <option>Rider 2</option>
+                            <option>Rider 3</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6">
+                          <button @click.prevent="assignRider" class="btn btn-primary">Assign</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+               </div>
             </div>
-        </div>
-        <div v-if="response.vaccination && response.vaccination.status === 'yes'" class="container-fluid timeline-page">
+         </div>
+      </div>
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-lg-12">
+               <div class="card card-block card-stretch card-height">
+                  <div class="card-header d-flex justify-content-between">
+                     <div class="header-title">
+                        <div><strong>Other Information</strong></div>
+                     </div>
+                  </div>
+                  <div class="card-body">
+                    <div v-if="order.rider">
+                      <b-table-simple responsive>
+                          <b-tbody>
+                            <b-tr>
+                                <b-td>
+                                  <strong>Sender Name</strong>
+                                </b-td>
+                                <b-td>
+                                {{ order.sender_name}}
+                                </b-td>
+                            </b-tr>
+                            <b-tr>
+                                <b-td>
+                                  <strong>Sender Mobile</strong>
+                                </b-td>
+                                <b-td>
+                                  {{ order.sender_mobile}}
+                                </b-td>
+                            </b-tr>
+                            <b-tr>
+                                <b-td>
+                                  <strong>Receiver Name</strong>
+                                </b-td>
+                                <b-td>
+                                {{ order.receiver_name}}
+                                </b-td>
+                            </b-tr>
+                            <b-tr>
+                                <b-td>
+                                  <strong>Receiver Mobile</strong>
+                                </b-td>
+                                <b-td>
+                                  {{ order.receiver_mobile}}
+                                </b-td>
+                            </b-tr>
+                            <b-tr>
+                                <b-td>
+                                  <strong>Pickup Address</strong>
+                                </b-td>
+                                <b-td>
+                                {{ order.pickup_address}}
+                                </b-td>
+                            </b-tr>
+                            <b-tr>
+                                <b-td>
+                                  <strong>Dropoff Address</strong>
+                                </b-td>
+                                <b-td>
+                                  {{ order.dropoff_address}}
+                                </b-td>
+                            </b-tr>
+                          </b-tbody>
+                      </b-table-simple>
+                    </div>
+                    <div v-else>
+                      <div class="row">
+                        <label class="ml-3">Assign a Rider to this Order</label>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <select class="form-control" name="" id="rider" v-model="rider">
+                            <option>Rider 2</option>
+                            <option>Rider 3</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6">
+                          <button @click.prevent="assignRider" class="btn btn-primary">Assign</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+        <!-- <div v-if="response.vaccination && response.vaccination.status === 'yes'" class="container-fluid timeline-page">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card card-block card-stretch card-height">
@@ -281,7 +373,25 @@
 <script>
   export default {
     name: 'OrderBody',
-    props: ['order', 'loading']
+    props: ['order', 'loading'],
+    data() {
+      return {
+        riders: [],
+        rider: ''
+      }
+    },
+    mounted() {
+      //this.getAvailableRiders()
+    },
+    methods: {
+      async getAvailableRiders() {
+        const {data} = await axios.get(`/api/admin`)
+        this.riders = data.data
+      },
+      async assignRider() {
+        await axios.post(`/api/admin`, this.rider)
+      }
+    }
   }
 </script>
 

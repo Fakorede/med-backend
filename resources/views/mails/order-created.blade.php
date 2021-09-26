@@ -1,5 +1,5 @@
 @component('mail::message')
-## Hello,
+## Hello there,
 
 {{ $msgData }}. Please find the order summary below:<br>
 

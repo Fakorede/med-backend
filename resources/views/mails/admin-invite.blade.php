@@ -1,5 +1,5 @@
 @component('mail::message')
-# Hello {{ $userName }},
+## Hello {{ $userName }},
 
 @if ($role_id == 1) 
   You have been granted access to the Magic Express Delivery Admin Dashboard. 

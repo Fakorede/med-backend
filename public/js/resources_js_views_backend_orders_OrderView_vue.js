@@ -11,6 +11,106 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -293,7 +393,62 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OrderBody',
-  props: ['order', 'loading']
+  props: ['order', 'loading'],
+  data: function data() {
+    return {
+      riders: [],
+      rider: ''
+    };
+  },
+  mounted: function mounted() {//this.getAvailableRiders()
+  },
+  methods: {
+    getAvailableRiders: function getAvailableRiders() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var _yield$axios$get, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get("/api/admin");
+
+              case 2:
+                _yield$axios$get = _context.sent;
+                data = _yield$axios$get.data;
+                _this.riders = data.data;
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    assignRider: function assignRider() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios.post("/api/admin", _this2.rider);
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    }
+  }
 });
 
 /***/ }),
@@ -338,7 +493,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       order: {},
-      loading: true,
+      loading: false,
       errors: null
     };
   },
@@ -359,12 +514,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.loading = true;
                 _context.prev = 1;
                 _context.next = 4;
-                return axios.get("/backend/dashboard/order/".concat(_this.$route.params.id));
+                return axios.get("/api/admin/order/".concat(_this.$route.params.id));
 
               case 4:
                 _yield$axios$get = _context.sent;
                 data = _yield$axios$get.data;
-                _this.order = data[0];
+                _this.order = data.data;
                 _context.next = 13;
                 break;
 
@@ -655,9 +810,903 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm.loading ? [_vm._v("Loading...")] : void 0], 2)
+  return _c(
+    "div",
+    [
+      _vm.loading
+        ? [_vm._v("Loading...")]
+        : [
+            _c(
+              "div",
+              { staticClass: "ml-4 mb-4" },
+              [
+                _c(
+                  "router-link",
+                  { attrs: { to: { name: "app.order-list" } } },
+                  [
+                    _c("span", { staticClass: "text-primary" }, [
+                      _vm._v("← Go back")
+                    ])
+                  ]
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "row mb-4 ml-2 mt-2" }, [
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("strong", [_vm._v("ORDER DATE:")]),
+                _vm._v(" " + _vm._s(_vm._f("dateFilter")(_vm.order.date)))
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-md-3" },
+                [
+                  _c("strong", [_vm._v("ORDER TYPE:")]),
+                  _vm._v(" "),
+                  _vm.order.order_type === "Dispatch"
+                    ? [
+                        _c("span", { staticClass: "badge badge-primary" }, [
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(_vm.order.order_type) +
+                              "\n          "
+                          )
+                        ])
+                      ]
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.order.order_type === "Errand"
+                    ? [
+                        _c("span", { staticClass: "badge badge-info" }, [
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(_vm.order.order_type) +
+                              "\n          "
+                          )
+                        ])
+                      ]
+                    : _vm._e()
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-md-3" },
+                [
+                  _c("strong", [_vm._v("ORDER STATUS:")]),
+                  _vm._v(" "),
+                  _vm.order.order_status === "Created"
+                    ? [
+                        _c("span", { staticClass: "badge badge-1" }, [
+                          _vm._v(_vm._s(_vm.order.order_status))
+                        ])
+                      ]
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.order.order_status === "Processed"
+                    ? [
+                        _c("span", { staticClass: "badge badge-2" }, [
+                          _vm._v(_vm._s(_vm.order.order_status))
+                        ])
+                      ]
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.order.order_status === "Assigned"
+                    ? [
+                        _c("span", { staticClass: "badge badge-3" }, [
+                          _vm._v(_vm._s(_vm.order.order_status))
+                        ])
+                      ]
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.order.order_status === "In-Transit"
+                    ? [
+                        _c("span", { staticClass: "badge badge-4" }, [
+                          _vm._v(_vm._s(_vm.order.order_status))
+                        ])
+                      ]
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.order.order_status === "Delivered"
+                    ? [
+                        _c("span", { staticClass: "badge badge-5" }, [
+                          _vm._v(_vm._s(_vm.order.order_status))
+                        ])
+                      ]
+                    : _vm._e()
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "container-fluid" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-sm-12" }, [
+                  _c("div", { staticClass: "card" }, [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-body" }, [
+                      _c(
+                        "div",
+                        { staticClass: "table-responsive pricing pt-2" },
+                        [
+                          _c(
+                            "b-table-simple",
+                            {
+                              attrs: {
+                                "foot-clone": "",
+                                responsive: "",
+                                outlined: "",
+                                striped: "",
+                                hover: ""
+                              }
+                            },
+                            [
+                              _c(
+                                "b-thead",
+                                [
+                                  _c("b-th", [_vm._v("#")]),
+                                  _vm._v(" "),
+                                  _c("b-th", [_vm._v("Item")]),
+                                  _vm._v(" "),
+                                  _c("b-th", [_vm._v("Quantity")]),
+                                  _vm._v(" "),
+                                  _c("b-th", [_vm._v("Amount(₦)")]),
+                                  _vm._v(" "),
+                                  _c("b-th", [_vm._v("Description")])
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-tbody",
+                                _vm._l(_vm.order.order_items, function(
+                                  orderItem,
+                                  index
+                                ) {
+                                  return _c(
+                                    "b-tr",
+                                    { key: "order-item" + index },
+                                    [
+                                      _c("b-th", [_vm._v(_vm._s(index + 1))]),
+                                      _vm._v(" "),
+                                      _c("b-th", [
+                                        _vm._v(_vm._s(orderItem.item))
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-th", [
+                                        _vm._v(_vm._s(orderItem.quantity))
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-td", [
+                                        _vm._v(
+                                          "₦" +
+                                            _vm._s(
+                                              new Intl.NumberFormat().format(
+                                                orderItem.price
+                                              )
+                                            )
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-td", [
+                                        _vm._v(_vm._s(orderItem.description))
+                                      ])
+                                    ],
+                                    1
+                                  )
+                                }),
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "container-fluid" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-lg-12" }, [
+                  _c(
+                    "div",
+                    { staticClass: "card card-block card-stretch card-height" },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "card-body" },
+                        [
+                          _c(
+                            "b-table-simple",
+                            { attrs: { responsive: "" } },
+                            [
+                              _c(
+                                "b-tbody",
+                                [
+                                  _c(
+                                    "b-tr",
+                                    [
+                                      _c("b-td", [
+                                        _c("strong", [_vm._v("Sender Name")])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-td", [
+                                        _vm._v(
+                                          "\n                             " +
+                                            _vm._s(_vm.order.sender_name) +
+                                            "\n                            "
+                                        )
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-tr",
+                                    [
+                                      _c("b-td", [
+                                        _c("strong", [_vm._v("Sender Mobile")])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-td", [
+                                        _vm._v(
+                                          "\n                              " +
+                                            _vm._s(_vm.order.sender_mobile) +
+                                            "\n                            "
+                                        )
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-tr",
+                                    [
+                                      _c("b-td", [
+                                        _c("strong", [_vm._v("Receiver Name")])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-td", [
+                                        _vm._v(
+                                          "\n                             " +
+                                            _vm._s(_vm.order.receiver_name) +
+                                            "\n                            "
+                                        )
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-tr",
+                                    [
+                                      _c("b-td", [
+                                        _c("strong", [
+                                          _vm._v("Receiver Mobile")
+                                        ])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-td", [
+                                        _vm._v(
+                                          "\n                              " +
+                                            _vm._s(_vm.order.receiver_mobile) +
+                                            "\n                            "
+                                        )
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-tr",
+                                    [
+                                      _c("b-td", [
+                                        _c("strong", [_vm._v("Pickup Address")])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-td", [
+                                        _vm._v(
+                                          "\n                             " +
+                                            _vm._s(_vm.order.pickup_address) +
+                                            "\n                            "
+                                        )
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-tr",
+                                    [
+                                      _c("b-td", [
+                                        _c("strong", [
+                                          _vm._v("Dropoff Address")
+                                        ])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-td", [
+                                        _vm._v(
+                                          "\n                              " +
+                                            _vm._s(_vm.order.dropoff_address) +
+                                            "\n                            "
+                                        )
+                                      ])
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "container-fluid" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-lg-12" }, [
+                  _c(
+                    "div",
+                    { staticClass: "card card-block card-stretch card-height" },
+                    [
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-body" }, [
+                        _vm.order.rider
+                          ? _c(
+                              "div",
+                              [
+                                _c(
+                                  "b-table-simple",
+                                  { attrs: { responsive: "" } },
+                                  [
+                                    _c(
+                                      "b-tbody",
+                                      [
+                                        _c(
+                                          "b-tr",
+                                          [
+                                            _c("b-td", [
+                                              _c("strong", [
+                                                _vm._v("Sender Name")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("b-td", [
+                                              _vm._v(
+                                                "\n                              " +
+                                                  _vm._s(
+                                                    _vm.order.sender_name
+                                                  ) +
+                                                  "\n                              "
+                                              )
+                                            ])
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-tr",
+                                          [
+                                            _c("b-td", [
+                                              _c("strong", [
+                                                _vm._v("Sender Mobile")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("b-td", [
+                                              _vm._v(
+                                                "\n                                " +
+                                                  _vm._s(
+                                                    _vm.order.sender_mobile
+                                                  ) +
+                                                  "\n                              "
+                                              )
+                                            ])
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-tr",
+                                          [
+                                            _c("b-td", [
+                                              _c("strong", [
+                                                _vm._v("Receiver Name")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("b-td", [
+                                              _vm._v(
+                                                "\n                              " +
+                                                  _vm._s(
+                                                    _vm.order.receiver_name
+                                                  ) +
+                                                  "\n                              "
+                                              )
+                                            ])
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-tr",
+                                          [
+                                            _c("b-td", [
+                                              _c("strong", [
+                                                _vm._v("Receiver Mobile")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("b-td", [
+                                              _vm._v(
+                                                "\n                                " +
+                                                  _vm._s(
+                                                    _vm.order.receiver_mobile
+                                                  ) +
+                                                  "\n                              "
+                                              )
+                                            ])
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-tr",
+                                          [
+                                            _c("b-td", [
+                                              _c("strong", [
+                                                _vm._v("Pickup Address")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("b-td", [
+                                              _vm._v(
+                                                "\n                              " +
+                                                  _vm._s(
+                                                    _vm.order.pickup_address
+                                                  ) +
+                                                  "\n                              "
+                                              )
+                                            ])
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-tr",
+                                          [
+                                            _c("b-td", [
+                                              _c("strong", [
+                                                _vm._v("Dropoff Address")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("b-td", [
+                                              _vm._v(
+                                                "\n                                " +
+                                                  _vm._s(
+                                                    _vm.order.dropoff_address
+                                                  ) +
+                                                  "\n                              "
+                                              )
+                                            ])
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          : _c("div", [
+                              _vm._m(3),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row" }, [
+                                _c("div", { staticClass: "col-md-6" }, [
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.rider,
+                                          expression: "rider"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { name: "", id: "rider" },
+                                      on: {
+                                        change: function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.rider = $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("option", [_vm._v("Rider 2")]),
+                                      _vm._v(" "),
+                                      _c("option", [_vm._v("Rider 3")])
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-6" }, [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.assignRider.apply(
+                                            null,
+                                            arguments
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Assign")]
+                                  )
+                                ])
+                              ])
+                            ])
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "container-fluid" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-lg-12" }, [
+                  _c(
+                    "div",
+                    { staticClass: "card card-block card-stretch card-height" },
+                    [
+                      _vm._m(4),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-body" }, [
+                        _vm.order.rider
+                          ? _c(
+                              "div",
+                              [
+                                _c(
+                                  "b-table-simple",
+                                  { attrs: { responsive: "" } },
+                                  [
+                                    _c(
+                                      "b-tbody",
+                                      [
+                                        _c(
+                                          "b-tr",
+                                          [
+                                            _c("b-td", [
+                                              _c("strong", [
+                                                _vm._v("Sender Name")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("b-td", [
+                                              _vm._v(
+                                                "\n                              " +
+                                                  _vm._s(
+                                                    _vm.order.sender_name
+                                                  ) +
+                                                  "\n                              "
+                                              )
+                                            ])
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-tr",
+                                          [
+                                            _c("b-td", [
+                                              _c("strong", [
+                                                _vm._v("Sender Mobile")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("b-td", [
+                                              _vm._v(
+                                                "\n                                " +
+                                                  _vm._s(
+                                                    _vm.order.sender_mobile
+                                                  ) +
+                                                  "\n                              "
+                                              )
+                                            ])
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-tr",
+                                          [
+                                            _c("b-td", [
+                                              _c("strong", [
+                                                _vm._v("Receiver Name")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("b-td", [
+                                              _vm._v(
+                                                "\n                              " +
+                                                  _vm._s(
+                                                    _vm.order.receiver_name
+                                                  ) +
+                                                  "\n                              "
+                                              )
+                                            ])
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-tr",
+                                          [
+                                            _c("b-td", [
+                                              _c("strong", [
+                                                _vm._v("Receiver Mobile")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("b-td", [
+                                              _vm._v(
+                                                "\n                                " +
+                                                  _vm._s(
+                                                    _vm.order.receiver_mobile
+                                                  ) +
+                                                  "\n                              "
+                                              )
+                                            ])
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-tr",
+                                          [
+                                            _c("b-td", [
+                                              _c("strong", [
+                                                _vm._v("Pickup Address")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("b-td", [
+                                              _vm._v(
+                                                "\n                              " +
+                                                  _vm._s(
+                                                    _vm.order.pickup_address
+                                                  ) +
+                                                  "\n                              "
+                                              )
+                                            ])
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-tr",
+                                          [
+                                            _c("b-td", [
+                                              _c("strong", [
+                                                _vm._v("Dropoff Address")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("b-td", [
+                                              _vm._v(
+                                                "\n                                " +
+                                                  _vm._s(
+                                                    _vm.order.dropoff_address
+                                                  ) +
+                                                  "\n                              "
+                                              )
+                                            ])
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          : _c("div", [
+                              _vm._m(5),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row" }, [
+                                _c("div", { staticClass: "col-md-6" }, [
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.rider,
+                                          expression: "rider"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { name: "", id: "rider" },
+                                      on: {
+                                        change: function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.rider = $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("option", [_vm._v("Rider 2")]),
+                                      _vm._v(" "),
+                                      _c("option", [_vm._v("Rider 3")])
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-md-6" }, [
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-primary",
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.assignRider.apply(
+                                            null,
+                                            arguments
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Assign")]
+                                  )
+                                ])
+                              ])
+                            ])
+                      ])
+                    ]
+                  )
+                ])
+              ])
+            ])
+          ]
+    ],
+    2
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("div", [_c("strong", [_vm._v("Order Items")])])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "card-header d-flex justify-content-between" },
+      [
+        _c("div", { staticClass: "header-title" }, [
+          _c("div", [_c("strong", [_vm._v("User Information")])])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "card-header d-flex justify-content-between" },
+      [
+        _c("div", { staticClass: "header-title" }, [
+          _c("div", [_c("strong", [_vm._v("Rider Information")])])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("label", { staticClass: "ml-3" }, [
+        _vm._v("Assign a Rider to this Order")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "card-header d-flex justify-content-between" },
+      [
+        _c("div", { staticClass: "header-title" }, [
+          _c("div", [_c("strong", [_vm._v("Other Information")])])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("label", { staticClass: "ml-3" }, [
+        _vm._v("Assign a Rider to this Order")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

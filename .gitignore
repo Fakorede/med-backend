@@ -18,4 +18,4 @@ Issues.md
 laravel-push-notificatio-6ead1-firebase-adminsdk-b894w-97b8060edd.json
 app/Notifications/SendPushNotification.php
 config/larafirebase.php
-database/migrations/2021_07_30_131246_add_fcm_device_token_to_users_table.php
+public/js/firebase-messaging-sw.js

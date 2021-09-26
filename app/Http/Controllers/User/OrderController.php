@@ -151,7 +151,7 @@ class OrderController extends Controller
             && $response['data']['status'] === 'success'
         ) {
             $order->updatePaidOrder($data['paid_at']);
-            return $this->success('Successful');
+            return $this->success(null, 'Verification successful');
         } else if (
             $response['message'] === 'Verification successful' 
             && $response['data']['status'] === 'failed'
@@ -200,14 +200,32 @@ class OrderController extends Controller
 
     private function _sendNotifications($user, $order)
     {
+        $title = 'New Order Created';
+        $message1 = 'You just placed an Order';
+        $message2 = "A new Order has been placed by $user->first_name $user->last_name ($user->email)";
+        
         // current user mail/notification
-        Mail::to(auth()->user())->send(new OrderCreated('Order Created', 'You just placed an Order', $order));
-        auth()->user()->notify(new OrderNotification('Order Created', 'You just placed an Order', $order));
+        Mail::to(auth()->user())->send(new OrderCreated($title, $message1, $order));
+        auth()->user()->notify(new OrderNotification($title, $message1, $order));
 
         // admin mail/notification
         $users = User::where('role_id', 1)->get();
 
-        Mail::to($users)->send(new AdminOrderCreated('Order Created', "A new Order has been placed by $user->first_name $user->last_name ($user->email)", $order));
-        Notification::send($users, new AdminOrderNotification('Order Created', "A new Order has been placed by $user->first_name $user->last_name ($user->email)", $order));
+        Mail::to($users)->send(new AdminOrderCreated($title, $message2, $order));
+        Notification::send($users, new AdminOrderNotification($title, $message2, $order));
+
+        // push notification
+        $data = [
+            'token' => auth()->user()->fcm_token,
+            'notification' => [
+                'title' => $title,
+                'body' => $message2,
+                // 'time' => now(),
+                // 'date' => now()->toFormattedDateString(),
+            ],
+            'data' => $order,
+        ];
+
+        $this->sendPushNotification($data);
     }
 }

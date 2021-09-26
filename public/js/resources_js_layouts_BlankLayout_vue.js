@@ -83,7 +83,7 @@ ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_vendor_remixicon_fonts_remixicon_css__WEBPACK_IMPORTED_MODULE_3__.default);
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_vendor_line_awesome_dist_line_awesome_css_line_awesome_min_css__WEBPACK_IMPORTED_MODULE_4__.default);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* ['#37d5f2', '#4788ff', '#ffbf00', '#fe731c', '#4fd69c'] */\n.badge-1 {\n  background-color: #37d5f2;\n  color: #fff;\n}\n.badge-2 {\n  background-color: #4788ff;\n  color: #fff;\n}\n.badge-3 {\n  background-color: #ffbf00;\n  color: #fff;\n}\n.badge-4 {\n  background-color: #fe731c;\n  color: #fff;\n}\n.badge-5 {\n  background-color: #4fd69c;\n  color: #fff;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -3,3 +3,24 @@
 @import url("../vendor/remixicon/fonts/remixicon.css");
 @import url("../vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css");
 
+/* ['#37d5f2', '#4788ff', '#ffbf00', '#fe731c', '#4fd69c'] */
+.badge-1 {
+  background-color: #37d5f2;
+  color: #fff;
+}
+.badge-2 {
+  background-color: #4788ff;
+  color: #fff;
+}
+.badge-3 {
+  background-color: #ffbf00;
+  color: #fff;
+}
+.badge-4 {
+  background-color: #fe731c;
+  color: #fff;
+}
+.badge-5 {
+  background-color: #4fd69c;
+  color: #fff;
+}

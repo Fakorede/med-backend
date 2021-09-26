@@ -17,7 +17,7 @@
     data() {
       return {
         order: {},
-        loading: true,
+        loading: false,
         errors: null,
       }
     },
@@ -29,8 +29,8 @@
         this.loading = true
 
         try {
-          const {data} = await axios.get(`/backend/dashboard/order/${this.$route.params.id}`)
-          this.order = data[0]
+          const {data} = await axios.get(`/api/admin/order/${this.$route.params.id}`)
+          this.order = data.data
         } catch (error) {
           console.log(error)
           if(is401(error)) {

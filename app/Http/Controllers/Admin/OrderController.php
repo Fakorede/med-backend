@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\User\OrderController as UserOrderController;
 use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use App\Traits\ParseResponse;
@@ -13,6 +14,13 @@ class OrderController extends Controller
 {
     use ParseResponse;
 
+    public $orderCtl;
+
+    public function __construct(UserOrderController $orderCtl)
+    {
+        $this->orderCtl = $orderCtl;
+    }
+
     // get all orders
     // filter by date, payment status
     public function getAllOrders($per_page=50)
@@ -22,6 +30,11 @@ class OrderController extends Controller
         )
         ->latest()
         ->paginate($per_page);
+    }
+
+    public function getOrderById($id)
+    {
+        return $this->orderCtl->getOrderById($id);
     }
 
     // GET - get all transactions from paystack

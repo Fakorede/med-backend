@@ -120,7 +120,7 @@
                               <span v-if="params.sort_field == 'created_at' && params.sort_direction == 'asc'">&uarr;</span>
                               <span v-if="params.sort_field == 'created_at' && params.sort_direction == 'desc'">&darr;</span>
                             </b-th>
-                            <b-th>View Details</b-th>
+                            <b-th>Actions</b-th>
                         </b-thead>
                          <b-tr class="text-center" v-if="loading">
                              <b-td></b-td>
@@ -147,8 +147,24 @@
                                   </span>
                                 </template>
                               </b-td>
-                              <b-td>{{order.order_status}}</b-td>
-                              <b-td>{{order.created_at | dateFilter}}</b-td>
+                              <b-td>
+                                <template v-if="order.order_status === 'Created'">
+                                  <span class="badge badge-1">{{ order.order_status }}</span>
+                                </template>
+                                <template v-if="order.order_status === 'Processed'">
+                                  <span class="badge badge-2">{{ order.order_status }}</span>
+                                </template>
+                                <template v-if="order.order_status === 'Assigned'">
+                                  <span class="badge badge-3">{{ order.order_status }}</span>
+                                </template>
+                                <template v-if="order.order_status === 'In-Transit'">
+                                  <span class="badge badge-4">{{ order.order_status }}</span>
+                                </template>
+                                <template v-if="order.order_status === 'Delivered'">
+                                  <span class="badge badge-5">{{ order.order_status }}</span>
+                                </template>
+                              </b-td>
+                              <b-td>{{order.created_at | dateFilter2}}</b-td>
                               <!-- <b-td>
                                 <template v-if="response.exposure_risk == 'high'">
                                   <span class="badge badge-danger">High</span>
@@ -172,12 +188,11 @@
                               <b-td>{{response.county ? response.county : '-'}}</b-td>
                               <b-td>{{response.state ? response.state : '-'}}</b-td> -->
                               <b-td>
-                                <!-- Button to trigger modal -->
-                                <button type="button" class="btn btn-primary btn-sm" data-id="order.id" @click="showModal(order)">
-                                    <small>view order</small>
-                                </button>
+                                <router-link :to="{name: 'app.order-view', params: {'id': order.id}}" class="btn btn-outline-primary">
+                                  <small>View Order</small>
+                                </router-link>
                                 <!-- Modal -->
-                                <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModal" aria-hidden="true">
+                                <!-- <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModal" aria-hidden="true">
                                   <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
                                       <div class="modal-header">
@@ -194,7 +209,7 @@
                                       </div>
                                     </div>
                                   </div>
-                                </div>
+                                </div> -->
                                 <!-- ./ Modal -->
                               </b-td>
                            </b-tr>
@@ -234,12 +249,10 @@
     </div>
 </template>
 <script>
-import OrderBody from './OrderModal'
 import { is401 } from '../../../config/response'
 
 export default {
   name:'OrderList',
-  components: {OrderBody},
   async mounted() {
     await this.getOrders()
     await this.$broadcast()
@@ -249,7 +262,7 @@ export default {
       loading: false,
       downloading: false,
       orders: {},
-      singleOrder: {},
+      // singleOrder: {},
       params: {
         perPage: 10,
         sort_field: 'created_at',
@@ -317,11 +330,11 @@ export default {
 
       this.getOrders()
     },
-    showModal(order) {
-      this.singleOrder = {}
-      $('#orderModal').modal('show')
-      this.singleOrder = order
-    },
+    // showModal(order) {
+    //   this.singleOrder = {}
+    //   $('#orderModal').modal('show')
+    //   this.singleOrder = order
+    // },
     changePageParam (val) {
       this.params.perPage = parseInt(val)
     },

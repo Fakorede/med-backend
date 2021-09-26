@@ -193,7 +193,7 @@
                                 <b-th>Dropoff Address</b-th>
                                 <b-th>Order Type</b-th>
                                 <b-th>Order Status</b-th>
-                                <b-th>View Details</b-th>
+                                <b-th>Actions</b-th>
                             </b-thead>
                             <b-tbody>
                                 <b-tr v-for="(order, index) in orders" :key="'order' + index">
@@ -232,12 +232,15 @@
                                         </template>
                                     </b-td>
                                     <b-td>
+                                        <router-link :to="{name: 'app.order-view', params: {'id': order.id}}" class="btn btn-outline-primary">
+                                            <small>View Order</small>
+                                        </router-link>
                                         <!-- Button to trigger modal -->
-                                        <button type="button" class="btn btn-primary btn-sm" data-id="order.id" @click="showModal(order)">
+                                        <!-- <button type="button" class="btn btn-primary btn-sm" data-id="order.id" @click="showModal(order)">
                                         View Order
-                                        </button>
+                                        </button> -->
                                         <!-- Modal -->
-                                        <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModal" aria-hidden="true">
+                                        <!-- <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModal" aria-hidden="true">
                                         <div class="modal-dialog modal-xl" role="document">
                                             <div class="modal-content">
                                             <div class="modal-header">
@@ -254,13 +257,13 @@
                                             </div>
                                             </div>
                                         </div>
-                                        </div>
+                                        </div> -->
                                         <!-- ./ Modal -->
                                     </b-td>
                                 </b-tr>
                             </b-tbody>
                         </b-table-simple>
-                  </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -499,27 +502,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-/* ['#37d5f2', '#4788ff', '#ffbf00', '#fe731c', '#4fd69c'] */
-.badge-1 {
-    background-color: #37d5f2;
-    color: #fff;
-}
-.badge-2 {
-    background-color: #4788ff;
-    color: #fff;
-}
-.badge-3 {
-    background-color: #ffbf00;
-    color: #fff;
-}
-.badge-4 {
-    background-color: #fe731c;
-    color: #fff;
-}
-.badge-5 {
-    background-color: #4fd69c;
-    color: #fff;
-}
-</style>
