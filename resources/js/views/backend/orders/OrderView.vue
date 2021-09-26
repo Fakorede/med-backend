@@ -29,7 +29,9 @@
         this.loading = true
 
         try {
-          const {data} = await axios.get(`/api/admin/order/${this.$route.params.id}`)
+          const {data} = await axios.get(`/api/admin/order/${this.$route.params.id}`, {
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('sserpxe_cigam')}` }
+          })
           this.order = data.data
         } catch (error) {
           console.log(error)

@@ -107,7 +107,7 @@
 										<span>All Orders</span>
 									</router-link>
 								</li>
-								<li class=" ">
+								<!-- <li class=" ">
 									<router-link :to="{ name: 'app.order-track'}" class="svg-icon">
 										<i class="">
 											<svg class="svg-icon" id="mm-user-1-3" xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +118,7 @@
 										</i>
 										<span>Track Orders</span>
 									</router-link>
-								</li>
+								</li> -->
 							</b-collapse>
 						</li>
 						<!-- Notifications -->

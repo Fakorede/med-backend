@@ -391,6 +391,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OrderBody',
   props: ['order', 'loading'],
@@ -414,7 +434,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get("/api/admin");
+                return axios.get("/api/admin", {
+                  headers: {
+                    'Authorization': "Bearer ".concat(localStorage.getItem('sserpxe_cigam'))
+                  }
+                });
 
               case 2:
                 _yield$axios$get = _context.sent;
@@ -438,7 +462,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return axios.post("/api/admin", _this2.rider);
+                return axios.post("/api/admin", _this2.rider, {
+                  headers: {
+                    'Authorization': "Bearer ".concat(localStorage.getItem('sserpxe_cigam'))
+                  }
+                });
 
               case 2:
               case "end":
@@ -514,7 +542,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this.loading = true;
                 _context.prev = 1;
                 _context.next = 4;
-                return axios.get("/api/admin/order/".concat(_this.$route.params.id));
+                return axios.get("/api/admin/order/".concat(_this.$route.params.id), {
+                  headers: {
+                    'Authorization': "Bearer ".concat(localStorage.getItem('sserpxe_cigam'))
+                  }
+                });
 
               case 4:
                 _yield$axios$get = _context.sent;
@@ -922,6 +954,63 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
+            _c("div", { staticClass: "row mb-4 ml-2" }, [
+              _c("div", { staticClass: "col-md-4" }, [
+                _c("strong", [_vm._v("TOTAL AMOUNT: ")]),
+                _vm._v(
+                  "₦" +
+                    _vm._s(
+                      new Intl.NumberFormat().format(_vm.order.total_amount)
+                    ) +
+                    "\n      "
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-md-4" },
+                [
+                  _c("strong", [_vm._v("PAYMENT STATUS:")]),
+                  _vm._v(" "),
+                  _vm.order.payment_status === "Paid"
+                    ? [
+                        _c("span", { staticClass: "badge badge-success" }, [
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(_vm.order.payment_status) +
+                              "\n          "
+                          )
+                        ])
+                      ]
+                    : _vm.order.payment_status === "Not Paid"
+                    ? [
+                        _c("span", { staticClass: "badge badge-danger" }, [
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(_vm.order.payment_status) +
+                              "\n          "
+                          )
+                        ])
+                      ]
+                    : [
+                        _c("span", { staticClass: "badge badge-warning" }, [
+                          _vm._v(
+                            "\n            " +
+                              _vm._s(_vm.order.payment_status) +
+                              "\n          "
+                          )
+                        ])
+                      ]
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-4" }, [
+                _c("strong", [_vm._v("TRACKING NUMBER:")]),
+                _vm._v(" " + _vm._s(_vm.order.tracking_number) + "\n      ")
+              ])
+            ]),
+            _vm._v(" "),
             _c("div", { staticClass: "container-fluid" }, [
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-sm-12" }, [
@@ -1033,6 +1122,48 @@ var render = function() {
                               _c(
                                 "b-tbody",
                                 [
+                                  _c(
+                                    "b-tr",
+                                    [
+                                      _c("b-td", [
+                                        _c("strong", [_vm._v("User Details")])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-td", [
+                                        _vm._v(
+                                          "\n                            " +
+                                            _vm._s(_vm.order.user.first_name) +
+                                            " " +
+                                            _vm._s(_vm.order.user.last_name) +
+                                            " - " +
+                                            _vm._s(_vm.order.user.email) +
+                                            "\n                          "
+                                        )
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-tr",
+                                    [
+                                      _c("b-td", [
+                                        _c("strong", [
+                                          _vm._v("Personnel Option")
+                                        ])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-td", [
+                                        _vm._v(
+                                          "\n                            " +
+                                            _vm._s(_vm.order.personnel_option) +
+                                            "\n                          "
+                                        )
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
                                   _c(
                                     "b-tr",
                                     [
@@ -1404,227 +1535,151 @@ var render = function() {
                     [
                       _vm._m(4),
                       _vm._v(" "),
-                      _c("div", { staticClass: "card-body" }, [
-                        _vm.order.rider
-                          ? _c(
-                              "div",
-                              [
-                                _c(
-                                  "b-table-simple",
-                                  { attrs: { responsive: "" } },
-                                  [
-                                    _c(
-                                      "b-tbody",
-                                      [
-                                        _c(
-                                          "b-tr",
-                                          [
-                                            _c("b-td", [
-                                              _c("strong", [
-                                                _vm._v("Sender Name")
-                                              ])
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("b-td", [
-                                              _vm._v(
-                                                "\n                              " +
-                                                  _vm._s(
-                                                    _vm.order.sender_name
-                                                  ) +
-                                                  "\n                              "
-                                              )
-                                            ])
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-tr",
-                                          [
-                                            _c("b-td", [
-                                              _c("strong", [
-                                                _vm._v("Sender Mobile")
-                                              ])
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("b-td", [
-                                              _vm._v(
-                                                "\n                                " +
-                                                  _vm._s(
-                                                    _vm.order.sender_mobile
-                                                  ) +
-                                                  "\n                              "
-                                              )
-                                            ])
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-tr",
-                                          [
-                                            _c("b-td", [
-                                              _c("strong", [
-                                                _vm._v("Receiver Name")
-                                              ])
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("b-td", [
-                                              _vm._v(
-                                                "\n                              " +
-                                                  _vm._s(
-                                                    _vm.order.receiver_name
-                                                  ) +
-                                                  "\n                              "
-                                              )
-                                            ])
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-tr",
-                                          [
-                                            _c("b-td", [
-                                              _c("strong", [
-                                                _vm._v("Receiver Mobile")
-                                              ])
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("b-td", [
-                                              _vm._v(
-                                                "\n                                " +
-                                                  _vm._s(
-                                                    _vm.order.receiver_mobile
-                                                  ) +
-                                                  "\n                              "
-                                              )
-                                            ])
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-tr",
-                                          [
-                                            _c("b-td", [
-                                              _c("strong", [
-                                                _vm._v("Pickup Address")
-                                              ])
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("b-td", [
-                                              _vm._v(
-                                                "\n                              " +
-                                                  _vm._s(
-                                                    _vm.order.pickup_address
-                                                  ) +
-                                                  "\n                              "
-                                              )
-                                            ])
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-tr",
-                                          [
-                                            _c("b-td", [
-                                              _c("strong", [
-                                                _vm._v("Dropoff Address")
-                                              ])
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("b-td", [
-                                              _vm._v(
-                                                "\n                                " +
-                                                  _vm._s(
-                                                    _vm.order.dropoff_address
-                                                  ) +
-                                                  "\n                              "
-                                              )
-                                            ])
-                                          ],
-                                          1
-                                        )
-                                      ],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          : _c("div", [
-                              _vm._m(5),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "row" }, [
-                                _c("div", { staticClass: "col-md-6" }, [
-                                  _c(
-                                    "select",
-                                    {
-                                      directives: [
-                                        {
-                                          name: "model",
-                                          rawName: "v-model",
-                                          value: _vm.rider,
-                                          expression: "rider"
-                                        }
-                                      ],
-                                      staticClass: "form-control",
-                                      attrs: { name: "", id: "rider" },
-                                      on: {
-                                        change: function($event) {
-                                          var $$selectedVal = Array.prototype.filter
-                                            .call(
-                                              $event.target.options,
-                                              function(o) {
-                                                return o.selected
-                                              }
+                      _c(
+                        "div",
+                        { staticClass: "card-body" },
+                        [
+                          _c(
+                            "b-table-simple",
+                            { attrs: { responsive: "" } },
+                            [
+                              _c(
+                                "b-tbody",
+                                [
+                                  _vm.order.order_type == "Errand"
+                                    ? _c(
+                                        "b-tr",
+                                        [
+                                          _c("b-td", [
+                                            _c("strong", [_vm._v("Order Type")])
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("b-td", [
+                                            _vm._v(
+                                              "\n                            " +
+                                                _vm._s(_vm.order.order_type) +
+                                                "\n                          "
                                             )
-                                            .map(function(o) {
-                                              var val =
-                                                "_value" in o
-                                                  ? o._value
-                                                  : o.value
-                                              return val
-                                            })
-                                          _vm.rider = $event.target.multiple
-                                            ? $$selectedVal
-                                            : $$selectedVal[0]
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("option", [_vm._v("Rider 2")]),
-                                      _vm._v(" "),
-                                      _c("option", [_vm._v("Rider 3")])
-                                    ]
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "col-md-6" }, [
+                                          ])
+                                        ],
+                                        1
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.order.order_type == "Errand"
+                                    ? _c(
+                                        "b-tr",
+                                        [
+                                          _c("b-td", [
+                                            _c("strong", [_vm._v("Store Name")])
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("b-td", [
+                                            _vm._v(
+                                              "\n                            " +
+                                                _vm._s(_vm.order.store_name) +
+                                                "\n                          "
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
                                   _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-primary",
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.assignRider.apply(
-                                            null,
-                                            arguments
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Assign")]
-                                  )
-                                ])
-                              ])
-                            ])
-                      ])
+                                    "b-tr",
+                                    [
+                                      _c("b-td", [
+                                        _c("strong", [_vm._v("Payment Method")])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-td", [
+                                        _vm._v(
+                                          "\n                            " +
+                                            _vm._s(_vm.order.payment_method) +
+                                            "\n                            "
+                                        )
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-tr",
+                                    [
+                                      _c("b-td", [
+                                        _c("strong", [_vm._v("Delivery Note")])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("b-td", [
+                                        _vm._v(
+                                          "\n                            " +
+                                            _vm._s(_vm.order.delivery_note) +
+                                            "\n                            "
+                                        )
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _vm.order.payment_verified
+                                    ? _c(
+                                        "b-tr",
+                                        [
+                                          _c("b-td", [
+                                            _c("strong", [
+                                              _vm._v("Payment Date")
+                                            ])
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("b-td", [
+                                            _vm._v(
+                                              "\n                              " +
+                                                _vm._s(
+                                                  _vm.order.paid_at ||
+                                                    _vm.dateFilter
+                                                ) +
+                                                "\n                            "
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  _vm.order.delivered_at
+                                    ? _c(
+                                        "b-tr",
+                                        [
+                                          _c("b-td", [
+                                            _c("strong", [
+                                              _vm._v("Delivery Date")
+                                            ])
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("b-td", [
+                                            _vm._v(
+                                              "\n                              " +
+                                                _vm._s(
+                                                  _vm.order.delivered_at ||
+                                                    _vm.dateFilter
+                                                ) +
+                                                "\n                            "
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      )
+                                    : _vm._e()
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
                     ]
                   )
                 ])
@@ -1695,16 +1750,6 @@ var staticRenderFns = [
         ])
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("label", { staticClass: "ml-3" }, [
-        _vm._v("Assign a Rider to this Order")
-      ])
-    ])
   }
 ]
 render._withStripped = true

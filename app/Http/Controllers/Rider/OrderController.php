@@ -38,7 +38,7 @@ class OrderController extends Controller
     }
 
     // update order payment
-    public function updatePaymentStatus(Request $request, $id)
+    public function updatePaymentStatus($id)
     {
         $order = Order::findOrFail($id);
 
@@ -57,8 +57,11 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
 
+        $date = Carbon::now();
+
         $order->update([
-            'order_status' => $request->order_status
+            'order_status' => $request->order_status,
+            'delivered_at' => $request->order_status === Controller::ORDER_STATUS_5 ? $date : null,
         ]);
 
         return $this->success();

@@ -41,10 +41,32 @@
             </template>
         </div>
       </div>
-      <!-- <div class="row mb-3 ml-2">
-        <div class="col-md-6"><strong>STATE:</strong> </div>
-        <div class="col-md-6"><strong>COUNTY:</strong> </div>
-      </div> -->
+      <div class="row mb-4 ml-2">
+        <div class="col-md-4">
+          <strong>TOTAL AMOUNT: </strong>&#8358;{{new Intl.NumberFormat().format(order.total_amount)}}
+        </div>
+        <div class="col-md-4">
+          <strong>PAYMENT STATUS:</strong>
+          <template v-if="order.payment_status === 'Paid'">
+            <span class="badge badge-success">
+              {{ order.payment_status }}
+            </span>
+          </template>
+          <template v-else-if="order.payment_status === 'Not Paid'">
+            <span class="badge badge-danger">
+              {{ order.payment_status }}
+            </span>
+          </template>
+          <template v-else>
+            <span class="badge badge-warning">
+              {{ order.payment_status }}
+            </span>
+          </template>
+        </div>
+        <div class="col-md-4">
+          <strong>TRACKING NUMBER:</strong> {{order.tracking_number}}
+        </div>
+      </div>
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-12">
@@ -90,6 +112,22 @@
                   <div class="card-body">
                      <b-table-simple responsive>
                         <b-tbody>
+                          <b-tr>
+                            <b-td>
+                              <strong>User Details</strong>
+                            </b-td>
+                            <b-td>
+                              {{ order.user.first_name }} {{ order.user.last_name }} - {{ order.user.email }}
+                            </b-td>
+                          </b-tr>
+                          <b-tr>
+                            <b-td>
+                              <strong>Personnel Option</strong>
+                            </b-td>
+                            <b-td>
+                              {{ order.personnel_option }}
+                            </b-td>
+                          </b-tr>
                            <b-tr>
                               <b-td>
                                 <strong>Sender Name</strong>
@@ -240,76 +278,58 @@
                      </div>
                   </div>
                   <div class="card-body">
-                    <div v-if="order.rider">
-                      <b-table-simple responsive>
-                          <b-tbody>
-                            <b-tr>
-                                <b-td>
-                                  <strong>Sender Name</strong>
-                                </b-td>
-                                <b-td>
-                                {{ order.sender_name}}
-                                </b-td>
-                            </b-tr>
-                            <b-tr>
-                                <b-td>
-                                  <strong>Sender Mobile</strong>
-                                </b-td>
-                                <b-td>
-                                  {{ order.sender_mobile}}
-                                </b-td>
-                            </b-tr>
-                            <b-tr>
-                                <b-td>
-                                  <strong>Receiver Name</strong>
-                                </b-td>
-                                <b-td>
-                                {{ order.receiver_name}}
-                                </b-td>
-                            </b-tr>
-                            <b-tr>
-                                <b-td>
-                                  <strong>Receiver Mobile</strong>
-                                </b-td>
-                                <b-td>
-                                  {{ order.receiver_mobile}}
-                                </b-td>
-                            </b-tr>
-                            <b-tr>
-                                <b-td>
-                                  <strong>Pickup Address</strong>
-                                </b-td>
-                                <b-td>
-                                {{ order.pickup_address}}
-                                </b-td>
-                            </b-tr>
-                            <b-tr>
-                                <b-td>
-                                  <strong>Dropoff Address</strong>
-                                </b-td>
-                                <b-td>
-                                  {{ order.dropoff_address}}
-                                </b-td>
-                            </b-tr>
-                          </b-tbody>
-                      </b-table-simple>
-                    </div>
-                    <div v-else>
-                      <div class="row">
-                        <label class="ml-3">Assign a Rider to this Order</label>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <select class="form-control" name="" id="rider" v-model="rider">
-                            <option>Rider 2</option>
-                            <option>Rider 3</option>
-                          </select>
-                        </div>
-                        <div class="col-md-6">
-                          <button @click.prevent="assignRider" class="btn btn-primary">Assign</button>
-                        </div>
-                      </div>
-                    </div>
+                    <b-table-simple responsive>
+                        <b-tbody>
+                          <b-tr v-if="order.order_type=='Errand'">
+                            <b-td>
+                              <strong>Order Type</strong>
+                            </b-td>
+                            <b-td>
+                              {{ order.order_type }}
+                            </b-td>
+                          </b-tr>
+                          <b-tr v-if="order.order_type=='Errand'">
+                            <b-td>
+                              <strong>Store Name</strong>
+                            </b-td>
+                            <b-td>
+                              {{ order.store_name }}
+                            </b-td>
+                          </b-tr>
+                          <b-tr>
+                              <b-td>
+                                <strong>Payment Method</strong>
+                              </b-td>
+                              <b-td>
+                              {{ order.payment_method }}
+                              </b-td>
+                          </b-tr>
+                          <b-tr>
+                              <b-td>
+                                <strong>Delivery Note</strong>
+                              </b-td>
+                              <b-td>
+                              {{ order.delivery_note }}
+                              </b-td>
+                          </b-tr>
+                          <b-tr v-if="order.payment_verified">
+                              <b-td>
+                                <strong>Payment Date</strong>
+                              </b-td>
+                              <b-td>
+                                {{ order.paid_at || dateFilter }}
+                              </b-td>
+                          </b-tr>
+                          <b-tr v-if="order.delivered_at">
+                              <b-td>
+                                <strong>Delivery Date</strong>
+                              </b-td>
+                              <b-td>
+                                {{ order.delivered_at || dateFilter }}
+                              </b-td>
+                          </b-tr>
+                        </b-tbody>
+                    </b-table-simple>
                   </div>
                </div>
             </div>
@@ -385,11 +405,15 @@
     },
     methods: {
       async getAvailableRiders() {
-        const {data} = await axios.get(`/api/admin`)
+        const {data} = await axios.get(`/api/admin`, {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('sserpxe_cigam')}` }
+        })
         this.riders = data.data
       },
       async assignRider() {
-        await axios.post(`/api/admin`, this.rider)
+        await axios.post(`/api/admin`, this.rider, {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('sserpxe_cigam')}` }
+        })
       }
     }
   }
