@@ -117,7 +117,7 @@
                               <strong>User Details</strong>
                             </b-td>
                             <b-td>
-                              {{ order.user.first_name }} {{ order.user.last_name }} - {{ order.user.email }}
+                              <span v-if="order.user.first_name">{{ order.user.first_name }}</span> <span v-if="order.user.last_name">{{ order.user.last_name }}</span> - <span v-if="order.user.email">{{ order.user.email }}</span>
                             </b-td>
                           </b-tr>
                           <b-tr>

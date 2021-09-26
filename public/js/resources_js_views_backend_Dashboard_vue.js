@@ -2963,15 +2963,31 @@ var render = function() {
                                       ]),
                                       _vm._v(" "),
                                       _c("b-td", [
-                                        _vm._v(
-                                          "\n                            " +
-                                            _vm._s(_vm.order.user.first_name) +
-                                            " " +
-                                            _vm._s(_vm.order.user.last_name) +
-                                            " - " +
-                                            _vm._s(_vm.order.user.email) +
-                                            "\n                          "
-                                        )
+                                        _vm.order.user.first_name
+                                          ? _c("span", [
+                                              _vm._v(
+                                                _vm._s(
+                                                  _vm.order.user.first_name
+                                                )
+                                              )
+                                            ])
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _vm.order.user.last_name
+                                          ? _c("span", [
+                                              _vm._v(
+                                                _vm._s(_vm.order.user.last_name)
+                                              )
+                                            ])
+                                          : _vm._e(),
+                                        _vm._v(" - "),
+                                        _vm.order.user.email
+                                          ? _c("span", [
+                                              _vm._v(
+                                                _vm._s(_vm.order.user.email)
+                                              )
+                                            ])
+                                          : _vm._e()
                                       ])
                                     ],
                                     1

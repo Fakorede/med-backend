@@ -22,16 +22,17 @@ import broadcast from './mixins/broadcast'
 //   baseURL: 'domain.nl/path/to/my/api'
 // })
 
-if (process.env.MIX_APP_ENV === 'production') {
-  axios.defaults.baseURL = "https://www.magicexpressdelivery.com"
-} else if (process.env.MIX_APP_ENV === 'local') {
-  axios.defaults.baseURL = "http://localhost:8000";
-} else {
-  axios.defaults.baseURL = "https://medng.herokuapp.com";
-}
+// if (process.env.MIX_APP_ENV === 'production') {
+//   axios.defaults.baseURL = "https://www.magicexpressdelivery.com"
+// } else if (process.env.MIX_APP_ENV === 'local') {
+//   axios.defaults.baseURL = "http://localhost:8000";
+// } else {
+//   axios.defaults.baseURL = "https://medng.herokuapp.com";
+// }
 
 console.log(process.env.MIX_APP_ENV)
 // axios.defaults.baseURL = "https://www.magicexpressdelivery.com"
+axios.defaults.baseURL = "https://medng.herokuapp.com"
 
 
 axios.defaults.withCredentials = true
