@@ -117,7 +117,7 @@
                               <strong>User Details</strong>
                             </b-td>
                             <b-td>
-                              <span v-if="order.user.first_name">{{ order.user.first_name }}</span> <span v-if="order.user.last_name">{{ order.user.last_name }}</span> - <span v-if="order.user.email">{{ order.user.email }}</span>
+                              <span v-if="order.user">{{ order.user.first_name }}</span> <span v-if="order.user">{{ order.user.last_name }}</span> - <span v-if="order.user">{{ order.user.email }}</span>
                             </b-td>
                           </b-tr>
                           <b-tr>
@@ -198,52 +198,30 @@
                           <b-tbody>
                             <b-tr>
                                 <b-td>
-                                  <strong>Sender Name</strong>
+                                  <strong>Rider Name</strong>
                                 </b-td>
                                 <b-td>
-                                {{ order.sender_name}}
+                                <span v-if="order.rider">{{ order.rider.first_name }}</span> 
+                                <span v-if="order.rider">{{ order.rider.last_name }}</span> 
                                 </b-td>
                             </b-tr>
                             <b-tr>
                                 <b-td>
-                                  <strong>Sender Mobile</strong>
+                                  <strong>Rider Email</strong>
                                 </b-td>
                                 <b-td>
-                                  {{ order.sender_mobile}}
+                                  <span v-if="order.rider.email">{{ order.rider.email }}</span>
                                 </b-td>
                             </b-tr>
                             <b-tr>
                                 <b-td>
-                                  <strong>Receiver Name</strong>
+                                  <strong>Current Location</strong>
                                 </b-td>
                                 <b-td>
-                                {{ order.receiver_name}}
+                                {{ order.rider.address}}
                                 </b-td>
                             </b-tr>
-                            <b-tr>
-                                <b-td>
-                                  <strong>Receiver Mobile</strong>
-                                </b-td>
-                                <b-td>
-                                  {{ order.receiver_mobile}}
-                                </b-td>
-                            </b-tr>
-                            <b-tr>
-                                <b-td>
-                                  <strong>Pickup Address</strong>
-                                </b-td>
-                                <b-td>
-                                {{ order.pickup_address}}
-                                </b-td>
-                            </b-tr>
-                            <b-tr>
-                                <b-td>
-                                  <strong>Dropoff Address</strong>
-                                </b-td>
-                                <b-td>
-                                  {{ order.dropoff_address}}
-                                </b-td>
-                            </b-tr>
+                        
                           </b-tbody>
                       </b-table-simple>
                     </div>
@@ -309,7 +287,7 @@
                                 <strong>Delivery Note</strong>
                               </b-td>
                               <b-td>
-                              {{ order.delivery_note }}
+                              {{ order.delivery_note ? order.delivery_note : '-' }}
                               </b-td>
                           </b-tr>
                           <b-tr v-if="order.payment_verified">
@@ -405,13 +383,16 @@
     },
     methods: {
       async getAvailableRiders() {
-        const {data} = await axios.get(`/api/admin`, {
+        const {data} = await axios.get(`/api/admin/available/riders`, {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('sserpxe_cigam')}` }
         })
         this.riders = data.data
       },
       async assignRider() {
-        await axios.post(`/api/admin`, this.rider, {
+        await axios.post(`/api/admin/assign/rider`, {
+          'order_id': this.order.id,
+          'rider_id': this.rider,
+        }, {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('sserpxe_cigam')}` }
         })
       }

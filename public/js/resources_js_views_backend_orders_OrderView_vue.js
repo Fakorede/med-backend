@@ -389,28 +389,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OrderBody',
   props: ['order', 'loading'],
@@ -434,7 +412,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get("/api/admin", {
+                return axios.get("/api/admin/available/riders", {
                   headers: {
                     'Authorization': "Bearer ".concat(localStorage.getItem('sserpxe_cigam'))
                   }
@@ -462,7 +440,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return axios.post("/api/admin", _this2.rider, {
+                return axios.post("/api/admin/assign/rider", {
+                  'order_id': _this2.order.id,
+                  'rider_id': _this2.rider
+                }, {
                   headers: {
                     'Authorization': "Bearer ".concat(localStorage.getItem('sserpxe_cigam'))
                   }
@@ -1130,7 +1111,7 @@ var render = function() {
                                       ]),
                                       _vm._v(" "),
                                       _c("b-td", [
-                                        _vm.order.user.first_name
+                                        _vm.order.user
                                           ? _c("span", [
                                               _vm._v(
                                                 _vm._s(
@@ -1140,7 +1121,7 @@ var render = function() {
                                             ])
                                           : _vm._e(),
                                         _vm._v(" "),
-                                        _vm.order.user.last_name
+                                        _vm.order.user
                                           ? _c("span", [
                                               _vm._v(
                                                 _vm._s(_vm.order.user.last_name)
@@ -1148,7 +1129,7 @@ var render = function() {
                                             ])
                                           : _vm._e(),
                                         _vm._v(" - "),
-                                        _vm.order.user.email
+                                        _vm.order.user
                                           ? _c("span", [
                                               _vm._v(
                                                 _vm._s(_vm.order.user.email)
@@ -1332,7 +1313,67 @@ var render = function() {
                                           [
                                             _c("b-td", [
                                               _c("strong", [
-                                                _vm._v("Sender Name")
+                                                _vm._v("Rider Name")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("b-td", [
+                                              _vm.order.rider
+                                                ? _c("span", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm.order.rider
+                                                          .first_name
+                                                      )
+                                                    )
+                                                  ])
+                                                : _vm._e(),
+                                              _vm._v(" "),
+                                              _vm.order.rider
+                                                ? _c("span", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm.order.rider
+                                                          .last_name
+                                                      )
+                                                    )
+                                                  ])
+                                                : _vm._e()
+                                            ])
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-tr",
+                                          [
+                                            _c("b-td", [
+                                              _c("strong", [
+                                                _vm._v("Rider Email")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("b-td", [
+                                              _vm.order.rider.email
+                                                ? _c("span", [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        _vm.order.rider.email
+                                                      )
+                                                    )
+                                                  ])
+                                                : _vm._e()
+                                            ])
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-tr",
+                                          [
+                                            _c("b-td", [
+                                              _c("strong", [
+                                                _vm._v("Current Location")
                                               ])
                                             ]),
                                             _vm._v(" "),
@@ -1340,117 +1381,7 @@ var render = function() {
                                               _vm._v(
                                                 "\n                              " +
                                                   _vm._s(
-                                                    _vm.order.sender_name
-                                                  ) +
-                                                  "\n                              "
-                                              )
-                                            ])
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-tr",
-                                          [
-                                            _c("b-td", [
-                                              _c("strong", [
-                                                _vm._v("Sender Mobile")
-                                              ])
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("b-td", [
-                                              _vm._v(
-                                                "\n                                " +
-                                                  _vm._s(
-                                                    _vm.order.sender_mobile
-                                                  ) +
-                                                  "\n                              "
-                                              )
-                                            ])
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-tr",
-                                          [
-                                            _c("b-td", [
-                                              _c("strong", [
-                                                _vm._v("Receiver Name")
-                                              ])
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("b-td", [
-                                              _vm._v(
-                                                "\n                              " +
-                                                  _vm._s(
-                                                    _vm.order.receiver_name
-                                                  ) +
-                                                  "\n                              "
-                                              )
-                                            ])
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-tr",
-                                          [
-                                            _c("b-td", [
-                                              _c("strong", [
-                                                _vm._v("Receiver Mobile")
-                                              ])
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("b-td", [
-                                              _vm._v(
-                                                "\n                                " +
-                                                  _vm._s(
-                                                    _vm.order.receiver_mobile
-                                                  ) +
-                                                  "\n                              "
-                                              )
-                                            ])
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-tr",
-                                          [
-                                            _c("b-td", [
-                                              _c("strong", [
-                                                _vm._v("Pickup Address")
-                                              ])
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("b-td", [
-                                              _vm._v(
-                                                "\n                              " +
-                                                  _vm._s(
-                                                    _vm.order.pickup_address
-                                                  ) +
-                                                  "\n                              "
-                                              )
-                                            ])
-                                          ],
-                                          1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-tr",
-                                          [
-                                            _c("b-td", [
-                                              _c("strong", [
-                                                _vm._v("Dropoff Address")
-                                              ])
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("b-td", [
-                                              _vm._v(
-                                                "\n                                " +
-                                                  _vm._s(
-                                                    _vm.order.dropoff_address
+                                                    _vm.order.rider.address
                                                   ) +
                                                   "\n                              "
                                               )
@@ -1630,7 +1561,11 @@ var render = function() {
                                       _c("b-td", [
                                         _vm._v(
                                           "\n                            " +
-                                            _vm._s(_vm.order.delivery_note) +
+                                            _vm._s(
+                                              _vm.order.delivery_note
+                                                ? _vm.order.delivery_note
+                                                : "-"
+                                            ) +
                                             "\n                            "
                                         )
                                       ])

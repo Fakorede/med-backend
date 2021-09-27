@@ -36,8 +36,6 @@ class RegisterController extends Controller
             
             $user->save();
 
-            $user->profile()->create();
-
             DB::commit();
 
             event(new Registered($user));

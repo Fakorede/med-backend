@@ -26,6 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'first_name', 'last_name', 'phone_number', 'email', 'password', 'fcm_token',
+        'address', 'is_available', 'location_longitude', 'location_latitude',
     ];
 
     /**
@@ -82,14 +83,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
-    }
-
-    /**
-     * Get the profile associated with the user.
-     */
-    public function profile(): HasOne
-    {
-        return $this->hasOne(Profile::class);
     }
 
     /**

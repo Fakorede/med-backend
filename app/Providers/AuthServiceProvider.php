@@ -36,6 +36,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role_id === 3;
         });
 
+        Gate::define('update-pricing', function (User $user) {
+            return $user->role_id === 1;
+        });
+
         Gate::define('viewWebSocketsDashboard', function ($user = null) {
             return in_array($user->email, [
                 'abiolafakorede@gmail.com',

@@ -19,7 +19,7 @@ class UsersSeeder extends Seeder
             [
                 'first_name' => 'Admin',
                 'last_name' => 'User',
-                'email' => 'abiolafakorede@gmail.com',
+                'email' => 'admin@test.com',
                 'email_verified_at' => now(),
                 'phone_number' => '+14231929985',
                 'role_id' => 1,
@@ -33,25 +33,19 @@ class UsersSeeder extends Seeder
                 'email_verified_at' => now(),
                 'phone_number' => '+14231929986',
                 'role_id' => 2,
-                'password' => Hash::make('TestRider0621'),
+                'password' => Hash::make('MedRider0621'),
                 'created_at' => now(),
             ],
             [
                 'first_name' => 'User',
                 'last_name' => 'User',
-                'email' => 'polymathdev@gmail.com',
+                'email' => 'user@test.com',
                 'email_verified_at' => now(),
                 'phone_number' => '+14231929987',
                 'role_id' => 3,
-                'password' => Hash::make('TestUser0621'),
+                'password' => Hash::make('MedUser0621'),
                 'created_at' => now(),
             ],
-        ]);
-
-        DB::table('profiles')->insert([
-            ['user_id' => 1, 'created_at' => now()],
-            ['user_id' => 2, 'created_at' => now()],
-            ['user_id' => 3, 'created_at' => now()],
         ]);
     }
 }
