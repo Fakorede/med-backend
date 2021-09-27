@@ -32,7 +32,10 @@ class SettingsController extends Controller
                 'fcm_token' => $request->token
             ]);
     
-            return response()->json(['fcm_token' => $request->token]);
+            return response()->json([
+                'message' => 'Device token updated',
+                'user' => $request->user(),
+            ]);
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return $this->error('FCM Token update failed', Response::HTTP_INTERNAL_SERVER_ERROR);

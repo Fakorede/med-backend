@@ -43,6 +43,8 @@ class AuthService {
         'last_name' => $user->last_name,
         'phone_number' => $user->phone_number,
         'email' => $user->email,
+        'address' => $user->address,
+        'fcm_token' => $user->fcm_token,
         'role' => $user->user_role,
         'is_verified' => $user->is_verified,
       ],
