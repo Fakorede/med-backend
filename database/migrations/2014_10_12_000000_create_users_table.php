@@ -25,6 +25,12 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('phone_number')->unique();
             $table->string('email')->unique();
+            $table->string('address')->nullable();
+            $table->boolean('is_available')->nullable();
+            // $table->point('location')->nullable();
+            $table->double('location_longitude')->nullable();
+            $table->double('location_latitude')->nullable();
+            $table->string('fcm_token')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             
             $table->string('password');

@@ -38,8 +38,6 @@ class RegisterController extends Controller
 
             $user->save();
 
-            $user->profile()->create();
-
             AdminInvitation::create([
                 'user_id' => $user->id,
                 'admin_id' => auth()->id(),

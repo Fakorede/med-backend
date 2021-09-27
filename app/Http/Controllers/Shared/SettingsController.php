@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateLocationRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use App\Models\Settings;
 use App\Models\User;
 use App\Traits\ParseResponse;
 use Exception;
@@ -64,10 +65,8 @@ class SettingsController extends Controller
         // TODO: refactor location to spatial data type  
         // $location = new Point($request->location['latitude'], $request->location['longitude']);
 
-        $profile = auth()->user()->profile;
-
         try {
-            $profile->update([
+            auth()->user()->update([
                 // 'location' => $location,
                 'location_longitude' => $request->location['longitude'],
                 'location_latitude' => $request->location['latitude'],
@@ -81,11 +80,34 @@ class SettingsController extends Controller
         }
     }
 
-    public function appCharges()
+    public function getAppCharges()
     {
+        $settings = Settings::whereId(1)->first();
+        return $this->_success($settings);
+    }
+
+    public function updateAppCharges(Request $request)
+    {
+        $this->authorize('update-pricing');
+
+        $validated = $request->validate([
+            'base_price' => 'required',
+            'price_per_km' => 'required',
+        ]);
+
+        $settings = Settings::whereId(1)->first();
+        $settings->update([
+            'base_price' => $validated['base_price'],
+            'price_per_km' => $validated['price_per_km']
+        ]);
+
+        return $this->_success($settings);
+    }
+
+    private function _success($settings) {
         return response()->json([
-            'base_price' => (float) config('settings.base_price'),
-            'price_per_km' => (float) config('settings.price_per_km'),
+            'base_price' => (float) $settings->base_price,
+            'price_per_km' => (float) $settings->price_per_km,
         ]);
     }
 }

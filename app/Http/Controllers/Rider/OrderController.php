@@ -70,7 +70,7 @@ class OrderController extends Controller
     // update availability
     public function updateAvailableStatus()
     {
-        $rider = auth()->user()->profile;
+        $rider = auth()->user();
         
         if ($rider->is_available) {
             $rider->is_available = 0;
@@ -78,6 +78,7 @@ class OrderController extends Controller
             $rider->is_available = 1;
         }
 
+        $rider->updated_at = now();
         $rider->save();
 
         return $this->success();
