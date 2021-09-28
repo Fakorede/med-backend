@@ -53,8 +53,33 @@ class RiderController extends Controller
         $order->update(['rider_id' => $rider->id]);
 
         // notifications
+        $this->_sendNotifications($rider, $order);
 
         $this->success();
 
+    }
+
+    private function _sendNotifications($user, $order)
+    {
+        $title = 'Rider Assigned';
+        $message1 = 'A rider has just been assigned to Order';
+        $message2 = "A new Order has been placed by $user->first_name $user->last_name ($user->email)";
+
+        // rider mail/notification
+
+
+        // admin mail/notification
+
+        $data = [
+            'token' => auth()->user()->fcm_token,
+            'notification' => [
+                'title' => $title,
+                'body' => $message2,
+                // 'time' => now(),
+                // 'date' => now()->toFormattedDateString(),
+            ],
+            'data' => $order,
+        ];
+        $this->sendPushNotification($data);
     }
 }
