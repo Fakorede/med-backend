@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Log;
 
 class Controller extends BaseController
 {
@@ -35,9 +36,10 @@ class Controller extends BaseController
     public function sendPushNotification($body)
     {
         $url = 'https://fcm.googleapis.com/fcm/send';
+        $key = config('app.firebase_key');
 
         $headers = array(
-            'Authorization: key=' . config('app.firebase_key'),
+            'Authorization: key=' . $key,
             'Content-Type: application/json'
         );
 
@@ -62,6 +64,7 @@ class Controller extends BaseController
         // exec request
         $result = curl_exec($ch);
         if ($result === false) {
+            Log::info('curl failed: ' . curl_error($ch));
             die('Curl failed: ' . curl_error($ch));
         }
 

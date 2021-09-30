@@ -50,36 +50,56 @@ class RiderController extends Controller
         $order = Order::whereId($validated['order_id'])->firstOrFail();
         $rider = User::whereId($validated['rider_id'])->where('role_id', 2)->firstOrFail();
 
-        $order->update(['rider_id' => $rider->id]);
+        $order->update([
+            'rider_id' => $rider->id,
+            'order_status' => Controller::ORDER_STATUS_3,
+        ]);
 
         // notifications
-        $this->_sendNotifications($rider, $order);
+        $result = $this->_sendNotifications($rider, $order);
 
-        $this->success();
+        return $this->success(null, 'Order assigned to rider successfully');
 
     }
 
-    private function _sendNotifications($user, $order)
+    private function _sendNotifications($rider, $order)
     {
-        $title = 'Rider Assigned';
-        $message1 = 'A rider has just been assigned to Order';
-        $message2 = "A new Order has been placed by $user->first_name $user->last_name ($user->email)";
+        // mail notifications
+        // $message2 = "A new Order has been placed by $user->first_name $user->last_name ($user->email)";
 
-        // rider mail/notification
+        // rider notification
+        $title1 = 'Order Assigned';
+        $message1 = 'An order has just been assigned to you';
 
-
-        // admin mail/notification
-
-        $data = [
-            'token' => auth()->user()->fcm_token,
+        $data1 = [
+            'to' => $rider->fcm_token,
+            'priority'=> 'high',
             'notification' => [
-                'title' => $title,
-                'body' => $message2,
-                // 'time' => now(),
-                // 'date' => now()->toFormattedDateString(),
+                'title' => $title1,
+                'body' => $message1,
             ],
             'data' => $order,
         ];
-        $this->sendPushNotification($data);
+
+        $res1 = $this->sendPushNotification($data1);
+
+        // user notification
+        $title2 = 'Rider Assigned';
+        $message2 = 'A rider has just been assigned to your Order';
+
+        $data2 = [
+            'to' => $order->user->fcm_token,
+            'priority'=> 'high',
+            'notification' => [
+                'title' => $title2,
+                'body' => $message2,
+            ],
+            'data' => $order,
+        ];
+        
+        $res2 = $this->sendPushNotification($data2);
+
+        // return responses
+        return [$res1, $res2];
     }
 }
