@@ -43,6 +43,8 @@ class Controller extends BaseController
             'Content-Type: application/json'
         );
 
+        Log::info(json_encode($body));
+
         // open connection
         $ch = curl_init();
 
