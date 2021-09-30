@@ -78,7 +78,7 @@ class RiderController extends Controller
                 'title' => $title1,
                 'body' => $message1,
             ],
-            'data' => $order->load(['user', 'rider']),
+            'data' => $order->load(['user', 'order_items']),
         ];
 
         $res1 = $this->sendPushNotification($data1);
@@ -94,7 +94,7 @@ class RiderController extends Controller
                 'title' => $title2,
                 'body' => $message2,
             ],
-            'data' => $order->load(['user', 'rider']),
+            'data' => $order->load(['rider']),
         ];
         
         $res2 = $this->sendPushNotification($data2);
