@@ -68,18 +68,15 @@ class OrderController extends Controller
     }
 
     // update availability
-    public function updateAvailableStatus()
+    public function updateAvailableStatus(Request $request)
     {
-        $rider = auth()->user();
-        
-        if ($rider->is_available) {
-            $rider->is_available = 0;
-        } else {
-            $rider->is_available = 1;
-        }
+        $this->validate($request, [
+            'is_available' => 'required|boolean',
+        ]);
 
-        $rider->updated_at = now();
-        $rider->save();
+        auth()->user()->update([
+            'is_available' => $request->is_available,
+        ]);
 
         return $this->success();
     }
