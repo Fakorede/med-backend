@@ -42,7 +42,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/admins/{per_page?}', [UserController::class ,'admins'])->name('admins');
         Route::get('/users/{per_page?}', [UserController::class ,'users'])->name('users');
         Route::get('/riders/{per_page?}', [RiderController::class ,'riders'])->name('riders');
-        Route::get('/available/riders', [RiderController::class ,'getAvailableRiders']);
+        Route::get('/available/riders/{order_id}', [RiderController::class ,'getAvailableRiders']);
         Route::get('/orders/{per_page?}', [AdminOrderController::class ,'getAllOrders']);
         Route::get('/order/{id}', [AdminOrderController::class, 'getOrderById']);
         Route::post('/assign/rider', [RiderController::class ,'assignRider']);

@@ -28,15 +28,30 @@ class RiderController extends Controller
         return response()->json($users, Response::HTTP_OK);
     }
 
-    public function getAvailableRiders()
+    public function getAvailableRiders($order_id)
     {
+        $order = Order::select([
+            'pickup_location_longitude', 'pickup_location_latitude', 'dropoff_location_longitude', 'dropoff_location_latitude',
+        ])
+            ->whereId($order_id)
+            ->first();
+
         $riders = User::where(function($query) {
             $query->where('role_id', 2)
                 ->where('is_available', true);
         })
             ->oldest('updated_at')
             ->get();
+
+        $riders = $riders->map(function($rider) use ($order) {
+            $distance = $this->_calculateDistance2(
+                $order->pickup_location_latitude, $order->pickup_location_longitude, $rider->location_latitude, $rider->location_longitude
+            );
             
+            $rider['distance'] = round($distance, 4) . 'km';
+            return $rider;
+        });
+
         return response()->json($riders, Response::HTTP_OK);
     }
 
@@ -78,7 +93,7 @@ class RiderController extends Controller
                 'title' => $title1,
                 'body' => $message1,
             ],
-            'data' => $order->load(['user', 'order_items']),
+            'data' => $order->load(['rider', 'user', 'order_items']),
         ];
 
         $res1 = $this->sendPushNotification($data1);
@@ -94,7 +109,7 @@ class RiderController extends Controller
                 'title' => $title2,
                 'body' => $message2,
             ],
-            'data' => $order->load(['rider']),
+            'data' => $order->load(['rider', 'user']),
         ];
         
         $res2 = $this->sendPushNotification($data2);
