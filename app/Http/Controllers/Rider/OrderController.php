@@ -45,7 +45,7 @@ class OrderController extends Controller
         $date = Carbon::now();
 
         if ($order->payment_method === Controller::PAYMENT_METHOD_2) {
-            $order->updatePaidOrder($date);
+            $order->updatePaidOrder($date, false);
             return $this->success(null, 'Payment updated successfully');
         }
         

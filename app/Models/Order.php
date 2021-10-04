@@ -86,9 +86,12 @@ class Order extends Model
         $this->save();
     }
 
-    public function updatePaidOrder($paid_at)
+    public function updatePaidOrder($paid_at, $update_status=true)
     {
-        $this['order_status'] = 'Processed';
+        if ($update_status) {
+            $this['order_status'] = 'Processed';
+        }
+        
         $this['payment_status'] = 'Paid';
         $this['payment_verified'] = 1;
         $this['paid_at'] = $paid_at;
