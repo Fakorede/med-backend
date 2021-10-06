@@ -26,15 +26,15 @@
                                     <input class="form-control" type="password" placeholder="********" v-model="password" required>
                                  </div>
                               </div>
-                              <!-- <div class="col-lg-6">
-                                 <div class="mb-3 custom-control custom-checkbox">
+                              <div class="col-lg-6">
+                                 <!-- <div class="mb-3 custom-control custom-checkbox">
                                     <input type="checkbox" class="custom-control-input" id="customCheck1">
                                     <label class="custom-control-label" for="customCheck1">Remember Me</label>
-                                 </div>
-                              </div> -->
-                              <!-- <div class="col-lg-6">
+                                 </div> -->
+                              </div>
+                              <div class="col-lg-6">
                                  <router-link :to="{name: 'auth.recover-password'}" class="float-right text-primary">Forgot Password?</router-link>
-                              </div> -->
+                              </div>
                            </div>
                            <div class="d-flex justify-content-between align-items-center">
                               <button type="submit" class="btn btn-primary" :disabled="validating">

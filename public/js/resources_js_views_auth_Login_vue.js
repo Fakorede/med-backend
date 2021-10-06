@@ -398,7 +398,25 @@ var render = function() {
                               }
                             })
                           ])
-                        ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-lg-6" }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-lg-6" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "float-right text-primary",
+                                attrs: { to: { name: "auth.recover-password" } }
+                              },
+                              [_vm._v("Forgot Password?")]
+                            )
+                          ],
+                          1
+                        )
                       ]),
                       _vm._v(" "),
                       _c(
