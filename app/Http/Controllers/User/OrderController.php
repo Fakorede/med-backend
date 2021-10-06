@@ -115,9 +115,7 @@ class OrderController extends Controller
 
             DB::commit();
 
-            // $total_amount = $order->getTotalPrice();
-
-            $this->_sendNotifications($user, $order);
+            $result = $this->_sendNotifications($user, $order);
 
             return $this->success([
                 'order_id' => $order['id'],
@@ -214,16 +212,19 @@ class OrderController extends Controller
 
         // push notification
         $data = [
-            'token' => auth()->user()->fcm_token,
+            'to' => auth()->user()->fcm_token,
+            'priority'=> 'high',
             'notification' => [
                 'title' => $title,
                 'body' => $message2,
                 // 'time' => now(),
                 // 'date' => now()->toFormattedDateString(),
             ],
-            'data' => $order,
+            'data' => $order->load(['rider', 'user']),
         ];
 
-        $this->sendPushNotification($data);
+        $res = $this->sendPushNotification($data);
+
+        return $res;
     }
 }
