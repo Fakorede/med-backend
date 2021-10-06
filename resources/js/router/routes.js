@@ -4,6 +4,7 @@ const DashboardLayout = () => import("../layouts/DashboardLayout")
 
 // auth
 const Login = () => import('../views/auth/Login')
+const PrivacyPolicy = () => import('../views/PrivacyPolicy')
 const RecoverPassword = () => import('../views/auth/RecoverPassword')
 const ConfirmMail = () => import('../views/auth/ConfirmMail')
 const ResetPassword = () => import('../views/auth/ResetPassword')
@@ -107,6 +108,19 @@ const routes = [
     component: DashboardLayout,
     children: childRoutes(),
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/privacy-policy',
+    name: '',
+    component: BlankLayout,
+    children: [
+      {
+        path: '',
+        name: 'privacy.policy',
+        meta: {  name: 'PrivacyPolicy' },
+        component: PrivacyPolicy,
+      },
+    ]
   },
   {
     path: '/login',
