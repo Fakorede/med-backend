@@ -19,12 +19,8 @@ use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 
-if (App::environment('production')) {
-    URL::forceScheme('https');
-}
-
 # 1. Guest Routes
-Route::group(['middleware' => ['guest:api'], 'namespace' => 'Auth', 'prefix' => 'auth'], function() {
+Route::group(['namespace' => 'Auth', 'prefix' => 'auth'], function() {
     # AUTH api
     Route::post('/register', [RegisterController::class, 'register']);
     Route::post('/resend-verification', [VerificationController::class, 'resend']);
