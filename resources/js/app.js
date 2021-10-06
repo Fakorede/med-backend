@@ -31,6 +31,8 @@ import broadcast from './mixins/broadcast'
 //   axios.defaults.baseURL = "https://medng.herokuapp.com";
 // }
 
+console.log(window.location.host)
+
 if (window.location.host === 'localhost:8000') {
   axios.defaults.baseURL = "http://localhost:8000";
 } else if (window.location.host === 'medng.herokuapp.com') {
