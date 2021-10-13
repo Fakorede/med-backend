@@ -389,41 +389,69 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OrderBody',
   props: ['order', 'loading'],
   data: function data() {
     return {
-      riders: [],
-      rider: ''
+      availableRiders: [],
+      selectedRider: '',
+      assigning: false,
+      successMsg: ''
     };
   },
-  mounted: function mounted() {//this.getAvailableRiders()
+  mounted: function mounted() {
+    this.getAvailableRiders();
+  },
+  computed: {
+    buttonText: function buttonText() {
+      return this.assigning === true ? 'Assigning...' : 'Assign Rider';
+    }
   },
   methods: {
     getAvailableRiders: function getAvailableRiders() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var _yield$axios$get, data;
-
+        var resp;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get("/api/admin/available/riders", {
+                return axios.get("/api/admin/available/riders/".concat(_this.order.id), {
                   headers: {
                     'Authorization': "Bearer ".concat(localStorage.getItem('sserpxe_cigam'))
                   }
                 });
 
               case 2:
-                _yield$axios$get = _context.sent;
-                data = _yield$axios$get.data;
-                _this.riders = data.data;
+                resp = _context.sent;
+                _this.availableRiders = resp.data;
 
-              case 5:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -435,26 +463,81 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var resp;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                _this2.assigning = true;
+                _context2.prev = 1;
+                _context2.next = 4;
                 return axios.post("/api/admin/assign/rider", {
                   'order_id': _this2.order.id,
-                  'rider_id': _this2.rider
+                  'rider_id': _this2.selectedRider
                 }, {
                   headers: {
                     'Authorization': "Bearer ".concat(localStorage.getItem('sserpxe_cigam'))
                   }
                 });
 
-              case 2:
+              case 4:
+                resp = _context2.sent;
+                _context2.next = 7;
+                return _this2.$toasted.success(resp.data.message);
+
+              case 7:
+                _context2.next = 9;
+                return _this2.reload();
+
+              case 9:
+                _context2.next = 15;
+                break;
+
+              case 11:
+                _context2.prev = 11;
+                _context2.t0 = _context2["catch"](1);
+
+                if (is400(_context2.t0)) {
+                  _this2.errors = _context2.t0.response.data.error;
+
+                  _this2.$toasted.error(_context2.t0.response.data.error);
+                }
+
+                _this2.$toasted.error(_context2.t0.response.data.error);
+
+              case 15:
+                _this2.assigning = false;
+
+              case 16:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, null, [[1, 11]]);
+      }))();
+    },
+    reload: function reload() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var resp;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios.get("/api/admin/order/".concat(_this3.order.id));
+
+              case 2:
+                resp = _context3.sent;
+                _this3.order = resp.data.data;
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     }
   }
@@ -611,7 +694,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.prc-box[data-v-0fd4a3df] {\n  padding: 5px\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.prc-box[data-v-0fd4a3df] {\n  padding: 5px\n}\n.cursor-pointer[data-v-0fd4a3df] {\n  cursor: pointer;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1366,28 +1449,6 @@ var render = function() {
                                             ])
                                           ],
                                           1
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "b-tr",
-                                          [
-                                            _c("b-td", [
-                                              _c("strong", [
-                                                _vm._v("Current Location")
-                                              ])
-                                            ]),
-                                            _vm._v(" "),
-                                            _c("b-td", [
-                                              _vm._v(
-                                                "\n                              " +
-                                                  _vm._s(
-                                                    _vm.order.rider.address
-                                                  ) +
-                                                  "\n                              "
-                                              )
-                                            ])
-                                          ],
-                                          1
                                         )
                                       ],
                                       1
@@ -1410,12 +1471,15 @@ var render = function() {
                                         {
                                           name: "model",
                                           rawName: "v-model",
-                                          value: _vm.rider,
-                                          expression: "rider"
+                                          value: _vm.selectedRider,
+                                          expression: "selectedRider"
                                         }
                                       ],
                                       staticClass: "form-control",
-                                      attrs: { name: "", id: "rider" },
+                                      attrs: {
+                                        name: "rider-select",
+                                        id: "rider-select"
+                                      },
                                       on: {
                                         change: function($event) {
                                           var $$selectedVal = Array.prototype.filter
@@ -1432,17 +1496,44 @@ var render = function() {
                                                   : o.value
                                               return val
                                             })
-                                          _vm.rider = $event.target.multiple
+                                          _vm.selectedRider = $event.target
+                                            .multiple
                                             ? $$selectedVal
                                             : $$selectedVal[0]
                                         }
                                       }
                                     },
                                     [
-                                      _c("option", [_vm._v("Rider 2")]),
+                                      _c("option", { attrs: { value: "" } }, [
+                                        _vm._v(
+                                          "\n                            --------------------Select Rider--------------------\n                          "
+                                        )
+                                      ]),
                                       _vm._v(" "),
-                                      _c("option", [_vm._v("Rider 3")])
-                                    ]
+                                      _vm._l(_vm.availableRiders, function(
+                                        rider
+                                      ) {
+                                        return _c(
+                                          "option",
+                                          {
+                                            key: rider.id,
+                                            domProps: { value: rider.id }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                            " +
+                                                _vm._s(rider.first_name) +
+                                                " " +
+                                                _vm._s(rider.last_name) +
+                                                " @ a distance of " +
+                                                _vm._s(rider.distance) +
+                                                " to the User.\n                          "
+                                            )
+                                          ]
+                                        )
+                                      })
+                                    ],
+                                    2
                                   )
                                 ]),
                                 _vm._v(" "),
@@ -1451,6 +1542,11 @@ var render = function() {
                                     "button",
                                     {
                                       staticClass: "btn btn-primary",
+                                      attrs: {
+                                        disabled:
+                                          _vm.assigning ||
+                                          this.selectedRider === ""
+                                      },
                                       on: {
                                         click: function($event) {
                                           $event.preventDefault()
@@ -1461,7 +1557,7 @@ var render = function() {
                                         }
                                       }
                                     },
-                                    [_vm._v("Assign")]
+                                    [_vm._v(_vm._s(_vm.buttonText))]
                                   )
                                 ])
                               ])

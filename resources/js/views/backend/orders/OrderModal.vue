@@ -189,7 +189,14 @@
                <div class="card card-block card-stretch card-height">
                   <div class="card-header d-flex justify-content-between">
                      <div class="header-title">
-                        <div><strong>Rider Information</strong></div>
+                        <div>
+                          <strong>Rider Information</strong>
+                          <!-- <a 
+                            v-if="successMsg==''" 
+                            class="font-italic text-danger cursor-pointer"
+                            @click="reload"
+                          ><u>refresh</u></a> -->
+                        </div>
                      </div>
                   </div>
                   <div class="card-body">
@@ -213,14 +220,14 @@
                                   <span v-if="order.rider.email">{{ order.rider.email }}</span>
                                 </b-td>
                             </b-tr>
-                            <b-tr>
+                            <!-- <b-tr>
                                 <b-td>
                                   <strong>Current Location</strong>
                                 </b-td>
                                 <b-td>
                                 {{ order.rider.address}}
                                 </b-td>
-                            </b-tr>
+                            </b-tr> -->
                         
                           </b-tbody>
                       </b-table-simple>
@@ -231,13 +238,28 @@
                       </div>
                       <div class="row">
                         <div class="col-md-6">
-                          <select class="form-control" name="" id="rider" v-model="rider">
-                            <option>Rider 2</option>
-                            <option>Rider 3</option>
+                          <select 
+                            class="form-control" name="rider-select" id="rider-select" 
+                            v-model="selectedRider"
+                          >
+                            <option value="">
+                              --------------------Select Rider--------------------
+                            </option>
+                            <option 
+                              v-for="rider in availableRiders" 
+                              :key="rider.id"  
+                              :value="rider.id"
+                            >
+                              {{ rider.first_name }} {{ rider.last_name }} @ a distance of {{ rider.distance }} to the User.
+                            </option>
                           </select>
                         </div>
                         <div class="col-md-6">
-                          <button @click.prevent="assignRider" class="btn btn-primary">Assign</button>
+                          <button 
+                            @click.prevent="assignRider" 
+                            class="btn btn-primary"
+                            :disabled="assigning || this.selectedRider === ''"
+                          >{{ buttonText }}</button>
                         </div>
                       </div>
                     </div>
@@ -374,27 +396,54 @@
     props: ['order', 'loading'],
     data() {
       return {
-        riders: [],
-        rider: ''
+        availableRiders: [],
+        selectedRider: '',
+        assigning: false,
+        successMsg: '',
       }
     },
     mounted() {
-      //this.getAvailableRiders()
+      this.getAvailableRiders()
+    },
+    computed: {
+      buttonText() {
+        return this.assigning === true ? 'Assigning...' : 'Assign Rider'
+      },
     },
     methods: {
       async getAvailableRiders() {
-        const {data} = await axios.get(`/api/admin/available/riders`, {
+        const resp = await axios.get(`/api/admin/available/riders/${this.order.id}`, {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('sserpxe_cigam')}` }
         })
-        this.riders = data.data
+        this.availableRiders = resp.data
       },
       async assignRider() {
-        await axios.post(`/api/admin/assign/rider`, {
-          'order_id': this.order.id,
-          'rider_id': this.rider,
-        }, {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('sserpxe_cigam')}` }
-        })
+        this.assigning = true
+
+        try {
+          const resp = await axios.post(`/api/admin/assign/rider`, {
+            'order_id': this.order.id,
+            'rider_id': this.selectedRider,
+          }, {
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('sserpxe_cigam')}` }
+          })
+
+          await this.$toasted.success(resp.data.message)
+          await this.reload()
+        } catch (error) {
+          if(is400(error)) {
+            this.errors = error.response.data.error
+            this.$toasted.error(error.response.data.error)
+          }
+
+          this.$toasted.error(error.response.data.error)
+        }
+
+        this.assigning = false
+      },
+      async reload() {
+        const resp = await axios.get(`/api/admin/order/${this.order.id}`)
+        this.order = resp.data.data
       }
     }
   }
@@ -403,5 +452,8 @@
 <style scoped>
   .prc-box {
     padding: 5px
+  }
+  .cursor-pointer {
+    cursor: pointer;
   }
 </style>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRiderRequest;
 use App\Mail\AdminInvite;
+use App\Mail\RiderAssigned;
 use App\Models\AdminInvitation;
 use App\Models\Order;
 use App\Models\User;
@@ -79,8 +80,10 @@ class RiderController extends Controller
 
     private function _sendNotifications($rider, $order)
     {
-        // mail notifications
-        // $message2 = "A new Order has been placed by $user->first_name $user->last_name ($user->email)";
+        Mail::to(auth()->user())
+            ->bcc($rider->email)
+            ->bcc($order->user->email)
+            ->send(new RiderAssigned($order));
 
         // rider notification
         $title1 = 'Order Assigned';

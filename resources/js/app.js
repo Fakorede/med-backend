@@ -31,7 +31,7 @@ import broadcast from './mixins/broadcast'
 //   axios.defaults.baseURL = "https://medng.herokuapp.com";
 // }
 
-console.log(window.location.host)
+// console.log(window.location.host)
 
 if (window.location.host === 'localhost:8000') {
   axios.defaults.baseURL = "http://localhost:8000";
@@ -41,7 +41,7 @@ if (window.location.host === 'localhost:8000') {
   axios.defaults.baseURL = "https://www.magicexpressdelivery.com"
 }
 
-console.log(process.env.MIX_APP_ENV)
+// console.log(process.env.MIX_APP_ENV)
 // axios.defaults.baseURL = "https://www.magicexpressdelivery.com"
 // axios.defaults.baseURL = "https://www.magicexpressdelivery.com"
 

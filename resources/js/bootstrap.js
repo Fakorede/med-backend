@@ -11,6 +11,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  */
 
 let token = document.head.querySelector('meta[name="csrf-token"]');
+//var token = $('meta[name="csrf-token"]').attr('content');
 
 if (token) {
   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
@@ -18,7 +19,7 @@ if (token) {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-console.log(token.content)
+// console.log(token.content)
 
 
 window.axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('sserpxe_cigam')}`;
