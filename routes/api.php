@@ -44,7 +44,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/orders/{per_page?}', [AdminOrderController::class ,'getAllOrders']);
         Route::get('/order/{id}', [AdminOrderController::class, 'getOrderById']);
         Route::post('/assign/rider', [RiderController::class ,'assignRider']);
-        Route::post('/app-charges', [AppChargesController::class, 'updateAppCharges']);
+        Route::put('/app-charges', [AppChargesController::class, 'updateAppCharges']);
     });
 
     # USERS api // verified

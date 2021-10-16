@@ -29,6 +29,8 @@ const OrderTrack = () => import('../views/backend/orders/OrderTrack')
 const ReadNotifications = () =>import('../views/backend/notifications/Read')
 const UnreadNotifications = () =>import('../views/backend/notifications/Unread')
 
+const AppCharges = () =>import('../views/backend/AppCharges')
+
 // 404
 const Error404 = () => import('../views/Error404')
 
@@ -98,6 +100,12 @@ const childRoutes = () => [
     name: 'app.notifications-unread',
     meta: {  name: 'notifications-unread' },
     component: UnreadNotifications
+  },
+  {
+    path: 'settings/charges',
+    name: 'app.charges',
+    meta: {  name: 'charges' },
+    component: AppCharges
   },
 ]
 
