@@ -21,8 +21,15 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
         ]);
 
-        DB::table('settings')->insert([
-            ['base_price' => 0, 'price_per_km' => 0, 'created_at' => now(), 'updated_at' => now()],
+        DB::table('app_charges')->insert([
+            [
+                'dispatch_base_price' => 0, 
+                'dispatch_price_per_km' => 0, 
+                'errand_base_price' => 0, 
+                'errand_price_per_km' => 0, 
+                'created_at' => now(), 
+                'updated_at' => now()
+            ],
         ]);
 
         // User::factory(50)->unverified()->create();

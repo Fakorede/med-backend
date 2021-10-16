@@ -36,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role_id === 3;
         });
 
-        Gate::define('update-pricing', function (User $user) {
+        Gate::define('update-charges', function (User $user) {
             return $user->role_id === 1;
         });
 

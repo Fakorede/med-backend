@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AppChargesController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\RiderController;
 use App\Http\Controllers\Admin\StatsController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Shared\NotificationController;
 use App\Http\Controllers\Shared\RegisterController as SharedRegisterController;
 use App\Http\Controllers\Shared\SettingsController;
 use App\Http\Controllers\User\OrderController as UserOrderController;
+use App\Models\AppCharges;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Broadcast;
@@ -42,6 +44,7 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/orders/{per_page?}', [AdminOrderController::class ,'getAllOrders']);
         Route::get('/order/{id}', [AdminOrderController::class, 'getOrderById']);
         Route::post('/assign/rider', [RiderController::class ,'assignRider']);
+        Route::post('/app-charges', [AppChargesController::class, 'updateAppCharges']);
     });
 
     # USERS api // verified
@@ -91,8 +94,7 @@ Route::middleware(['auth:api'])->group(function () {
 
 # 3. MISC
 Route::get('/admin/get/stats', StatsController::class)->middleware(['auth:api', 'role:admin']);
-Route::get('/charges', [SettingsController::class, 'getAppCharges']);
-Route::post('/charges', [SettingsController::class, 'updateAppCharges'])->middleware(['auth:api', 'role:admin']);
+Route::get('/app-charges', [AppChargesController::class, 'getAppCharges']);
 Route::get('/transaction/reference', [UserOrderController::class, 'generateTxRef']);
 Route::post('/verify_transaction', [UserOrderController::class, 'verifyPayment']);
 Route::get('/track/order', [UserOrderController::class, 'trackOrder']);

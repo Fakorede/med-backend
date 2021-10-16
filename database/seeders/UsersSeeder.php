@@ -19,7 +19,7 @@ class UsersSeeder extends Seeder
             [
                 'first_name' => 'Admin',
                 'last_name' => 'User',
-                'email' => 'admin@test.com',
+                'email' => 'admin@magicexpressdelivery.com',
                 'email_verified_at' => now(),
                 'phone_number' => '+14231929985',
                 'role_id' => 1,

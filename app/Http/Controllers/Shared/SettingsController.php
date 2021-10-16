@@ -82,35 +82,4 @@ class SettingsController extends Controller
             return $this->error('Location update failed', Response::HTTP_INTERNAL_SERVER_ERROR,);
         }
     }
-
-    public function getAppCharges()
-    {
-        $settings = Settings::whereId(1)->first();
-        return $this->_success($settings);
-    }
-
-    public function updateAppCharges(Request $request)
-    {
-        $this->authorize('update-pricing');
-
-        $validated = $request->validate([
-            'base_price' => 'required',
-            'price_per_km' => 'required',
-        ]);
-
-        $settings = Settings::whereId(1)->first();
-        $settings->update([
-            'base_price' => $validated['base_price'],
-            'price_per_km' => $validated['price_per_km']
-        ]);
-
-        return $this->_success($settings);
-    }
-
-    private function _success($settings) {
-        return response()->json([
-            'base_price' => (float) $settings->base_price,
-            'price_per_km' => (float) $settings->price_per_km,
-        ]);
-    }
 }
