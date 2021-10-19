@@ -103,14 +103,16 @@ class OrderController extends Controller
             ]);
 
             // order items
-            foreach($request->orderItems as $orderItem) {
-                OrderItem::create([
-                    'order_id' => $order->id,
-                    'item' => $orderItem['item'],
-                    'quantity' => $orderItem['quantity'],
-                    'description' => $orderItem['description'],
-                    'price' => $orderItem['price'],
-                ]);
+            if ($order_type === Controller::ORDER_TYPE_2 && isset($request->orderItems)) {
+                foreach($request->orderItems as $orderItem) {
+                    OrderItem::create([
+                        'order_id' => $order->id,
+                        'item' => $orderItem['item'],
+                        'quantity' => $orderItem['quantity'],
+                        'description' => $orderItem['description'],
+                        'price' => $orderItem['price'],
+                    ]);
+                }
             }
 
             DB::commit();
@@ -129,7 +131,6 @@ class OrderController extends Controller
         }
     }
 
-    // POST - verify payment /api/verify_transaction?reference=reference
     public function verifyPayment(VerifyPaymentRequest $request)
     {
         $data = $request->validated();

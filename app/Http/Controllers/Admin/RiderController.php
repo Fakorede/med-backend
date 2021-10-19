@@ -80,9 +80,10 @@ class RiderController extends Controller
 
     private function _sendNotifications($rider, $order)
     {
-        Mail::to(auth()->user())
-            ->bcc($rider->email)
-            ->bcc($order->user->email)
+        Mail::to($order->user->email)
+            ->send(new RiderAssigned($order));
+
+        Mail::to($order->$rider->email)
             ->send(new RiderAssigned($order));
 
         // rider notification

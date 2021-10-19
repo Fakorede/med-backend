@@ -1298,6 +1298,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'OrderBody',
   props: ['order', 'loading'],
@@ -2908,96 +2914,102 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "container-fluid" }, [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-sm-12" }, [
-                  _c("div", { staticClass: "card" }, [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card-body" }, [
-                      _c(
-                        "div",
-                        { staticClass: "table-responsive pricing pt-2" },
-                        [
+            _vm.order.order_type === "Errand"
+              ? _c("div", { staticClass: "container-fluid" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-sm-12" }, [
+                      _c("div", { staticClass: "card" }, [
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-body" }, [
                           _c(
-                            "b-table-simple",
-                            {
-                              attrs: {
-                                "foot-clone": "",
-                                responsive: "",
-                                outlined: "",
-                                striped: "",
-                                hover: ""
-                              }
-                            },
+                            "div",
+                            { staticClass: "table-responsive pricing pt-2" },
                             [
                               _c(
-                                "b-thead",
+                                "b-table-simple",
+                                {
+                                  attrs: {
+                                    "foot-clone": "",
+                                    responsive: "",
+                                    outlined: "",
+                                    striped: "",
+                                    hover: ""
+                                  }
+                                },
                                 [
-                                  _c("b-th", [_vm._v("#")]),
-                                  _vm._v(" "),
-                                  _c("b-th", [_vm._v("Item")]),
-                                  _vm._v(" "),
-                                  _c("b-th", [_vm._v("Quantity")]),
-                                  _vm._v(" "),
-                                  _c("b-th", [_vm._v("Amount(₦)")]),
-                                  _vm._v(" "),
-                                  _c("b-th", [_vm._v("Description")])
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "b-tbody",
-                                _vm._l(_vm.order.order_items, function(
-                                  orderItem,
-                                  index
-                                ) {
-                                  return _c(
-                                    "b-tr",
-                                    { key: "order-item" + index },
+                                  _c(
+                                    "b-thead",
                                     [
-                                      _c("b-th", [_vm._v(_vm._s(index + 1))]),
+                                      _c("b-th", [_vm._v("#")]),
                                       _vm._v(" "),
-                                      _c("b-th", [
-                                        _vm._v(_vm._s(orderItem.item))
-                                      ]),
+                                      _c("b-th", [_vm._v("Item")]),
                                       _vm._v(" "),
-                                      _c("b-th", [
-                                        _vm._v(_vm._s(orderItem.quantity))
-                                      ]),
+                                      _c("b-th", [_vm._v("Quantity")]),
                                       _vm._v(" "),
-                                      _c("b-td", [
-                                        _vm._v(
-                                          "₦" +
-                                            _vm._s(
-                                              new Intl.NumberFormat().format(
-                                                orderItem.price
-                                              )
-                                            )
-                                        )
-                                      ]),
+                                      _c("b-th", [_vm._v("Amount(₦)")]),
                                       _vm._v(" "),
-                                      _c("b-td", [
-                                        _vm._v(_vm._s(orderItem.description))
-                                      ])
+                                      _c("b-th", [_vm._v("Description")])
                                     ],
                                     1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "b-tbody",
+                                    _vm._l(_vm.order.order_items, function(
+                                      orderItem,
+                                      index
+                                    ) {
+                                      return _c(
+                                        "b-tr",
+                                        { key: "order-item" + index },
+                                        [
+                                          _c("b-th", [
+                                            _vm._v(_vm._s(index + 1))
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("b-th", [
+                                            _vm._v(_vm._s(orderItem.item))
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("b-th", [
+                                            _vm._v(_vm._s(orderItem.quantity))
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("b-td", [
+                                            _vm._v(
+                                              "₦" +
+                                                _vm._s(
+                                                  new Intl.NumberFormat().format(
+                                                    orderItem.price
+                                                  )
+                                                )
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("b-td", [
+                                            _vm._v(
+                                              _vm._s(orderItem.description)
+                                            )
+                                          ])
+                                        ],
+                                        1
+                                      )
+                                    }),
+                                    1
                                   )
-                                }),
+                                ],
                                 1
                               )
                             ],
                             1
                           )
-                        ],
-                        1
-                      )
+                        ])
+                      ])
                     ])
                   ])
                 ])
-              ])
-            ]),
+              : _vm._e(),
             _vm._v(" "),
             _c("div", { staticClass: "container-fluid" }, [
               _c("div", { staticClass: "row" }, [
@@ -3279,6 +3291,56 @@ var render = function() {
                                                     )
                                                   ])
                                                 : _vm._e()
+                                            ])
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "b-tr",
+                                          [
+                                            _c("b-td", [
+                                              _c("strong", [
+                                                _vm._v("Current Location")
+                                              ])
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("b-td", [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass:
+                                                    "d-flex align-items-center"
+                                                },
+                                                [
+                                                  _c("b-spinner", {
+                                                    attrs: {
+                                                      variant: "primary",
+                                                      type: "grow",
+                                                      label: "Spinning"
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "span",
+                                                    {
+                                                      staticClass:
+                                                        "ml-2 font-italic badge badge-primary"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "\n                                    " +
+                                                          _vm._s(
+                                                            _vm.order.rider
+                                                              .address
+                                                          ) +
+                                                          "\n                                  "
+                                                      )
+                                                    ]
+                                                  )
+                                                ],
+                                                1
+                                              )
                                             ])
                                           ],
                                           1

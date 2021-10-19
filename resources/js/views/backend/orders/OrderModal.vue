@@ -67,7 +67,7 @@
           <strong>TRACKING NUMBER:</strong> {{order.tracking_number}}
         </div>
       </div>
-      <div class="container-fluid">
+      <div v-if="order.order_type === 'Errand'" class="container-fluid">
         <div class="row">
           <div class="col-sm-12">
             <div class="card">
@@ -220,14 +220,20 @@
                                   <span v-if="order.rider.email">{{ order.rider.email }}</span>
                                 </b-td>
                             </b-tr>
-                            <!-- <b-tr>
+                            <b-tr>
                                 <b-td>
                                   <strong>Current Location</strong>
                                 </b-td>
                                 <b-td>
-                                {{ order.rider.address}}
+                                  <div class="d-flex align-items-center">
+                                    <b-spinner variant="primary" type="grow" label="Spinning">
+                                    </b-spinner>
+                                    <span class="ml-2 font-italic badge badge-primary">
+                                      {{ order.rider.address }}
+                                    </span>
+                                  </div>
                                 </b-td>
-                            </b-tr> -->
+                            </b-tr>
                         
                           </b-tbody>
                       </b-table-simple>

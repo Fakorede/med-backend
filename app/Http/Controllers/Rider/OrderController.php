@@ -64,6 +64,14 @@ class OrderController extends Controller
             'delivered_at' => $request->order_status === Controller::ORDER_STATUS_5 ? $date : null,
         ]);
 
+        if ($request->order_status === Controller::ORDER_STATUS_4) {
+            $this->_pickupNotification($order);
+        }
+
+        if ($request->order_status === Controller::ORDER_STATUS_5) {
+            $this->_deliveredNotification($order);
+        }
+
         return $this->success();
     }
 
@@ -79,5 +87,47 @@ class OrderController extends Controller
         ]);
 
         return $this->success();
+    }
+
+    private function _pickupNotification($order)
+    {
+        $title = 'Order Pickup';
+        $message = 'Rider has confirmed order pickup and is currently in transit';
+
+        // push notification
+        $data = [
+            'to' => $order->user->fcm_token,
+            'priority'=> 'high',
+            'notification' => [
+                'title' => $title,
+                'body' => $message,
+            ],
+            'data' => $order->load(['rider', 'user']),
+        ];
+
+        $res = $this->sendPushNotification($data);
+
+        return $res;
+    }
+
+    private function _deliveredNotification($order)
+    {
+        $title = 'Order Completed';
+        $message = 'Rider has confirmed order delivery';
+
+        // push notification
+        $data = [
+            'to' => $order->user->fcm_token,
+            'priority'=> 'high',
+            'notification' => [
+                'title' => $title,
+                'body' => $message,
+            ],
+            'data' => $order->load(['rider', 'user']),
+        ];
+
+        $res = $this->sendPushNotification($data);
+
+        return $res;
     }
 }
