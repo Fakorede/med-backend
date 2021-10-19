@@ -72,26 +72,20 @@ class RiderController extends Controller
         ]);
 
         // notifications
-        $result = $this->_sendNotifications($rider, $order);
+        $result = $this->_sendNotifications($order);
 
         return $this->success(null, 'Order assigned to rider successfully');
 
     }
 
-    private function _sendNotifications($rider, $order)
+    private function _sendNotifications($order)
     {
-        Mail::to($order->user->email)
-            ->send(new RiderAssigned($order));
-
-        Mail::to($order->$rider->email)
-            ->send(new RiderAssigned($order));
-
         // rider notification
         $title1 = 'Order Assigned';
         $message1 = 'An order has just been assigned to you';
 
         $data1 = [
-            'to' => $rider->fcm_token,
+            'to' => $order->rider->fcm_token,
             'priority'=> 'high',
             'notification' => [
                 'title' => $title1,
@@ -117,6 +111,12 @@ class RiderController extends Controller
         ];
         
         $res2 = $this->sendPushNotification($data2);
+
+        Mail::to($order->user->email)
+            ->send(new RiderAssigned($order));
+
+        Mail::to($order->rider->email)
+            ->send(new RiderAssigned($order));
 
         // return responses
         return [$res1, $res2];
