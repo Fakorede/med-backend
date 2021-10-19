@@ -64,10 +64,13 @@ class OrderController extends Controller
         switch ($request->personnel_option) {
             case 1:
                 $personnel_option = Controller::PERSONNEL_OPTION_1;
+                break;
             case 2:
                 $personnel_option = Controller::PERSONNEL_OPTION_2;
+                break;
             case 3:
                 $personnel_option = Controller::PERSONNEL_OPTION_3;
+                break;
         } 
 
         // TODO: refactor pickup_location and dropoff_location to spatial data type  
